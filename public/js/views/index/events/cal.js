@@ -15,9 +15,34 @@ var  Events = {
 
                       });
         
-        
-            
-        
+
+     
+              $("body").delegate('.js-center-info', 'mouseenter mouseleave', function() {
+                   var e = $(this);
+                   
+                   if (e.attr("data-load") != 'false' && e.attr("data-stats") == "hidden") {
+                       e.attr("data-stats", 'visible'); 
+                       e.popover('show');
+                       return 
+                   
+                   }else if(e.attr("data-load") == 'ok' && e.attr("data-stats") == "visible"){
+                         
+                        e.attr("data-stats", 'hidden');  
+                        e.popover('hide');
+                        return     
+                    }
+                   
+                   
+                   $.post(e.attr('data-popuppath'),function(d) {
+                   
+                        e.attr("data-load", 'ok');  
+                        e.attr("data-stats", 'visible');  
+                        e.popover({html : true, content: d.html}).popover('show');
+                        
+                   });
+                   
+               });
+     
         
             $("body").delegate(".js-view-event", "click", function() {
                 

@@ -94,7 +94,35 @@ class Default_IndexController extends Zend_Controller_Action
         
         $dateTimeObj = DateTime::createFromFormat('!m', $this->view->month);
         $this->view->month = $dateTimeObj->format('F');
+        $this->view->centerColors = $this->getHexColors();
         
+    }
+    
+    
+    public function centerInfoAction() {
+        
+        
+        $centersModel = new Default_Model_Crud;
+        $centersModel->setTable('skillsrc_centers');
+        
+        $res = array();
+        
+        $res =  $centersModel->_read($this->id);
+        
+        if(!empty($res)) {
+            
+            
+            $res = $res->toArray();
+            
+            $html = "<h2>".$res['name']."</h2>";
+            $html .= "<p>".$res['address']."<br />";
+            $html .= $res['city']." ".$res['state'].". ".$res['zip']."</p>";
+            
+            
+            
+        }
+        
+        $this->_asJson(array("data"=>$res, "html"=>$html));
         
     }
     

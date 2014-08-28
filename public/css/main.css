@@ -238,6 +238,14 @@ img.leftsidebarblue
 table p
 	{}
 	
+.modal{
+    
+    left: 25%;
+    margin-left: 0;
+    width: 50%;
+    
+    }        
+        
 .modal-body p
 	{line-height:1.5em;}
 	

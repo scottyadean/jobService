@@ -1,3 +1,5 @@
  <div id="js-events-wrapper" class="">
-            <?= $this->partial( '/index/include/events.phtml',array('events'=>$this->events, 'month'=>$this->escape($this->month))); ?>
+            <?= $this->partial( '/index/include/events.phtml',array('events'=>$this->events,
+                                                                    'centerColors'=>$this->centerColors,
+                                                                    'month'=>$this->escape($this->month))); ?>
  </div>
