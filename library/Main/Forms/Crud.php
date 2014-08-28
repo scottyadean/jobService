@@ -13,7 +13,7 @@ class Main_Forms_Crud {
     
     
     
-    protected $_admin_user = array("db" => "users",
+   protected $_admin_user = array("db" => "users",
                                     "url" => "/crud-admin-user/:crud",
                                     "form" => "Application_Form_User",
                                     "title" => "Admin Users",
@@ -84,6 +84,16 @@ class Main_Forms_Crud {
                             "onDelete"=>"Application_Form_Admin_ProvidersPrograms::onDelete",
                             "excluded_from_list" => "id,provider_id",
                             "excluded_from_view"=> array('id'));
+
+
+
+    protected $_skillsrc_centers= array("db" => "skillsrc_centers",
+                                        "url" => "/crud-center/:crud",
+                                        "form" => "Application_Form_Admin_SkillSrcCenters",
+                                        "title" => "Centers",
+                                        "excluded_from_list" => "id",
+                                        "excluded_from_view" => array('id'));
+
     
     protected $_module  = array("db" => "modules",
                                 "url" => "/crud-module/:crud",

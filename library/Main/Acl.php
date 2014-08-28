@@ -5,7 +5,17 @@ class Main_Acl extends Zend_Acl {
     
     public $resources = array( 'default' => array('index','error', 'auth', 'user', 'provider', 'event', 'program'),
                                'media'   => array('index'),
-                               'admin'   => array('index', 'user', 'admin', 'page', 'provider', 'crud', 'module', 'event', 'qualifiers', 'program'));
+                               'admin'   => array('index',
+                                                  'user',
+                                                  'admin',
+                                                  'page',
+                                                  'provider',
+                                                  'crud',
+                                                  'module',
+                                                  'event',
+                                                  'qualifiers',
+                                                  'program',
+                                                  'center'));
 
     public $guests = array('default-index',
                            'default-provider',
@@ -19,6 +29,7 @@ class Main_Acl extends Zend_Acl {
                           );
     public $power = array();
     public $admins = array('admin-index',
+                           'admin-center',
                            'admin-user',
                            'admin-admin',
                            'admin-program',

@@ -18,6 +18,8 @@ class Default_IndexController extends Zend_Controller_Action
         $this->uri = $this->getRequest()->getRequestUri();
         $this->post = $this->getRequest()->isPost();
         $this->params = $this->getRequest()->getParams();
+        
+     
     }
     
     public function indexAction() {
@@ -43,6 +45,29 @@ class Default_IndexController extends Zend_Controller_Action
     public function eventsAction() {
         $eventsModel = new Default_Model_Event;
         $this->view->events = $eventsModel->findByDate(date("Y").'-'. date("m"), array( 'visible = ?' => 'Y' ))->toArray();
+        $this->view->centerColors = $this->getHexColors();
+    }
+    
+    
+    public function eventColorsAction() {
+        $this->_asJson($this->getHexColors());
+    }
+    
+    public function getHexColors() {
+        
+        
+        $centersModel = new Default_Model_Crud;
+        $centersModel->setTable('skillsrc_centers');
+        $res =  $centersModel->_index();
+        $centerColors = array();
+        
+        foreach($res as $r) {
+            $centerColors[$r->id] = array( 'hex' => $r->color ) ;
+        }
+        
+        return $centerColors;
+        
+        
     }
 
     public function calendarAction() {
@@ -69,6 +94,7 @@ class Default_IndexController extends Zend_Controller_Action
         
         $dateTimeObj = DateTime::createFromFormat('!m', $this->view->month);
         $this->view->month = $dateTimeObj->format('F');
+        
         
     }
     

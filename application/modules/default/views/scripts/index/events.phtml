@@ -13,6 +13,6 @@ $this->headScript()->appendFile('/js/views/index/events/cal.js');
     </div>
    
     <div id="js-events-wrapper" class="">
-        <?= $this->partial( '/index/include/events.phtml',array('events'=>$this->events, 'month'=>date("F"))); ?>
+        <?= $this->partial( '/index/include/events.phtml',array('events'=>$this->events, 'month'=>date("F"), "centerColors"=>$this->centerColors)); ?>
     </div>
 </div>

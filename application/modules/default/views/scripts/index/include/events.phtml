@@ -9,8 +9,8 @@
                              $e['created'],
                              $e['start_time'],
                              $e['end_time'],
-                             "<a class='js-view-event' data-id='".$e["id"]."'> <i class='icon-calendar'> </i> </a>",
-                             "<a href='/event-detail/id/".$e["id"]."/event/".Base_Functions_Strings::Slug($e['title'])."'> <i class='icon-share'> </i> </a>" 
+                             " <a class='js-view-event' data-id='".$e["id"]."'> <i class='icon-calendar'> </i> </a> ",
+                             " <a href='/event-detail/id/".$e["id"]."/event/".Base_Functions_Strings::Slug($e['title'])."'> <i class='icon-share'> </i> </a> " 
                              ), 
                      "class='event-row-".$e["id"]."'"); ?>
  <?endforeach;?>
@@ -22,13 +22,36 @@
  <script type="text/javascript">
    $(document).ready(function(){    
   var __evetns = <?=json_encode($this->events);?>;
+ 
+  if (Events.Colors == null) {
+        Events.Colors = <?=json_encode($this->centerColors);?>;
+  }
+ 
+  
   for(var key in __evetns) {
                  var info = __evetns[key];  
                  var date = info.created;
                  var count = 1;
+                 
+                 var color = {hex:"#000"};
+                 
+                 try{
+                 if (typeof Events.Colors == 'object') {
+                   
+                    if ( Events.Colors[info.center_id] !== undefined) {
+                        color = Events.Colors[info.center_id];
+                    }  
+                   
+                 }
+                 }catch(e){
+                    console.log(e);
+                    
+                 }
+                 
+                 
                  var div =  $("#cal-"+date);
                  if (div.length > 0) {
-                     div.append("<i class='js-view-event icon-map-marker pointer' title='"+info.title+"'  data-id='"+info.id+"'></i>");
+                     div.append(" <i class='js-view-event icon-map-marker pointer' style='color:"+color.hex+"' title='"+info.title+"'  data-id='"+info.id+"'></i> ");
 
                }
     }

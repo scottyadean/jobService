@@ -1,11 +1,24 @@
 var  Events = {
-    
+        
+        Colors:null,
+        
         Init:function(){
             this.Listeners();
         },
           
         Listeners:function(){
 
+        
+         asyncAction.sendPost('/event-colors', {}, function(data){
+                        
+                        Events.Colors = data;
+
+                      });
+        
+        
+            
+        
+        
             $("body").delegate(".js-view-event", "click", function() {
                 
                 var el = $(this);
@@ -76,3 +89,7 @@ var  Events = {
         var _month = _cal.attr('data-month');
          Events.Init();
         });
+   
+   
+   
+   

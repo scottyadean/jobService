@@ -1,0 +1,94 @@
+<?if(!$this->xhr):?>
+<? $this->headTitle('Center Details'); ?>
+<? $this->headLink()->appendStylesheet('/css/views/admin/index.css'); ?>
+<? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
+ 
+<? $this->headScript()->appendFile('/js/vendor/underscore.js');?>
+<? $this->headScript()->appendFile('/js/vendor/x-editable.js');?>
+<? $this->headScript()->appendFile('/js/lib/admin.js');?>
+<? $this->headScript()->appendFile('/js/lib/crud.js');?>
+
+<?endif;?>
+
+<h2>Centers</h2>
+<br/>
+
+
+    <div class="crud-create-update crud-load-template hidden"
+     id="centers-bind-crud"
+     data-id=''
+     data-path='.:crud-center'
+     data-form='skillsrc_centers_form'
+     data-title="Edit Center Content"
+     data-params=''
+     data-action='create'
+     data-callback="Admin.ColorPicker"
+     data-target='js-centers-index'
+     data-template='js-crud-edit-centers'></div>
+    <?= $this->TableHead( array('Name','Address', 'Phone', 'Color', ''), "table table-striped", "js-centers-index" ) ?>
+    <?
+ 
+/** 
+* Columns:
+* ``id`, `name`, `address`, `city`, `state`, `zip`, `phone`, `email`, `site`, `tty`, `hours`, `color`
+*/
+    
+    $editPath = "/admin/center/inline-edit"; ?>
+    <?foreach( $this->centers as $c):?>
+    <? $id = $c->id;?>
+    <?= $this->TableRow( array( $this->InlineEdit($c->name, $id, $editPath, "name", "Edit Name"),
+                                $this->InlineEdit($c->address, $id, $editPath, "address", "Edit Address"),
+                                $c->phone,
+                                "<i class='icon-map-marker' style='color:{$c->color};'> </i>",
+                                "<center>
+                                    <a class='crud-create-update icon icon-edit'
+                                      data-action='update'
+                                      title='edit centers content'
+                                      data-bind='centers-bind-crud'
+                                      data-params='id={$id}'></a>
+                                   </center>",
+                                   "<center>
+                                        <a class='crud-delete icon icon-remove'
+                                        data-bind='centers-bind-crud'
+                                        title='delete centers'
+                                        data-action='delete'
+                                        data-params='id={$id}'></a>
+                                   </center>"),
+                        "class='crud-row-{$id}'"); ?>
+    <?endforeach;?>
+
+<?= $this->TableFoot($this->Crud('create', 'Create a new centers', 'centers-bind-crud', '', 5)) ?>
+
+
+<script type="text/plain" id="js-crud-edit-centers">
+    <% if( action == '_create' ){%>
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.name), id, "<?=$editPath?>", "name", "Edit Name" ) %></td>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.address), id, "<?=$editPath?>", "address", "Edit Address" ) %></td>
+    <td><%= helpers.escapeHtml(values.phone)%></td>
+    <td><i style="color:<%=values.color%>;" class="icon-map-marker"> </i></td>
+    
+  <td>
+        <center>
+            <a class='crud-create-update icon icon-edit'
+               data-action='update'
+               data-bind='centers-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+            </center>
+    </td>
+    
+    <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='centers-bind-crud'
+               data-action='delete'
+               data-params='id=<%= helpers.escapeHtml(id) %>'> </a>
+        </center>
+    </td>
+    
+    <% if( action == '_create' ){ %>
+        </tr>
+    <% } %>
+</script>
+

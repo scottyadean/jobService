@@ -30,7 +30,8 @@ class Admin_CrudController extends Zend_Controller_Action {
         $this->page = $this->getRequest()->getParam('page', 1);
         $this->params = $this->getRequest()->getParams();
         Zend_Layout::getMvcInstance()->assign('sideNav', 'N');
-    
+        Zend_Layout::getMvcInstance()->assign('fluid', true);
+        
         $this->_setViewParams();
        
     }

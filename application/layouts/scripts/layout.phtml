@@ -12,11 +12,12 @@
         <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
         <link rel="stylesheet" href="/css/vendor/bootstrap-responsive.min.css">
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:700italic,700' rel='stylesheet' type='text/css'>    
+        <? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
+    
         <link rel="stylesheet" href="/css/main.css">
         <?= $this->headLink();?>
         <script src="/js/vendor/jquery-1.10.1.min.js"></script>
     </head>
-    
     <body>
        
        
@@ -34,7 +35,7 @@
     </div>
         <?endif;?>
           
-        <div id="content" class="container">
+        <div id="content" class="<?= ($this->layout()->fluid) ? 'container-fluid' : 'container'; ?>">
             <?= $this->flashMessages(); ?>
             <div class="row">
                  <?if( $this->layout()->sideNav != 'N'):?>

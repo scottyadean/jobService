@@ -41,8 +41,17 @@
     admin-users action-link
     */
     var Admin =  {
-        
+       
+          eventColors:null,
+          
           events:function(){
+            
+            
+              asyncAction.sendPost('/admin/center/colors', {}, function(data){
+                        Admin.eventColors = data.colors;
+                       
+                      }
+                );
             
             
             $("body").delegate("form#home-page-updates", "submit", function(){
@@ -56,9 +65,9 @@
             });
             
             
+            
             $('body').delegate('.admin-link', 'click', Admin.wrangle);
             $('body').delegate('.password-email', 'click', Admin.User.passwordReset);
-            
             $( "body" ).delegate( ".js-update-img", "click", function(){
                    var ele = $(this);
                    var id = ele.attr('img:id');
@@ -124,8 +133,6 @@
           
           
           
-          
-          
           $("body").delegate(".js-events-day", "click", function(){
                 $("td").removeClass('focus');
                 var cal = $("#js-calendar");
@@ -173,7 +180,27 @@
         });    
             
             
-            
+           
+            $("body").delegate("#eventsform #center_id", 'change', function(){
+                
+                var id = $(this).val().trim();
+                var font = "#fff";
+                var color = $(this).attr("data-color-"+id);
+                if (color == null) { color = "#fff"; font ="#000"; }
+                $(this).css( { "background-color": color, "color":font});
+                if (id != 0) {
+                asyncAction.sendPost('/admin/center/read', {'id':id}, function(data){
+                
+                        $("#eventsform #location").val(data.name);
+                        $("#eventsform #address").val(data.address);
+                        $("#eventsform #city").val(data.city);
+                        $("#eventsform #state").val(data.state);
+                        $("#eventsform #zip").val(data.zip);
+                       
+                });
+             }          
+            });
+           
           },
           
           
@@ -250,6 +277,7 @@
             
             Map:function(data, now) {
                 
+                
                var template = _.template($('#js-event-popover').html()); 
                
                var link = "<a title='edit event content' data-callback='default' data-format='html' data-params='id=_id_' data-path='/admin/events/detail/' class='admin-link icon icon-edit'></a>";
@@ -262,11 +290,11 @@
                  var count = 1;
                  var div =  $("#cal-"+date);
                  var content = info.start_time +" - "+ info.end_time+"<br>" + link +"<br>" + expt;
-                 
+                 var center_id = info.center_id
                  
                  if (div.length > 0) {
                       
-                     div.append(template({id:info.id, content:content.replace(/_id_/gi, info.id),title:info.title, date:date}));
+                     div.append(template({id:info.id, content:content.replace(/_id_/gi, info.id),title:info.title, date:date, center_id:center_id}));
                      
                 
                }
@@ -278,14 +306,22 @@
                }   
             },
             
-               
-            
+            GetColor:function(center_id){
+                
+                if (center_id == 0) {
+                    return "#000";
+                }
+                
+                return Admin.eventColors.center_id;
+                
+         
+            },   
             
             Update:function()
             {
                 helpers.wysiwyg();
                 lightBox.dateFieldsById("#eventsform #created", "eventsform-created");
-                
+                 
             },
             
             
@@ -330,6 +366,13 @@
                 });
             }
             
+            
+        },
+        
+        
+        ColorPicker:function() {
+            
+            $("#color").prop('type', 'color');
             
         }
         

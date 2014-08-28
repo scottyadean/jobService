@@ -1,26 +1,23 @@
 <?php
-class Application_Form_Admin_Event extends Main_Forms_Builder {
+class Application_Form_Admin_SkillSrcCenters extends Main_Forms_Builder {
 
    public $_id;
    public $customSubmitBtn = false;
    public $formLabel = 'Update';
-   public $_formId = 'eventsform';
+   public $_formId = 'skillsrc_centers_form';
    public $_cancelBtn = true;
    public $_hidden = false;
-   public $_centers = array();
-   public $_colors = array();
-   public $_types = array("open"=>"Open", "limited registration" => "Limited registration", "open registration"=>"Open registration");
-   
-   public function build( $action = "/crud-event/edit",
+ 
+   public function build( $action = "/crud-centers/edit",
                           $id = null,
                           $method = "post" ) {
        
        $this->_id = $id;
-       $this->getCenters();
+       
        $this->setName($this->_formId);
        $this->setMethod($method);
        $this->setAction($action);
-       $this->formElementsFromTable('events', $this->getFields());
+       $this->formElementsFromTable('skillsrc_centers', $this->getFields());
        
        if($this->customSubmitBtn == false){
             $this->formElementsFromArray($this->getCustomFields());
@@ -29,53 +26,22 @@ class Application_Form_Admin_Event extends Main_Forms_Builder {
        $this->createElements();
     }
     
-    public function getCenters() {
-        $model = new Default_Model_Crud;
-        $model->setTable('skillsrc_centers'); 
-        
-        $centerObject = $model->_index();
-        $this->_centers[0] =  "Assign to a default center";
-        
-        $this->_colors["style"] = "background-color:#fff; color:#000;";
-        
-        foreach($centerObject as $k=>$c) {
-        
-            $this->_centers[$c->id] =  $c->name;
-            $this->_colors["data-color-".$c->id] = $c->color;
-        }
-        
-    }
-    
     /*
-    * `id`, `title`, `body`, `created`
+    * `id`, `name`, `address`, `city`, `state`, `zip`, `phone`, `email`, `tty`, `hours`, `color`
     */
     public function getFields() {
 
-         $fields = array("title"=>array('label'=>'Title', 'required'=> true), 
-                         "type"=>array('label'=>'Event Type', 'required'=> true, 'type'=>'select', 'multiOptions'=>$this->_types),
-                         "center_id"=>array('label'=>'Center', 'required'=> false, 'type'=>'select', 'attributes'=>$this->_colors, 'multiOptions'=>$this->_centers),
-                         "visible"=>array('label'=>'Visible', 'required'=> true, 'type'=>'select', 'multiOptions'=>array('N'=>'Hidden','Y'=>'Visible')),
-                         "seats"=>array('label'=>'Event Seats (default 0 for open events)', 'required'=> true, 'type'=>'text'), 
-                         "message"=>array('label'=>'Sign Up Message','required'=> false, 'attributes'=>array('rows'=>'5', 'cols'=>'50', 'class'=>'')),
-                         "body"=>array('label'=>'Body','required'=> true, 'attributes'=>array('rows'=>'5', 'cols'=>'50', 'class'=>'wysiwyg')),
-                         "location" => array('label'=>'Location Name', 'required'=> false),
+         $fields = array("name"=>array('label'=>'Center Name', 'required'=> true), 
                          "address" => array('label'=>'Address', 'required'=> true),
-                         "city" => array('label'=>'City', 'required'=> false),
-                         "state"=>array('label'=>'State', 'required'=> true, 'type'=>'select', 'multiOptions'=>Main_Forms_Data::AmericaStates()), 
+                         "city" => array('label'=>'City', 'required'=> true),
+                         "state"=>array('label'=>'State', 'required'=> true, 'type'=>'select', 'multiOptions'=>Main_Forms_Data:: AmericaStates()), 
                          "zip" => array('label'=>'Zip', 'required'=> false),
+                         "phone" => array('label'=>'Phone', 'required'=> false),
                          "site" => array('label'=>"Web Site", 'required'=> false),
-                         "start_time"=>array(),
-                         "end_time"=>array()
+                         "tty"=>array(),
+                         "hours"=>array(),
+                         "color"=>array('label'=>"Color Code", "type"=>'hidden'),
                            );
-        
-           if( isset($this->_hidden) && $this->_hidden == true) {
-            $fields['created'] = array('default'=>'', 'type'=>'hidden', 'required'=> true, 'disableDecorator' => array('HtmlTag', 'Label', 'DtDdWrapper'));
-           }else{
-            
-            $fields['created'] = array('label'=>'Event Date', 'default'=>'', 'type'=>'text', 'required'=> true, 'attributes' => array('class'=>'date_widget'));
-            
-           }
-        
         
            if( isset( $this->_id ) ) {
               
