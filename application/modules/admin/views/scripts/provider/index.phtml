@@ -1,0 +1,106 @@
+
+<h3>Admin Provider Content</h3>
+
+    <div class="crud-create-update crud-load-template hidden"
+     id="provider-bind-curd"
+     data-id=''
+     data-path='.:crud_provider'
+     data-form='providerform'
+     data-title="Edit Provider Content"
+     data-params=''
+     data-action='create'
+     data-callback='helpers.wysiwyg'
+     data-target='js-pages-index'
+     data-template='js-crud-edit-provider'></div>
+
+<?= $this->TableHead( array('Name',
+                            'Industry',
+                            'Visible',
+                            'Edit',
+                            'Quick Edit',
+                            'Delete'), "table table-striped data-table", "js-pages-index" ) ?>
+
+    <? $editPath = "/admin/provider/inline-edit"; ?>
+    <?foreach( $this->providers as $p ):?>
+    <? $id = $p->id;?>
+    <?= $this->TableRow( array( $this->InlineEdit($p->name, $p->id, $editPath, "name", "Edit Name"),
+                                $p->industry_name,
+                                $this->InlineEdit($p->visible, $p->id, $editPath, "visible", "Edit Visible", 'select',
+                                                  '/admin/provider/data-src'),
+                                "<center>
+                                    <a class='admin-link provider-wizard icon icon-edit'
+                                        data-path='/admin/provider/update'
+                                        data-callback='providerEdit'
+                                        data-params='render=html&view=admin&id={$id}&get=true'
+                                        data-format='html'></a>
+                                </center>",
+                                "<center>
+                                    <a class='crud-create-update icon icon-cog'
+                                      data-action='update'
+                                      title='Quick edit page content'
+                                      data-bind='provider-bind-curd'
+                                      data-params='id={$id}'></a>
+                                   </center>",
+                                   "<center>
+                                        <a class='crud-delete icon icon-remove'
+                                        data-bind='provider-bind-curd'
+                                        title='delete page'
+                                        data-action='delete'
+                                        data-params='id={$id}'></a>
+                                   </center>"),
+                        "class='crud-row-{$id}'"); ?>
+    <?endforeach;?>
+
+<?= $this->TableFoot($this->Crud('create', 'Add New', 'provider-bind-curd', '', 6)) ?>
+
+
+<script type="text/plain" id="js-crud-edit-provider">
+    
+    <% if( action == '_create' ){%>
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.name), id, "<?=$editPath?>", "title", "Edit Title" ) %></td>
+
+    <td>
+    <%=helpers.escapeHtml(values.industry_id)%>
+    </td>
+
+
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.visible), id, "<?=$editPath?>", "visible", "Edit visible", 'select',
+                               '/admin/provider/data-src') %></td>
+
+    <td>
+    <center>
+    <a class='admin-link provider-wizard icon icon-edit'
+        data-path='/admin/provider/update'
+        data-callback='providerEdit'
+        data-params='render=html&view=admin&id=<%= helpers.escapeHtml(id) %>&get=true'
+        data-format='html'></a>
+    </center>
+    </td>
+    
+    <td>
+    <center>
+        <a class='crud-create-update icon icon-cog'
+           data-action='update'
+           data-bind='provider-bind-curd'
+           data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+        </center>
+    </td>
+    
+    <td>
+    <center>
+        <a class='crud-delete icon icon-remove'
+           data-bind='provider-bind-curd'
+           data-action='delete'
+           data-params='id=<%= helpers.escapeHtml(id) %>'> </a>
+    </center>
+    </td>
+    
+    <% if( action == '_create' ){ %>
+        </tr>
+    <% } %>
+</script>
+
+

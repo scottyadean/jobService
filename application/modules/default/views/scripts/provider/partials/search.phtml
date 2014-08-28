@@ -1,0 +1,126 @@
+<style>
+    
+    a.disabled {
+        
+        text-decoration:none;
+        color:gray;
+        
+    }
+    
+    .hidden{
+        
+        display:none;
+    }
+    
+    
+</style>
+<div style="margin-bottom: 2px;">
+Starts With <input type="radio" name="js-regex" class="js-regex" id="js-regex-starts" value="starts" checked="checked" />
+Contains <input type="radio" name="js-regex" class="js-regex" id="js-regex-contains" value="contains" /> 
+</div>   
+
+
+<div class="input-append">
+<input class="span2" id="js-search-members" data-path="<?=$this->path?>" type="text" style="height: 20px;">
+<div class="btn-group">
+<button class="btn dropdown-toggle" data-toggle="dropdown" style="height: 30px;">
+<span id="js-current-search-field">Search By City</span>
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu">
+<li><a href="#City" class="js-search-by">City</a></li> 
+<li><a href="#Zip" class="js-search-by">Zip</a></li>
+<li><a href="#Name" class="js-search-by">Name</a></li>
+<li><a href="#Tags" class="js-search-by">Tags</a></li>
+</ul>
+</div>
+</div>   
+
+<div id="js-alphabet-search" style="text-align: center;">
+  
+  
+<?
+$cities = array();
+foreach( $this->locations as $location ){
+   $l = strtoupper($this->truncate($location['city'], 1, ""));
+   if(!in_array($l, $cities)){
+    $cities[] = $l;
+   }
+}
+
+$names = array();
+foreach( $this->providers as $name ){
+   $n = strtoupper($this->truncate($name['name'], 1, ""));
+   if(!in_array($n, $names)){
+    $names[] = $n;
+   }
+}
+
+$tags = array();
+foreach( $this->providers as $p ){
+   $t = strtoupper($this->truncate($p['tags'], 1, ""));
+   if(!in_array($t, $tags)){
+    $tags[] = $t;
+   }
+}
+
+
+?>  
+<div class="city-letter-search js-letters">                    
+<?foreach( range('A', 'ZZ') as $letter ):?>
+    
+    <a <?if(in_array($letter, $cities)):?>
+        href="#<?=$letter?>"
+      <?endif;?>
+      class="<?if(in_array($letter, $cities)):?>js-alpha-sort<?else:?>disabled<?endif;?>"
+      style=" display: inline-block; width: 20px;"><?=$letter?></a> 
+    
+<?endforeach;?>
+</div>
+
+<div class="name-letter-search js-letters" style="display:none;">                    
+<?foreach( range('A', 'ZZ') as $letter ):?>
+        <a 
+        <?if(in_array($letter, $names)):?>
+            href="#<?=$letter?>"
+            class="js-alpha-sort"
+        <?else:?>
+            class="disabled"
+        <?endif;?>
+        style=" display: inline-block; width: 20px;"><?=$letter?></a> 
+    
+<?endforeach;?>
+</div>
+
+
+<div class="tags-letter-search js-letters" style="display:none;">                    
+<?foreach( range('A', 'ZZ') as $letter ):?>
+        <a 
+        <?if(in_array($letter, $tags)):?>
+            href="#<?=$letter?>"
+            class="js-alpha-sort"
+        <?else:?>
+            class="disabled"
+        <?endif;?>
+        style=" display: inline-block; width: 20px;"><?=$letter?></a> 
+    
+<?endforeach;?>
+</div>
+
+
+<div class="zip-letter-search js-letters" style="display:none;">                    
+<?foreach( range('0', '9') as $number ):?>
+        <a href="#<?=$number?>"
+           class="js-alpha-sort"
+           style=" display: inline-block; width: 20px;"><?=$number?></a> 
+    
+<?endforeach;?>
+</div>
+
+
+                    
+<hr style="border-bottom: solid 1px #f6f6f6;" />
+                    
+</div>
+                    
+<div id="js-search-results"></div>

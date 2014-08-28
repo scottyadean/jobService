@@ -1,0 +1,83 @@
+<h3><?if( isset($this->header) ):?><?=$this->header?><?else:?>Admin User List<?endif;?></h3>
+
+    <div class="crud-create-update crud-load-template hidden"
+     id="user-bind-crud"
+     data-id=''
+     data-path='.:crud-user'
+     data-form='userform'
+     data-title="Edit User Data"
+     data-params=''
+     data-action='create'
+     data-target='js-users-index'
+     data-template='js-crud-edit-users'></div>
+
+<?= $this->TableHead( array('Username', 'First', 'Last', 'Email', '','',''), "table table-striped data-table", "js-users-index" ) ?>
+
+    <? $editPath = "/admin/users/inline-edit"; ?>
+
+    <?foreach( $this->users as $user ):?>
+    <? $id = $user->id;?>
+    <?= $this->TableRow( array( $this->InlineEdit($user->username, $user->id, $editPath, "username", "Edit Username"),
+                                $this->InlineEdit($user->fname, $user->id, $editPath, "fname", "Edit First Name"),
+                                $this->InlineEdit($user->lname, $user->id, $editPath, "lname", "Edit Last Name"),
+                                $this->InlineEdit($user->email, $user->id, $editPath, "email", "Edit Email"),
+                                "<i class='icon-envelope pointer password-email' data-id='{$user->id}' title='Send Password Reset Email'> </i>",
+                                "<center>
+                                    <a class='crud-create-update icon icon-edit'
+                                      data-action='update'
+                                      title='edit user info'
+                                      data-bind='user-bind-crud'
+                                      data-params='id={$id}'></a>
+                                   </center>",
+                                   "<center>
+                                        <a class='crud-delete icon icon-remove'
+                                        data-bind='user-bind-crud'
+                                        title='delete user'
+                                        data-action='delete'
+                                        data-params='id={$id}'></a>
+                                   </center>"),
+                        "class='crud-row-{$id}'"); ?>
+    <?endforeach;?>
+
+<?= $this->TableFoot($this->Crud('create', 'Create New User', 'user-bind-crud', '', 7)) ?>
+
+
+<script type="text/plain" id="js-crud-edit-users">
+    <% if( action == '_create' ){%>
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(helpers.noSpecialChars(values.username)), id, "<?=$editPath?>", "username", "Edit Username" ) %></td>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.fname), id, "<?=$editPath?>", "fname", "Edit First Name" ) %></td>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.lname), id, "<?=$editPath?>", "lname", "Edit Last Name" )  %></td>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.email), id, "<?=$editPath?>", "email", "Edit Email" ) %></td>
+    <td>
+    <i class='icon-envelope pointer password-email' data-id='<%= helpers.escapeHtml(id) %>' title='Send Password Reset Email'> </i>
+    </td>
+    <td>
+        <center>
+            <a class='crud-create-update icon icon-edit'
+               data-action='update'
+               data-bind='user-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+            </center>
+    </td>
+    
+    <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='user-bind-crud'
+               data-action='delete'
+               data-params='id=<%= helpers.escapeHtml(id) %>'> </a>
+        </center>
+    </td>
+    
+    <% if( action == '_create' ){ %>
+        </tr>
+    <% } %>
+</script>
+
+
+<div id="js-password-reset-email-form">
+    
+    
+</div>

@@ -1,0 +1,252 @@
+<?php 
+//echo $this->GetNav(3);
+$this->headLink()->appendStylesheet('/css/views/default/index.css');
+$this->headScript()->appendFile('/js/views/default/index.js');
+?>
+
+<style>
+      
+	#carousel-text
+		{margin-left:5px;}
+		
+	.carousel-control
+{
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  margin-top: -20px;
+  font-size: 30px;
+  font-weight: 100;
+  line-height: 11px;}
+
+	
+	</style>
+
+  <script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+        </script>
+        
+        
+<div id="header" class="container">
+    <div class="row"><p class="header" align="center">We offer Employment and Training Services to Northern Virginia Job Seekers and Employers.</p></div>
+    <div class="row">
+    <div class="span12"><div align="center"><a href="/page/id/15/jobseeker" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('jobseekers','','/img/jobseekers_big_over.jpg',1)"><img src="/img/jobseekers_big.jpg" alt="Jobseekers" name="jobseekers" class="round" width="220" style="margin-right:20px;"></a>
+        <a href="/page/id/31/employers" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Employers','','/img/employers_big_over.jpg',1)"><img src="/img/employers_big.jpg" alt="Employers" name="Employers"  class="round" width="220" style="margin-right:20px;"></a> 
+        <a href="/page/id/38/youth" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Young Adults','','/img/youth_big_over.jpg',1)"><img src="/img/youth_big.jpg" alt="Young Adults" name="Young Adults"  class="round" width="220"></a></div>
+    
+    
+    </div>
+
+  </div>
+    
+    
+    <div id="blue">
+    <div id="content" class="container">
+    	    <div class="row">
+             <div class="span4">
+                <!-- Slider -->
+            	<div class="row">
+                    <div class="span4" id="slider">
+                    <h1>Success Stories</h1>
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="span2" id="carousel-bounding-box">
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner">
+                                        <div class="active item" data-slide-number="0">
+                                        <img src="/img/success1.jpg" class="sidebarblue" width="95%"></div>
+
+                                        <div class="item" data-slide-number="1">
+                                        <img src="/img/success2.jpg" class="sidebarblue" width="95%"></div>
+
+                                        <div class="item" data-slide-number="2">
+                                        <img src="/img/success3.jpg" class="sidebarblue" width="95%"></div>
+
+                                        <div class="item" data-slide-number="3">
+                                        <img src="/img/success4.jpg" class="sidebarblue" width="95%"></div>
+
+                                        <div class="item" data-slide-number="4">
+                                        <img src="/img/success5.jpg" class="sidebarblue" width="95%"></div>
+
+                                        <div class="item" data-slide-number="5">
+                                        <img src="/img/success6.jpg" class="sidebarblue" width="95%"></div>
+                                    </div><!-- Carousel nav -->
+                                    <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a> <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a>
+                                </div>
+                            </div>
+
+                            <div class="span2" id="carousel-text"></div>
+
+                            <div id="slide-content" style="display: none;">
+                                <div id="slide-content-0">
+                                    <p><strong>J4VETS Connects Veteran to Hiring Manager</strong><br>Silke Edwards, a U.S. Army veteran, resigned her commission as an officer 15 years ago.  <br><a href="#">Read more</a></p>
+                                </div>
+
+                                <div id="slide-content-1">
+                                    <p><strong>Best Career Move</strong><br>Rick Ferry, an honorably discharged military veteran, was laid off in June 2013. <br><a href="/page/id/51/success-stories">Read more</a></p>
+                                </div>
+
+                                <div id="slide-content-2">
+                                    <p><strong>Training Key to Veteran’s Career Success</strong><br>“J4VETS has been a blessing and was instrumental to my becoming employed again," declared Karl Scotland, a U.S. Navy veteran.  <br><a href="/page/id/51/success-stories">Read more</a></p>
+                                </div>
+
+                                <div id="slide-content-3">
+                                    <p><strong>Citizenship to CDL</strong><br>In June 2014, Mohamed entered the Workforce Investment Act Program with a goal to get his CDL license.   <br><a href="/page/id/51/success-stories">Read more</a></p>
+                                </div>
+
+                                <div id="slide-content-4">
+                                    <p><strong>Race To GED</strong><br>Alonso Sosa from Woodbridge, enrolled in the WIA Youth Program after seeing a “Race to GED” sign in the Prince William SkillSource Center’s window.<br><a href="/page/id/51/success-stories">Read more</a></p>
+                                </div>
+
+                                <div id="slide-content-5">
+                                    <p><strong>Summer Intern Defies Own Expectations</strong><br>Mark Cole was interested in Auto Mechanics but had never had a job and was skeptical about the summer work program. <br><a href="/page/id/51/success-stories">Read more</a></p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/Slider-->
+            <hr>
+            <h1>Corporate Leaders</h1>
+            <img src="/img/sponsors.jpg">
+            <hr>
+            <a href="/page/id/49/donate-car"><img src="/img/vehicledonate.jpg" ></a> <a href="https://donatenow.networkforgood.org/1437337" target="_blank"><img src="/img/dontate.jpg"></a><br>
+                
+           	  <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                
+            </div>
+            <div class="span5" id="main">
+              
+                <table cellpadding="2" class="ql" style="margin-top:20px;">
+            <tr>
+            <td valign="middle"><a href="/page/id/13/locations"><img src="/img/loc_icon_big.jpg" width="40" style="padding-right:10px;"></a></td>
+			<td valign="middle"><a href="/page/id/13/locations" class="ql"><p style="color:#005e9e;font-size:18px;">Our Locations</p></a></td>
+            </tr>
+            <tr>
+            <td valign="middle"><a href="/events"><img src="/img/time_icon_big.jpg" width="40"></a></td>
+			<td valign="middle"><a href="/events" class="ql"><p style="color:#f29e19;font-size:18px;">Center Events</p></a></td>
+            </tr>
+            <tr>
+            <td valign="middle"><a href="/page/id/45/job-search"><img src="/img/search_jobs_icon_big.jpg" width="40"></a></td>
+			<td valign="middle"><a href="/page/id/45/job-search" class="ql"><p style="color:#7c2b82;font-size:18px;">Search Jobs</p>
+			</a></td>
+            
+            <tr>
+            <td valign="middle"><a href="http://visitor.r20.constantcontact.com/d.jsp?llr=sliiijcab&amp;p=oi&amp;m=1101969760626&amp;sit=4avpzv4cb&amp;f=d496454d-fa5f-4ec9-9c74-8ce22c231f7e" target="_blank"><img src="/img/enews_icon_big.jpg" width="40"></a></td>
+			<td valign="middle"><a href="http://visitor.r20.constantcontact.com/d.jsp?llr=sliiijcab&amp;p=oi&amp;m=1101969760626&amp;sit=4avpzv4cb&amp;f=d496454d-fa5f-4ec9-9c74-8ce22c231f7e" target="_blank" class="ql">
+			  <p style="color:#0dbbf1; font-size:18px;">E-news Sign-up</p>
+			</a></td>
+            
+            </tr>
+            </table>
+              <p>&nbsp;</p>
+               
+            
+            <h1>WELCOME</h1>
+
+            <p> The <strong><em>SkillSource</em></strong> Group is a non-profit organization  serving Northern Virginia Employers and Job Seekers. We offer a wide  range of free job placement, training, and educational services to  employers, job seekers, and incumbent workers.             </p>
+            <p> Visit any of our six (6) <strong><em>SkillSource</em></strong> One-Stop Employment  Centers to take advantage of services and engage with our expert  workforce staff. We can help businesses recruit and retain qualified  workers, and job seekers advance their career.  We&rsquo;re committed to  building skilled workforce talent that meets the needs of businesses and  employers.            </p>
+            </div>
+            <div class="span3">
+            	<div id="sidenavhome">
+                <h1>Whats New?</h1>
+                <div id="nt-example1-container">
+                
+                <ul id="nt-example1">
+                <li><a href="/pdf/SSG-Van-Driver-Position-Description-May-2014.pdf" target="_blank"> SkillSource Announces Part-time Van Driver Vacancy</a></li>
+
+				<li><a href="/pdf/The-State-of-the-Health-Care-Workforce-in-Northern-Virginia_0327.pdf" target="_blank">NovaHealthFORCE Healthcare Workforce Study Issued</a></li>
+
+				<li><a href="/pdf/SSG_AnnualReport2013.pdf" target="_blank">SkillSource Issues 2013 Annual Report</a></li>
+                <li><a href="/pdf/SSG_press_UnitedWay_TTWGrant_Jan2014.pdf" target="_blank">$20K United Way Grant Expands SkillSource, Ticket to Work program</a></li>
+                <li><a href="/pdf/VWC-2013-Annual-Report_1223.pdf" target="_blank">SkillSource Featured in 2013 Virginia Workforce Council Annual Report</a></li>
+           
+                </ul>
+              
+                </div>
+                
+</div>
+              </div>
+                </div>
+                </div>
+    </div>
+    
+    
+   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    
+        <script src="js/bootstrap-carousel.js"></script>
+        <script>
+		  jQuery(document).ready(function($) {
+ 
+        $('#myCarousel').carousel({
+                interval: 5000
+        });
+ 
+        $('#carousel-text').html($('#slide-content-0').html());
+ 
+        //Handles the carousel thumbnails
+        $('[id^=carousel-selector-]').click( function(){
+                var id_selector = $(this).attr("id");
+                var id = id_selector.substr(id_selector.length -1);
+                var id = parseInt(id);
+                $('#myCarousel').carousel(id);
+        });
+ 
+ 
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid', function (e) {
+                var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+});
+		</script>
+        
+        
+    
+    <script src="/js/jquery.newsTicker.js"></script>
+    <script>
+    		
+
+    		$(window).load(function(){
+	            $('code.language-javascript').mCustomScrollbar();
+	        });
+            var nt_title = $('#nt-title').newsTicker({
+                row_height: 80,
+                max_rows: 1,
+                duration: 3000,
+                pauseOnHover: 0
+            });
+            var nt_example1 = $('#nt-example1').newsTicker({
+                row_height: 70,
+                max_rows: 4,
+                duration: 4000,
+                prevButton: $('#nt-example1-prev'),
+                nextButton: $('#nt-example1-next')
+            });
+           
+        </script>

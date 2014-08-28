@@ -1,0 +1,24 @@
+<? if(is_array($this->locations)):?>
+
+<h3>Locations</h3>
+<?foreach( $this->locations as $k=>$a):?>
+<address>
+
+    <?=$this->EchoIfSet( $a['email_public'], "<i class='icon-envelope'></i> <a href='mailto:".$a['email_public']."'>", "</a><br>"); ?>
+    <?=$this->EchoIfSet( $a['site'], "<i class='icon-share-alt'> </i> <a href='".$a['site']."'>", "</a><br>"); ?>
+          
+    <?=ucwords(strtolower($a['address']))?>
+    <?=$this->EchoIfSet($a['address2'], " ", "<br>"); ?>
+    <?=$a['state']?>, <?=ucwords(strtolower($a['county']))?> <?=ucwords(strtolower($a['city']))?> <?=$a['zip']?><br>
+    
+    <?=$this->EchoIfSet( $a['phone_public'], "<b>ph.</b> ", "<br>"); ?>
+    <?=$this->EchoIfSet( $a['fax_public'],   "<b>fx.</b> ", "<br>"); ?> 
+   
+    <a target="_blank" href="http://maps.google.com/?q=<?=urlencode($a['address'].' '.$a['address2'].' '.$a['city'].' '.$a['state'].' '.$a['zip'])?>">
+    <span id="map<?=$k?>"> </span></a>
+    <br />
+    
+</address> 
+
+<? endforeach;?>
+<?endif; ?>

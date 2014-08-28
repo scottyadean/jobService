@@ -1,0 +1,21 @@
+
+<div class="tabbable" id="js-event-sign-up-target">
+    
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#panel-82609" data-toggle="tab">Registration</a></li>
+        <li><a href="#panel-448616" data-toggle="tab">I Have an Account </a></li>
+    </ul>
+    
+    <div class="tab-content">
+            <div class="tab-pane active" id="panel-82609">
+                <div id="sign-up-form-info" class=""></div>
+                
+                <div id="sign-up-form" class="sign-up-form pad-5px" style="border: 1px solid #ccc;">
+                       <?=$this->form?>
+                </div>
+            </div>
+            <div class="tab-pane" id="panel-448616">
+                <?= $this->partial( '/index/include/async-login.phtml', 'default', array()); ?>
+            </div>
+    </div>
+</div>

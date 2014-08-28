@@ -1,0 +1,80 @@
+
+
+<? $this->headTitle('Administration Panel'); ?>
+
+<? $this->headLink()->appendStylesheet('/css/views/admin/index.css'); ?>
+<? $this->headLink()->appendStylesheet('/js/vendor/wysiwyg/summernote.css'); ?>
+<? $this->headLink()->appendStylesheet('/css/vendor/bootstrap-datatable.css'); ?>
+<? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
+       
+
+<? $this->headScript()->appendFile('/js/vendor/underscore.js');?>
+<? $this->headScript()->appendFile('/js/vendor/x-editable.js');?>
+<? $this->headScript()->appendFile('/js/lib/admin.js');?>
+<? $this->headScript()->appendFile('/js/lib/crud.js');?>
+<? $this->headScript()->appendFile('/js/lib/media.js');?>
+<? $this->headScript()->appendFile('/js/vendor/wysiwyg/summernote.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTables.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
+
+
+
+<div class="row-fluid">
+    <div class="span3 event">
+        <?= $this->partial('/partials/admin-nav.phtml', array('admin_users'=>$this->admin_users,
+                                                              'users' => $this->users,
+                                                              'pages'=>$this->pages,
+                                                              'providers'=>$this->providers,
+                                                              'programs'=>$this->programs,
+                                                              'events'=>$this->events))?>
+    </div>
+
+    <div class="span9">
+
+            <div class="editable-fields" id="content-frame" style="margin-top: 10px;">
+               <h1>Administration Panel</h1>
+               
+              
+               
+               <div class="span4">
+                <h2>Top 10 Most Viewed Events</h2>
+                    <?= $this->TableHead( array('Title','Views','',''), "table table-striped", "js-event-views-index" ) ?>
+                    <?foreach( $this->eventsTop10 as $event ):?>
+                    <?= $this->TableRow( array( "<a data-callback='default' data-format='html' data-params='id={$event->id}' data-path='/admin/events/detail/' class='admin-link'>{$event->title}</a>",
+                                                $event->views)); ?>
+                    <?endforeach;?>
+                    <?= $this->TableFoot() ?>
+                </div>
+               
+                <div class="span4">
+                <h2>Top 10 Most Viewed Pages</h2>
+                    <?= $this->TableHead( array('Title','Views','',''), "table table-striped", "js-event-views-index" ) ?>
+                    <?foreach( $this->pagesTop10 as $page ):?>
+                    <?= $this->TableRow( array( $page->title,
+                                                $page->views)); ?>
+                    <?endforeach;?>
+                    <?= $this->TableFoot("<tr><td colspan='2'><a data-format='html' data-params='render=html&view=admin' data-callback='default' data-path='/admin/pages/' class='admin-link'>Pages</a></td></tr>") ?>
+                </div>
+               
+                
+
+            </div>
+    </div>
+    
+</div>
+
+
+<script type="text/plain" id="js-event-popover">
+    
+    <a id="cal-info<%=id%>" class='poopover' data-html="true"
+                            data-content="<%=content%>" title="<%=title%>"
+       data-toggle="popover" href="#" data-original-title="<%=title%>">
+       <i class='icon-bookmark' id='cal-event-<%=date%>'></i>
+       
+       </a>
+       
+       
+       
+    
+</script>
+

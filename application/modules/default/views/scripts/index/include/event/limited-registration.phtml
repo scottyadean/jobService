@@ -1,0 +1,66 @@
+
+<? $count = abs($this->event['rsvp_count'] - $this->event['seats']);?>
+
+<h2 style="margin-bottom:1px; padding-bottom: 0px; line-height: 19px;">Sign-Up For This Event Now</h2>
+<p> Attending: <?=$this->event['rsvp_count']?> </p>
+
+<?if( $count > 0):?>
+    <strong>Hurry Space is limited <a name="regcount"><?= $count ?></a> Seat<?= $count > 1 ? "s" : "";?> Remain<?= $count < 2 ? "s" : "";?></strong>
+<?endif;?>
+
+
+<?if( LOGGED_IN && !empty($this->eventSigned)):?>    
+    <div class="alert alert-success">You have registered to attend this event.</div>
+    <a href="/event/my-events"><i class="icon-calendar"></i>View My Events </a>
+ <?
+ return;
+ endif;?>
+
+<?
+//if this event is closed
+if($this->event['rsvp_count'] >= $this->event['seats']):?>
+<div class="alert alert-error"><strong>Event Closed</strong></div>
+<p>Event is closed to any further registration.</p>
+
+<div id="js-event-sign-up-target">
+<?if( LOGGED_IN ):?>
+    <?if(!empty($this->eventSigned)):?>    
+
+     <?else:?>
+     
+          
+        <?if(isset($this->onWaitList) && !empty($this->onWaitList) ):?>
+            <a class="btn js-wait-list-remove">Please remove me from the wait-list.</a>
+        <?else:?>
+            <a class="btn js-wait-list">Please add me to the wait-list notify me if an opening becomes available.</a>
+        <?endif;?>
+    
+    <?endif;?>
+
+<?else:?>
+   <h2> Sign-In To Join the Wait List </h2>
+    <?= $this->render( '/index/include/event/reg-sign-form.phtml', 'default'); ?>
+<?endif;?>
+
+</div>
+<?
+return;
+endif;?>
+
+
+<div id="js-event-sign-up-target">
+<?
+//if the event is not closed and seats are available and the user is logged in allow them to push the button and sign up
+if( LOGGED_IN ):?>
+    <?if(empty($this->eventSigned)):?>
+        <div id="js-event-sign-up-target">
+            <input type="button" id="logged-event-sign-up" class="btn btn-primary" value="Sign Up for this event." style="width:100%;">
+        </div>
+    <?endif;?>
+<?else:?>
+ <?= $this->render( '/index/include/event/reg-sign-form.phtml', 'default'); ?>
+<? endif;?>
+</div>
+
+
+

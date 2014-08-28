@@ -1,0 +1,108 @@
+<ul class="nav nav-list well">
+        <li class="nav-header">Admin Tool Kit</li>
+        <li class="active"><a href="/admin/">Home</a></li>
+        <li class="pos-rel">
+            <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->admin_users?></div>
+            <a class='admin-link'
+               data-path="/admin/admin"
+               data-callback='default',
+               data-params="render=html&view=admin"
+               data-format="html">
+            <i class="icon-user"></i>Admin Users</a>
+        </li>
+        
+        
+                <li class="pos-rel">
+       <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->users?></div>
+            <a class='admin-link'
+               data-path="/admin/users"
+               data-callback='default',
+               data-params="render=html&view=admin"
+               data-format="html">
+            <i class="icon-user"></i>Site Users</a>
+        </li>
+        
+        
+        
+        
+        <li class="pos-rel">
+            
+            <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->pages?></div>
+            
+            <a class='admin-link'
+               data-path="/admin/pages/"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+              <i class="icon-book"></i>Pages</a>
+        
+               <a class='admin-link'
+               data-path="/admin/modules/"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+              <i class="icon-file"></i>Modules</a>
+
+
+            <a class='admin-link'
+               data-path="/admin/pages/homepage/"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+              <i class="icon-file"></i>Home Page</a>
+            
+            
+        </li>
+        
+        <li class="pos-rel">
+            
+            <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px" id="events-count"><?=$this->events?></div>
+            
+            <a class='admin-link'
+               data-path="/admin/events/"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+              <i class="icon-calendar"></i>Events</a>
+            
+        </li>
+        
+        
+        <li class="pos-rel">
+            
+            <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->providers?></div>
+            
+            <a class='admin-link'
+               data-path="/admin/provider/"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+                <i class="icon-briefcase"></i>Providers</a>
+                
+             
+        </li>
+       
+       
+        <li class="pos-rel">
+            
+            <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->programs?></div>
+               <a class='admin-link'
+               data-path="/admin/programs"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+                <i class="icon-tasks  icon-white"></i>Programs</a> <br />
+        </li>
+
+        
+        <li class="nav-header">
+                --------------------
+        </li>
+
+        <li>
+                <a href="#">Settings</a>
+        </li>
+        <li class="divider">
+        </li>
+        <li><a href="#">Help</a></li>
+</ul>

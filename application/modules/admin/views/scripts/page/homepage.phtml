@@ -1,0 +1,18 @@
+<h2>Edit Home Page</h2>
+<p> Please Note: If you are unfamiliar with editing with php, css, javascript, html please contact a designer to make updates for you.</p>
+
+
+<? if($this->updated) { echo "updated success"; }  ?>
+
+<div id="form-message-info"></div>
+<form action="/admin/pages/homepage/" id="home-page-updates" method="post">
+<textarea style=" width:99%; height: 500px;"
+         id="HomePageContent" name="HomePageContent"><?=$this->contents?></textarea>
+<br />
+<input type="submit" value="update" id="form-message-submit">
+</form>
+
+
+<hr />
+
+<iframe src="/" frameborder="1" width="99%" height="500px"></iframe>

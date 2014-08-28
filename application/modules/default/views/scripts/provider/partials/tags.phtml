@@ -1,0 +1,18 @@
+
+<?if ( isset($this->tags) && !empty($this->tags) ):?>
+
+<div class="well">
+                  
+           
+ <? $tags = explode(",", trim($this->tags)); ?>
+
+  <? if(count($tags) > 0):?>
+
+        <?foreach(  $tags as $tag):?>
+
+            <div class="badge"><?=$tag?></div>  
+
+        <?endforeach;?>
+    <?endif;?>
+ </div>    
+<?endif;?>

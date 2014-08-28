@@ -1,0 +1,15 @@
+ <? if( $this->disableLayout == false ): ?>
+ 
+<? $this->headTitle('Training Programs Directory');?>
+<? $this->headScript()->appendFile('/js/views/providers/index.js');?>
+
+<h3>Training Providers Directory</h3>
+<hr>
+<?= $this->partial('/provider/partials/search.phtml', 'default', array("path"=>"/programs/search/")); ?>
+ 
+<?endif;?>
+
+<?= $this->partial('/provider/partials/display.phtml', 'default',
+                   array('providers'=>$this->programs,
+                         'locations'=>$this->locations,
+                         'program'=>true));?>

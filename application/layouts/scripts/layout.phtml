@@ -1,0 +1,60 @@
+<?= $this->partial('/partials/doctype.phtml'); ?>
+    <head>
+        <?=$this->headTitle(" ".SITE_NAME) ?>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta charset="utf-8">    
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        
+        <?= $this->headMeta();?>
+        
+        <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/vendor/bootstrap-responsive.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:700italic,700' rel='stylesheet' type='text/css'>    
+        <link rel="stylesheet" href="/css/main.css">
+        <?= $this->headLink();?>
+        <script src="/js/vendor/jquery-1.10.1.min.js"></script>
+    </head>
+    
+    <body>
+       
+       
+<?= $this->partial('/partials/head.phtml',array( "page"=> PAGE_NAME ) );?>
+        
+        <?if(isset($this->layout()->header)):?>
+            <?=$this->layout()->header?>
+            <div style="clear: both;"> </div>
+        <?else:?>
+         <div id="wrapmain">
+	
+	<div id="headermain" class="container">
+    <p>&nbsp;</p>
+
+    </div>
+        <?endif;?>
+          
+        <div id="content" class="container">
+            <?= $this->flashMessages(); ?>
+            <div class="row">
+                 <?if( $this->layout()->sideNav != 'N'):?>
+                 <?= $this->partial( '/index/include/default-side.phtml', 'default', array('span'=> 'span3' ) ); ?>
+                 <?endif;?>
+                 <?= $this->layout()->content; ?>
+                 
+            </div>
+            </div>
+            
+            <div class="push"></div>
+            <div id="push"> </div>
+        </div> 
+        
+        
+        <?= $this->partial('/partials/foot.phtml'); ?>
+        <?=$this->headScript();?>
+ 
+    </body>
+
+<?= $this->partial('/partials/end.phtml'); ?>
+
+ 

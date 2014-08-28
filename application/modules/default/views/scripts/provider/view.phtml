@@ -1,0 +1,108 @@
+<?
+$this->layout()->sideNav = "N";
+$this->headScript()->appendFile('https://maps.googleapis.com/maps/api/js?key=AIzaSyBYt3WjO2eW9zzCrfpxhdl6Q8HJj7ueh_8&sensor=false');
+?>
+
+<div class="container">
+<div class="row">
+    
+    <div class="span12 providers">
+            <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li><a href="/providers">Providers</a> <span class="divider">/</span></li>
+            <li class="active"><?=ucwords($this->escape($this->provider['name']))?></li>
+        </ul>      
+</div>
+    
+</div>
+
+<div class="row-fluid">
+    <div class="span8 providers">
+        
+        <h3><?=ucwords($this->escape($this->provider['name']))?></h3>
+        
+        <blockquote>
+            <p><?=$this->provider['info']?></p>
+            <small> <cite>visit us @</cite> <?=$this->provider['site']?> </small>
+        </blockquote>
+        
+        <div>
+        <?=$this->provider['detail']?>
+        </div>
+        
+        <h4>Programs</h4>
+        
+        <?= $this->partial('/provider/partials/programs.phtml', 'default', array('programs'=>$this->programs,
+                                                                                 'locations'=>$this->locations,
+                                                                                 'programs_locations'=>$this->programs_locations));?>
+    </div>
+    
+    <div class="span4 locations-list">
+        <a class="js-add-to-favs btn btn-small hidden"
+           data-action="" 
+           data-id="<?=$this->provider['id']?>"><i class="icon-heart"></i>Add to favorites</a>
+        <!--img src="/image/db/<?=$this->provider['id']?>/p/" /><br /-->
+        <?= $this->partial('/provider/partials/address.phtml', 'default', array('locations'=>$this->locations));?>
+        <?= $this->partial('/provider/partials/tags.phtml', 'default', array('tags'=>$this->provider['tags']));?>
+    </div>
+
+</div>
+</div>
+
+
+<script>
+    
+    var locations = <?=json_encode($this->locations)?>;
+    var __id = <?=$this->provider['id']?>;
+    var __favs = {"add":__id};
+    
+    var Maps = {
+       showStatic:function(add, key) {
+        var address = add.address+' '+add.city+' '+add.state+' '+add.zip;    
+        var mygc = new google.maps.Geocoder();
+            mygc.geocode({'address' : address}, function(results, status){
+                var lat = results[0].geometry.location.lat();
+                var lng = results[0].geometry.location.lng();
+                var url = "http://maps.google.com/maps/api/staticmap?center="+lat+","+lng+"&zoom=14&markers="+lat+","+lng+"&size=345x200&sensor=false"
+                $("#map"+key).html("<img src="+url+" >");
+                });
+       
+        }  
+    };
+    
+    $(document).ready(
+                      
+                      function() {
+                        
+                        content.load('/favs', {}, function(data){
+        
+                        $(".js-add-to-favs").removeClass('hidden');  
+        
+                            if ($.inArray( __id.toString(), data.value ) != -1) {
+                                $(".js-add-to-favs").html("<i class='icon-trash'></i> Remove from favorites");
+                                __favs = {"remove":__id}; 
+                            }
+                            
+                            $(".js-add-to-favs").click(function() {
+                                content.load('/favs', __favs, function(data){
+                                    $(".js-add-to-favs").html((data.add != 0) ?  "<i class='icon-trash'></i> Removed from favorites" : "<i class='icon-heart'></i>Add to favorites");
+                                    __favs = (data.add != 0) ? { 'remove': __id } : {'add':__id};
+                                
+                                }, 'json' ); });    
+                            
+                            }, 'json' );
+                        
+                        
+                        if (locations.length > 0) {
+                            for (var key in locations) {
+                                    Maps.showStatic(locations[key], key);    
+                        
+                            }
+                        }
+                        
+                      }
+                      
+    );
+    
+    
+</script>

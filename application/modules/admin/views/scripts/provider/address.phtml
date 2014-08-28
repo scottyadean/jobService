@@ -1,0 +1,69 @@
+<h4>Providers Addresses</h4>
+
+    <div class="crud-create-update crud-load-template pointer hidden"
+        id="address-bind-crud"
+        data-id=''
+        data-path='.:crud_provider.:locations'
+        data-form='providerslocations'
+        data-title="Add Addresses"
+        data-params=''
+        data-action='create'
+        data-target='js-address-index'
+        data-template='js-crud-edit-provider-address'></div>
+        
+    <?= $this->TableHead( array("Address",
+                                "City",
+                                "State",
+                                "Zip",
+                                ""), "table table-bordered", "js-address-index" ) ?>
+	   
+    <?if(isset($this->addresses)):?>
+       <?foreach($this->addresses as $k=>$a):?>
+        <?= $this->TableRow(array( $this->escape($a->address),
+                                   $this->escape($a->city),
+                                   $this->escape($a->state),
+                                   $this->escape($a->zip),
+                                   "<center>
+                                   <a class='crud-create-update icon icon-edit'
+                                    data-action='update'
+                                    data-bind='address-bind-crud'
+                                    data-params='id={$a->id}&provider_id={$a->provider_id}'></a></center>",
+                                   "<center><a class='crud-delete icon icon-remove' data-bind='address-bind-crud' data-params='id={$a->id}'></a></center>"
+                                   ), "class='crud-row-{$a->id} highlight-child'"); ?>
+       
+       <?endforeach;?>
+   <?endif;?>
+
+    <?= $this->TableFoot("<tr><td colspan='6'><a class='crud-create-update pull-right'
+                                                        data-action='create'
+                                                        data-bind='address-bind-crud'
+                                                        data-params='provider_id={$this->provider_id}'>Add Address
+                                                        </a></td></tr>" ) ?>
+    
+<script id="js-crud-edit-provider-address" type="text/template">
+    <% if( action == '_create' ){%>
+        <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+        <td><%= helpers.escapeHtml(values.address) %></td>
+        <td><%= helpers.escapeHtml(values.city) %></td>
+        <td><%= helpers.escapeHtml(values.state) %></td>
+        <td><%= helpers.escapeHtml(values.zip) %></td>    
+        <td>
+        <center><a class='crud-create-update icon icon-edit'
+                   data-action='update'
+                   data-bind='address-bind-crud'
+                   data-params='id=<%= helpers.escapeHtml(id) %>&provider_id=<%= helpers.escapeHtml(values.provider_id) %>'>
+                   </a>
+        </center>
+        </td>		    
+        <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='address-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+        </center>
+        </td>
+    <% if( action == '_create' ){%>
+        </tr>
+    <%}%>
+</script>

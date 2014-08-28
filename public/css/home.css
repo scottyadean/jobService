@@ -1,0 +1,92 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#wrap
+	{background-image:url(../img/home_bodybg.jpg);
+	background-repeat:repeat-x;
+	background-color:#e6f6fd;
+	min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;}
+#header
+	{background-image:url(../img/home_header.jpg);
+	background-repeat:no-repeat;}
+	
+p.header
+	{font-size:16px;
+	color:#FFFFFF;
+	letter-spacing:.1em;
+	margin-top:20px;
+	}
+	
+#blue
+	{margin-top:50px;}
+	
+	
+/* ---------------------------------------- SIDE NAV BAR---------------------------------------------- */
+#sidenavhome
+	{background-image:none;
+	background-color:#f0f0f0;
+	background-repeat:no-repeat;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	width:100%;
+	margin-bottom:20px;
+	}
+	
+#sidenavhome
+	{
+	float:left;
+	margin:0;
+	padding:0;
+	}
+	
+#sidenavhome h1
+	{margin-left:18px;
+	color:#005e9e;}
+	
+#sidenavhome ul
+	{padding-bottom:10px;}
+	
+#sidenavhome ul li
+	{margin:0px;
+	list-style:none;
+	padding:0px;
+	width:95%;
+	}
+	
+#sidenavhome ul li a
+	{font-family: 'Alegreya Sans SC', sans-serif;
+	font-size:14px;
+	color:#005e9e;
+	text-decoration:none;
+	display:block;	
+	padding-left: 18px;
+	padding-top: 10px;
+	margin-top:10px;
+	margin-bottom: 10px;
+	background-image:url(../img/arrow.png);
+	background-repeat: no-repeat;
+	background-position:0;
+
+	}
+	
+
+	
+#sidenavhome ul li a:hover
+	{background-image: url(../img/arrow_over.png);
+	background-repeat: no-repeat;
+	background-position:0;}
+	
+table.ql td a.ql
+	 {line-height:.5em;
+	 margin-top:0px;
+	 margin-bottom:0px;
+	 }	
+	 
+	table.ql td
+{
+  vertical-align: middle;
+}

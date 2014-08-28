@@ -1,0 +1,53 @@
+
+<?if( $this->event['type'] == 'limited registration' && $this->seats == 0 ):?>
+<strong style="color: #005E9E">I'm sorry! Someone else beat you to the punch.</strong><br /> This event is closed to any further registration.
+
+
+<?if( isset($this->onWaitList) && !empty($this->onWaitList) ):?>
+    <a class="btn js-wait-list-remove">Please remove me from the wait-list.</a>
+<?else:?>
+    <a class="btn js-wait-list">Please add me to the wait-list notify me if an opening becomes available.</a>
+<?endif;?>
+
+
+<? return;
+endif;?>
+
+<?if( !LOGGED_IN ):?>
+ <?= $this->partial( '/index/include/async-login.phtml', 'default', array()); ?>
+<? return;
+endif;?>
+
+
+<? if(  !is_null($this->qualifiers) ):?>
+
+<form action="/event-sign-up" id="eventqualifiers">
+<strong style="color: #005E9E">Please take a second to make sure you qualify for this event.</strong>
+<p> I verify that I meet all the following qualifications: </p>
+<div class="event-qualifiers-form-info"></div>
+<?foreach( $this->qualifiers as $k=>$q):?>
+    <label id="label-Q-<?=$q['id']?>" for="Q-<?=$q['id']?>">
+    <input id="Q-<?=$q['id']?>"
+           class="qualifiers  __req"
+           data-id="<?=$q['id']?>" 
+           type="<?=$q['type']?>"
+           value="<?=$q['answer']?>"> <strong><?=$q['question']?></strong></label><br />
+    <input type="hidden" id="event_id" data-id="event_id" class="__req" value="<?=$this->event_id?>" />
+<?endforeach;?>
+
+<div class="alert">
+<strong>Please Note:</strong>You may be required to verify all the following qualifications listed above upon attending this event.  Please read the event details closely and be sure that you meet all the prerequisites listed above before signing up to this event.
+</div>
+
+<input type="submit" class="btn btn-primary eventqualifiers-btn"
+       id="eventqualifiers-btn"
+       value="Sign Up" />
+</form>
+
+<?else:?>
+  <h2> Success! </h2>
+  <p> You have been signed up to attend this Event.
+      A reminder email has been set to your inbox with more info.
+      To view events you are attending or to cancel, please visit your <a href="/my/account">account page</a>.
+  </p>
+<?endif;?>

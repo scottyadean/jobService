@@ -1,0 +1,101 @@
+<?if(!$this->xhr):?>
+
+<? $this->headTitle('Event Details'); ?>
+
+<? $this->headLink()->appendStylesheet('/css/views/admin/index.css'); ?>
+<? $this->headLink()->appendStylesheet('/js/vendor/wysiwyg/summernote.css'); ?>
+<? $this->headLink()->appendStylesheet('/css/vendor/bootstrap-datatable.css'); ?>
+<? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
+       
+
+<? $this->headScript()->appendFile('/js/vendor/underscore.js');?>
+<? $this->headScript()->appendFile('/js/vendor/x-editable.js');?>
+<? $this->headScript()->appendFile('/js/lib/admin.js');?>
+<? $this->headScript()->appendFile('/js/lib/crud.js');?>
+<? $this->headScript()->appendFile('/js/lib/media.js');?>
+<? $this->headScript()->appendFile('/js/vendor/wysiwyg/summernote.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTables.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
+
+<?endif;?>
+
+<h2>Qualifier questions</h2>
+The area functions as a way to create a global set of prerequisite questions that you can append to events sign up forms.<br/>
+
+
+    
+    <div class="crud-create-update crud-load-template hidden"
+     id="qualifiers-bind-crud"
+     data-id=''
+     data-path='.:crud-qualifiers'
+     data-form='qualifiersform'
+     data-title="Edit HTML qualifiers Content"
+     data-params=''
+     data-action='create'
+     data-target='js-qualifiers-index'
+     data-template='js-crud-edit-qualifiers'></div>
+    <?= $this->TableHead( array('Question','Awnser', 'Type',''), "table table-striped", "js-qualifiers-index" ) ?>
+    <?
+ 
+/** 
+* Columns:
+* `id`, `question`, `answer`, `type`
+*/
+    
+    $editPath = "/admin/qualifiers/inline-edit"; ?>
+    <?foreach( $this->qualifiers as $m ):?>
+    <? $id = $m->id;?>
+    <?= $this->TableRow( array( $this->InlineEdit($m->question, $id, $editPath, "question", "Edit Question"),
+                               $this->InlineEdit($m->answer, $id, $editPath, "answer", "Edit Answer"),
+                                $m->type,
+                                "<center>
+                                    <a class='crud-create-update icon icon-edit'
+                                      data-action='update'
+                                      title='edit qualifiers content'
+                                      data-bind='qualifiers-bind-crud'
+                                      data-params='id={$id}'></a>
+                                   </center>",
+                                   "<center>
+                                        <a class='crud-delete icon icon-remove'
+                                        data-bind='qualifiers-bind-crud'
+                                        title='delete qualifiers'
+                                        data-action='delete'
+                                        data-params='id={$id}'></a>
+                                   </center>"),
+                        "class='crud-row-{$id}'"); ?>
+    <?endforeach;?>
+
+<?= $this->TableFoot($this->Crud('create', 'Create New qualifiers', 'qualifiers-bind-crud', '', 5)) ?>
+
+
+<script type="text/plain" id="js-crud-edit-qualifiers">
+    <% if( action == '_create' ){%>
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.question), id, "<?=$editPath?>", "question", "Edit Question" ) %></td>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.answer), id, "<?=$editPath?>", "answer", "Edit Answer" ) %></td>
+    <td><%= helpers.escapeHtml(values.type)%></td>
+
+  <td>
+        <center>
+            <a class='crud-create-update icon icon-edit'
+               data-action='update'
+               data-bind='qualifiers-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+            </center>
+    </td>
+    
+    <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='qualifiers-bind-crud'
+               data-action='delete'
+               data-params='id=<%= helpers.escapeHtml(id) %>'> </a>
+        </center>
+    </td>
+    
+    <% if( action == '_create' ){ %>
+        </tr>
+    <% } %>
+</script>
+

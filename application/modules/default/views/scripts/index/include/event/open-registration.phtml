@@ -1,0 +1,22 @@
+<h2 style="margin-bottom:1px; padding-bottom: 0px; line-height: 19px;">Sign-Up For This Event Now</h2>
+<p> Attending: <?=$this->event['rsvp_count']?> </p>
+
+
+<div id="js-event-sign-up-target">
+
+<?if( LOGGED_IN ):?>
+    <?if(!empty($this->eventSigned)):?>
+        <div class="alert alert-success">You have registered to attend this event.</div>
+        <a href="/event/my-events"><i class="icon-calendar"></i>View My Events </a>
+     <?else:?>
+        <input type="button" id="logged-event-sign-up" class="btn btn-primary" value="Sign Up for this event." style="width:100%;">
+    <?endif;?>
+
+<?else:?>
+
+ <?= $this->partial( '/index/include/event/reg-sign-form.phtml', 'default', array('rform'=>$this->form, 'event'=> $this->event)); ?>
+
+<?endif;?>
+
+</div>
+                  

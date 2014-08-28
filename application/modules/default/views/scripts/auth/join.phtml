@@ -1,0 +1,104 @@
+<div class="span8">
+    <div id="sign-up-form-info"> </div>
+    
+    <div id="sign-up-form">
+        <?= $this->form ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+var SignUp = {
+    
+    req:"",
+
+    init:function() {
+       SignUp.req = $("input.__required");
+       SignUp.cap_str = helpers.randomString(4, '#A');
+       SignUp.appendCap(SignUp.cap_str);
+       SignUp.events(); 
+    },
+        
+    events:function(){
+    
+       $("#rsvpform").submit(function(){
+        var errors = SignUp.validate();
+        if (errors.count == 0) {
+            var params = $(this).serializeArray();
+            $("#sign-up-form").addClass('hidden');
+            $("#sign-up-form-info").html('<i class="loading-bar"></i><br /><center><strong>Processing....</strong></center>');
+            
+               $.post('/join-via-event',
+               params,
+               
+               
+               function(data){
+                
+                if (data.success == true) {
+                   $("#sign-up-form-info").html('<div class="alert alert-success">'+data.message+'</div>');
+                   window.location = "/welcome";
+                    
+                }else{
+                  $("#sign-up-form-info").html('<div class="alert alert-error">'+data.message+'</div>'); 
+                  $("#sign-up-form").removeClass('hidden');
+                   $('body').scrollTo( 0, 30);
+                }
+       
+               },
+               'json').error(function(e){ console.log(e); }); 
+         
+        }   
+        return false;  
+      });
+            
+    },
+    
+    validate:function() {   
+       var errors = {};
+       var count = 0;
+       $(".icon-warning-sign").each( function(){$(this).remove();});       
+       SignUp.req.each(function () {
+                         var el = $(this);
+                         var id = el.attr('id');
+                             el.removeClass('error');
+                           if (helpers.empty(el.val())) {
+                               errors[id] = { 'ele':id, 'msg':'Can not be blank'};
+                               count++;
+                           }});
+      
+      var cap = $("#robots").val().toUpperCase().replace(/[^A-Za-z0-9]/gi, '');
+      if ( cap != SignUp.cap_str ) {
+        errors.robots_cap = { 'ele':'robots', 'msg':'Please Enter the value that is displayed in the box.'};
+      }
+      
+      if ($("#email2").val().trim() != $("#email").val().trim()) {
+         errors.emails_dont_match = { 'ele':'email2', 'msg':'Emails do not Match, please double check and make sure your email is correct.'};
+      }
+      
+      for (var e in  errors) {
+        var info = errors[e];
+        $("#"+info.ele).addClass('error');
+        $("#"+info.ele+"-element").append( "<i class='icon-warning-sign bg-red' title='"+info.msg+"'></i>" );
+         count++;
+      }
+      
+      return {'errors':errors, 'count': count};
+    
+    },
+    
+    
+    appendCap:function(cap){
+        var  display = jQuery.map((cap).split(''), function(n,i) {
+                        return '<i>' + n + '<d'+ n +' class="hidden">abcdefghijklmnopqrstuvwxyz'+i+'</d'+ n +'></i> '})
+        $("#robots-element").prepend( "<span class='alert alert-success' > "+  display.join("") +"</span>" );
+    },
+        
+    };
+  
+
+  
+    $(document).ready(function() {
+       SignUp.init();
+    });
+    
+  
+</script>

@@ -1,0 +1,94 @@
+<?
+/*
+ Local Vars:
+    $this->progams,
+    $this->locations
+    
+Avl. Fields In Programs:
+    "provider_id",
+    "industry_id",
+    "name",
+    "tag",
+    "address_id",
+    "info",
+    "views",
+    "created",
+    "modifed",
+    "start_date",
+    "end_date"
+
+*/
+$listLocations = array();
+foreach($this->programs_locations as $plocs){
+    
+           $pid = $plocs['program_id'];
+           if(!array_key_exists($pid, $listLocations)) {
+                $listLocations[$pid] = '';
+           }
+
+          foreach($this->locations as $locs) {
+                if( $locs['id'] == $plocs['location_id']  ){
+                    
+                    $listLocations[$pid] .= $locs['address'];
+                }
+            }
+}
+?>
+
+
+
+<?if(isset($this->programs) && is_array($this->programs)):?>
+
+    <?= $this->TableHead( array('Name','Industry',''), "table table-striped data-table", "js-pages-index" ) ?>
+
+    <?foreach($this->programs as $k=>$p):?>
+        
+        <? $id = $p['id'];?>
+        
+        <?= $this->TableRow( array("<a class='js-program-more-info' data-id='{$id}'>".$this->escape($p['name'])."</a>",
+                                   $this->escape($p['industry_name']),
+                                   ''//isset($listLocations[$id]) ? $listLocations[$id] : ''
+                                   ),
+                              "class='-program-{$id}'"); ?>
+     
+    <?endforeach;?>
+
+    <?= $this->TableFoot() ?>
+<?endif;?>
+
+
+<script type="text/javascript">
+//js-program-more-info
+var program_location = <?=json_encode($listLocations);?>
+
+$(document).ready(function(){
+    
+    $(".js-program-more-info").click(function(){
+            
+            try{
+                
+            var id = $(this).attr("data-id");
+            var locs = program_location[id];
+            
+            var html = "<p>"+locs+"</p>";
+            if(typeof html != 'string') {
+                html = html.join("<br>");
+            }
+            $("#mainModalLabel").html("Locations");
+            $("#mainModalBody").html(html);
+            lightBox.show("mainModal" , "Locations", {}); //div, label, options, method)
+        
+          
+                
+            }catch( e ){
+               
+               console.log(e);
+            }
+          
+        });
+    
+    });
+
+</script>
+
+   

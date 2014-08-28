@@ -1,0 +1,95 @@
+<?if(!$this->xhr || $this->render == 'html'):?>
+<div class="row-fluid">
+
+
+    <div class="span3">
+        <form id="search-by-title-form" action="/admin/programs" method="post" enctype="multipart/form-data">
+            <label for="find-by-industry">Find by program title.</label>
+            <input type="hidden" id="searchField" name="searchField" value="name" />
+            <input type="text" name="searchWord" name="searchWord" id="searchWord" value="">
+            <input type="submit" class="btn" value="search by title" /> 
+        </form>
+    </div>
+
+
+    
+    <div class="span3">
+        <form id="search-by-industry-form" action="/admin/programs" method="post" enctype="multipart/form-data">
+            <label for="find-by-industry">Find by industry.</label>
+            <input type="hidden" id="searchField" name="searchField" value="industry_id" />
+            <select name="searchWord" name="searchWord" id="searchWord">
+                <option value="">------</option>
+                <?foreach($this->industries as $k=>$in):?>
+                <option value="<?=$in->id?>"><?=$in->name?></option>
+                <?endforeach;?>
+            </select>
+           
+            <input type="submit" class="btn" value="search by industry" /> 
+        </form>
+    </div>
+    
+    
+    
+    <div class="span3">
+        <form id="search-by-provider-form" action="/admin/programs" method="post" enctype="multipart/form-data">
+            <label for="find-by-industry">Find by provider.</label>
+            <input type="hidden" id="searchField" name="searchField" value="provider_id" />
+            <select name="searchWord" name="searchWord" id="searchWord">
+                <option value="">------</option>
+                <? $inArray = array();?>
+                <?foreach($this->programs as $k=>$p):
+                
+                if(!in_array($p->provider_id,$inArray)){
+                    $inArray[] = $p->provider_id;
+                }else{
+                    continue;
+                }
+                //$this->view->providers
+                ?>
+                <option value="<?=$p->provider_id?>"><?=$p->provider_name?></option>
+                <?endforeach;?>
+            </select>
+           
+            <input type="submit" class="btn" value="search by provider" /> 
+        </form>
+    </div>
+
+</div>
+
+
+<?endif;?>   
+
+
+<?
+$this->paginate->asyncAttr = "data-";
+$this->paginate->className = "asyncClick";
+$paginateLinks = $this->paginate->links('/admin/programs/index/page');
+?>  
+
+<div id="program-index-list">
+
+<?=$paginateLinks;?>
+    <?= $this->partial( '/provider/programs.phtml' , 'admin', array("programs"=>$this->programs, 'hideNew'=>true, 'showProviderLink'=>true)  );?>
+
+     <?=$paginateLinks?>
+</div>
+<?if(!$this->xhr || $this->render == 'html'):?>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        var pages = new helpers.pagination("/admin/programs/index/page/", ".pagination", null, "#program-index-list");         
+
+        $("#search-by-industry-form, #search-by-provider-form, #search-by-title-form").submit(function(){
+                         pages.params =  $(this).serializeArray();
+                        $.post("/admin/programs/", pages.params,
+                               function (data) {
+                                    $("#program-index-list").html(data);
+                                },   
+                                'html').error(function(e){ console.log(e); });
+                        return false;
+                        });
+        });
+</script>
+<?endif;?>
+

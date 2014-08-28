@@ -1,0 +1,69 @@
+
+<?if(!$this->xhr):?>
+<? $this->headLink()->appendStylesheet('/css/views/admin/index.css'); ?>
+<? $this->headLink()->appendStylesheet('/js/vendor/wysiwyg/summernote.css'); ?>
+<? $this->headLink()->appendStylesheet('/css/vendor/bootstrap-datatable.css'); ?>
+<? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
+       
+
+<? $this->headScript()->appendFile('/js/vendor/underscore.js');?>
+<? $this->headScript()->appendFile('/js/vendor/x-editable.js');?>
+<? $this->headScript()->appendFile('/js/lib/admin.js');?>
+<? $this->headScript()->appendFile('/js/lib/crud.js');?>
+<? $this->headScript()->appendFile('/js/lib/media.js');?>
+<? $this->headScript()->appendFile('/js/vendor/wysiwyg/summernote.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTables.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
+<?endif;?>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="tabbable" id="tabs-242421">
+				<ul class="nav nav-tabs">
+					<li class="active">
+                                                <a href="#provider-form-tab" data-toggle="tab">Provider Info</a>
+					</li>
+					<li>
+						<a href="#provider-address-tab" data-toggle="tab">Address</a>
+					</li>
+                                        
+                                        
+                                        <li>
+						<a href="#provider-programs-tab" data-toggle="tab">Programs</a>
+					</li>
+                                        
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active pos-rel" id="provider-form-tab">
+						
+                                                    
+                                                <div style=" text-align: right; right: 0px; top: 0px;" class="pos-abs">
+                                                <img src="/image/db/<?=$this->provider_id?>/p/" style="max-height: 100px;" img:id="<?=$this->provider_id?>" img:type="p" class="img-polaroid  js-update-img js-update-img-focus">
+                                                 <br />
+                                                 <a img:id="<?=$this->provider_id?>" img:type="p"  class="js-update-img pointer"><small>update image</small></a>
+                                                </div>
+                                                   
+                                                   <div class="form-message"> </div> 
+                                                   <?=$this->form?>  
+                                                  
+                                                    
+                                                
+					</div>
+					<div class="tab-pane" id="provider-address-tab">
+						<p>
+                                                <?= $this->partial('/provider/address.phtml', array('addresses'=>$this->addresses, 'provider_id'=>$this->provider_id))?>
+						</p>
+					</div>
+                                        <div class="tab-pane" id="provider-programs-tab">
+						<p>
+                                                <?= $this->partial('/provider/programs.phtml', array('programs'=>$this->programs, 'provider_id'=>$this->provider_id))?>
+						</p>
+					</div>
+                                        
+                                        
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

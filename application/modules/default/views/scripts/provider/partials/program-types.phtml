@@ -1,0 +1,33 @@
+<div class="row" >
+<div class="span8" >
+    <?= $this->TableHead( array('Program', 'Industry', 'View'), "table table-striped data-table", "js-groups-index" ) ?>
+        <?foreach( $this->programs as $p ):?>
+            <?= $this->TableRow(array(
+                                "<a href='/providers/view/id/{$p->provider_id}'>{$p->name}</a>",
+                                "<a href='/providers/industry/id/{$p->industry_id}'>{$p->industry_name}</a>",
+                                "<a href='/providers/view/id/{$p->provider_id}'><i class='icon-edit' title='view'><i/></a>"
+                                ) ); ?>
+        <?endforeach;?>
+    <?= $this->TableFoot() ?>
+</div>
+</div>
+
+<?
+/*
+ ["id"]=> string(3) "372"
+ ["provider_id"]=> string(2) "57"
+ ["industry_id"]=> string(3) "142"
+ ["name"]=> string(26) "Medical Billing and Coding"
+ ["tag"]=> string(52) "Diploma,Diploma,Associate of Applied Science AAS,AAS"
+ ["address_id"]=> string(2) "57"
+ ["info"]=> string(0) ""
+ ["views"]=> string(1) "0"
+ ["created"]=> string(19) "2014-04-05 05:23:31"
+ ["modifed"]=> string(1) "0"
+ ["start_date"]=> string(19) "0000-00-00 00:00:00"
+ ["end_date"]=> string(19) "0000-00-00 00:00:00"
+ ["industry_name"]=> string(3) "AAS" 
+
+*/
+
+?>

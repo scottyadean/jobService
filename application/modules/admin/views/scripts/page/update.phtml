@@ -1,0 +1,27 @@
+
+<table class="table table-striped table-border">
+    
+    <tr>
+        <td><?=$this->form?></td>
+        
+        <td><?
+        //var_dump($this->modules)
+        ?></td>
+    </tr>
+    
+</table>
+
+
+<?if(isset($this->avlModules)):?>
+
+    <?foreach($this->avlModules  as $k=>$m):?>
+    
+        <?=$m->id?> <?=$m->name?><br />
+    
+    
+    <?endforeach;?>
+
+
+
+<?endif;?>
+

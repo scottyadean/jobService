@@ -1,0 +1,102 @@
+<?if(!$this->xhr):?>
+
+<? $this->headTitle('Event Details'); ?>
+
+<? $this->headLink()->appendStylesheet('/css/views/admin/index.css'); ?>
+<? $this->headLink()->appendStylesheet('/js/vendor/wysiwyg/summernote.css'); ?>
+<? $this->headLink()->appendStylesheet('/css/vendor/bootstrap-datatable.css'); ?>
+<? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
+       
+<? $this->headScript()->appendFile('/js/vendor/underscore.js');?>
+<? $this->headScript()->appendFile('/js/vendor/x-editable.js');?>
+<? $this->headScript()->appendFile('/js/lib/admin.js');?>
+<? $this->headScript()->appendFile('/js/lib/crud.js');?>
+<? $this->headScript()->appendFile('/js/lib/media.js');?>
+<? $this->headScript()->appendFile('/js/vendor/wysiwyg/summernote.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTables.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
+
+<?endif;?>
+
+<?php
+
+$link = SITE_URL."/event-detail/id/".$this->event['id']."/event/".Base_Functions_Strings::Slug($this->event['title']);
+$count = abs($this->event['rsvp_count'] - $this->event['seats']);
+$eventDatePassed = strtotime($this->event['created']) < time() ?  true : false; 
+
+?>
+
+    <div class="tabbable" id="tabs-event-details">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#panel-edetail" data-toggle="tab">Event Details</a></li>
+            <li>
+            <a href="#panel-ereg" data-toggle="tab">Registrations
+            <?if(isset($this->users) && !empty($this->users)):?>
+            <div style="background-color: #00ADEF; color:#fff; display: inline-block; padding: 0px 5px 0px 5px;" class="rounded-corners"> <small><?=count($this->users)?></small> </div>
+            <?endif;?></a>
+            </li>
+
+            <li class=""><a href="#panel-contact" data-toggle="tab">Contact Attendees</a></li>
+                
+            
+        </ul>
+        <div class="tab-content">
+            
+            <div class="tab-pane active" id="panel-edetail">
+                    <div class="pull-right">
+                    
+                    <div class="btn-group">
+                        
+                     <a data-format="html" data-params="render=html&view=admin" data-callback="default" data-path="/admin/events/" class="admin-link btn">
+                    Back To Events <i class="icon-calendar"></i></a>                        
+                     <a event:id="<?=$this->event['id']?>" id="js-assign-qualifier" class=" btn js-assign-qualifier">Assign Qualifiers <i class="icon-question-sign"></i></a>
+                     <a class="btn export-attendies" href="/admin/events/export-list/id/<?=$this->event['id']?>">Export Attendees List <i class="icon-wrench"></i></a></p>
+                    </div> 
+                    </div>
+                    <h2 class="no-pad no-margin"><?=$this->event['title']?></h2>
+                    <strong>Type: <?=$this->event['type']?></strong>
+                    <div class=""><?= date("m-d-Y", strtotime($this->event['created'])) ?></div>
+                    
+                    
+                    <div class="alert alert-<?= ($this->event['visible'] == 'Y') ? "success" : "error" ?>">
+                        Event Visible: <?=$this->event['visible'] ?>
+                     </div>
+                    
+                    <div class="alert alert-success">
+                        <?=$this->event['rsvp_count'] ?> attending of <?=$this->event['seats']?> Seat/s<br />
+                     </div>
+                    
+                    <div class="alert alert-success">
+                        0 Pending on wait-list<br />
+                     </div>
+                                                             
+                    <?if( $eventDatePassed ):?>
+                       <div class="alert alert-error">Status: Over</div>
+                   <?else:?>
+                       <div class="alert alert-success">Status: Active</div>
+                   <?endif;?>
+                                        
+            </div>
+            
+            <div class="tab-pane" id="panel-ereg">
+                <p><a class="export-attendies" href="/admin/events/export-list/id/<?=$this->event['id']?>">Export Attendees List <i class="icon-wrench"></i></a></p>
+                    <?if(isset($this->users) && !empty($this->users)):?>
+                      <?= $this->partial( '/user/index.phtml', 'admin', array('users'=>$this->users, 'header'=>'Users Attending Event')  ); ?>                    
+                    <?endif;?>
+                
+            </div>
+            
+            
+            <div class="tab-pane" id="panel-contact">
+                Email:<Br />
+                <textarea class="textarea-large-size" name="event-to-reg"> </textarea>
+                <br />
+                <input type="submit"  value="Send" class="btn btn-primary" />
+            </div>
+            
+        </div>
+    </div>
+
+
+
+

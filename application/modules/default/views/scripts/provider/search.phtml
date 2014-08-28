@@ -1,0 +1,16 @@
+<? if( $this->disableLayout == false ): ?>
+    <? $this->headTitle('Training Providers');?>
+    <? $this->headScript()->appendFile('/js/views/providers/index.js');?>
+    <h3>Training Providers Directory</h3>
+    <hr>
+    <?= $this->partial('/provider/partials/search.phtml', 'default', array()); ?> 
+<?endif;?>
+<?
+$count = count($this->providers);
+$plural = ($count == 1) ? '' : 's';
+?>
+
+<h2>Found <?=$count?> result<?=$plural?></h2>
+
+<?= $this->partial('/provider/partials/display.phtml', 'default',
+                   array('providers'=>$this->providers, 'locations'=>$this->locations));?>

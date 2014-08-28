@@ -1,0 +1,117 @@
+<div class="span6">
+<h1>My Events </h1>
+<p><a href="/events" class="">Events Page</a>  </p>
+<?
+$this->layout()->sideNav = 'N';
+$this->headScript()->appendFile('/js/lib/crud.js');
+$now = date('Y-m-d');
+
+if( isset($this->events) ):?>
+
+    <? if(count($this->events) == 0): ?>    
+        <strong>No Events</strong>
+        <p>Please visit the <a href="/events">Events</a> Page to find new events attend. </p>
+        
+    <?endif;?>
+    
+    <?foreach( $this->events as $k=>$e ):?>
+    
+            <div class="pad-5px well" id="event-<?=$e['id']?>">
+            <i class="icon-calendar"></i><strong><?=$this->escape($e['title'])?></strong><br/>
+            <?$date = strtotime($e['created'])?>
+            <?=date('m/d/Y', $date)?>
+            <?if( $date < time()  ):?>
+                <div class="alert alert-error"> Event Closed     </div>
+                <!--a class="remove-from-my-event-list pull-right" event-id="<?=$e['id']?>" style="margin-top:-12px; ">
+                <i class="icon-remove"></i> Remove from list </a-->
+            <?else:?>
+                <? $diff = date_diff(date_create($e['created']) ,date_create($now) ); ?>
+                    in <?=  $diff->format("%R%a days");?>
+                   
+                    <a class="event-view btn btn-success" event-id="<?=$e['id']?>" > View </a>
+                    
+                    <?if( $e['type'] != 'open' ):?>
+                        <a class="btn btn-warning cancel-event-res" data-event-id='<?=$e['id']?>'> Cancel </a>
+                    <?endif;?>
+                      
+                   
+            <?endif;?>
+            </div>
+            
+    
+    <?endforeach;?>
+
+
+<?endif;?>
+
+</div>
+
+<div id="event-display-target" class="span6">
+    
+</div>
+
+
+<script>
+    
+    $(document).ready(
+                      
+        function() {
+            
+            $(".event-view").click(function(){
+                var id = $(this).attr('event-id');
+                $("#event-display-target").html('loading...');
+               $.post('/event-detail',
+               {id:id},
+               function(html){  $("#event-").html(html); },
+               'html').error(function(e){ console.log(e); });     
+                
+            });
+            
+            /*
+            $(".remove-from-my-event-list").click(function(){
+               
+               var id = $(this).attr('event-id');
+                  
+               var callback =    function(data) {
+                                    
+                                        $("#event-"+data.id).html("Removed").fadeOut('slow', function(){
+                                            $(this).remove();
+                                        });
+                                    
+                                    };
+                  
+                  
+               $.post('/event/remove-from-list/',{id:id},callback,'json').error(function(e){ console.log(e); });  
+                
+            });
+        */
+            $(".cancel-event-res").click(function(){
+                var id = $(this).attr('data-event-id');
+             
+             
+             Crud.Confirm({ url: "/event/cancel/",
+                              params: {id:id},
+                              title: 'Please confirm Event cancellation',
+                              text:  'Are you sure you want to cancel your event registration.',
+                              ok: 'Cancel my registraion, I\'m an not going to this event.',
+                              cancel: 'Do not cancel. '
+                
+                }).done(function(data){
+                      var el = $("#event-"+data.id).css({'color':'red'});
+                          el.fadeOut(1000, function() { $(this).remove(); });
+                    
+                });
+            
+                
+                
+            });
+        
+            
+            
+            
+        }                      
+                      
+    );
+    
+    
+</script>

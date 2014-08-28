@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Email Form</title>
+</head>
+
+<body>
+
+
+<table border="1">
+
+<tr>
+    <td><p>What is the name of your organization?</p></td>
+    <td><p><b>$organization</b></p></td>
+</tr>
+<tr>
+    <td><p>What is your name and title within the organization?</p></td>
+    <td><p><b>$realname</b></p></td>
+</tr>
+<tr>
+    <td><p>What is your email address?</p></td>
+    <td><p><b>$email</b></p></td>
+</tr>
+<tr>
+    <td><p>What is the name of the course/program/class you wish to report?</p></td>
+    <td><p><b>$course</b></p></td>
+</tr>
+<tr>
+<td colspan="2">
+Completion Rate</td>
+</tr>
+<tr>
+    <td><p>What is the total number of participants (WIA and Non-WIA) in the  program for FY 2014?</p></td>
+    <td><p>WIA: <strong>$participation_WIA</strong><br />
+    Non-WIA: <strong>$participation_nonWIA</strong><br />
+    Total:<strong> $participation_total </strong></p></td>
+</tr>
+<tr>
+
+<tr>
+    <td><p>Of WIA and non-WIA participants (all participants) how many completed training for FY 2014?</p></td>
+    <td><p>WIA: <strong>$completion_WIA</strong><br />
+Non-WIA: <strong>$completion_nonWIA</strong><br />
+Total:<strong> $completion_total</strong></p></td>
+</tr>
+<tr>
+    <td><p><span class="text">Take the number of participants who fully completed  the program (question 4b) and divide by the participants who originally attended (question 4a).</span></p></td>
+    <td><p><b>$completion_percentage</b></p></td>
+</tr>
+<tr>
+    <td valign="top"><p><span class="text">Write any comments here regarding completion.</span></p></td>
+    <td><p><strong>$completion_comments</strong></p></td>
+</tr>
+<tr>
+<td colspan="2">
+Skills Attainment</td>
+</tr>
+<tr>
+	<td><p>Of all WIA and non-WIA program participants, how many attained the  skill, credential, or license in the reporting period?</p></td>
+    <td><p>WIA: <strong>$skill_WIA</strong><br />
+Non-WIA: <strong>$skill_nonWIA</strong><br />
+Total:<strong> $skill_total</strong></p></td>
+</tr>
+<tr>
+    <td><p>Take the number of participants who successfully attained the  credential/license/certificate (<strong>question 5a</strong>) and divide it by the total  number of participants (<strong>question 4a</strong>). </p></td>
+    <td><p><b>$skill_percentage</b></p></td>
+</tr>
+<tr>
+    <td><p><span class="text">Please write any comments regarding skills attainment. For example, if you do not track skills attainment, please note it below with a brief explanation. Writing only &quot;N/A&quot; or &quot;not applicable&quot; will not suffice. </span></p></td>
+    <td><p><b>$skill_comments</b></p></td>
+</tr>
+<tr>
+<td colspan="2">
+Employment</td>
+</tr>
+<tr>
+    <td><p>Of all WIA and non-WIA program participants, how many gained employment in the reporting period?</p></td>
+    <td><p>WIA: <strong>$employment_WIA</strong><br />
+Non-WIA: <strong>$employment_nonWIA</strong><br />
+Total:<strong> $employment_total</strong></p></td>
+</tr>
+<tr>
+    <td><p>Take the number of participants who gained employment (<strong>question 6a</strong>) and divide by the  total number of participants (<strong>question 4a</strong>). Please write as a percentage.</p></td>
+    <td><p><b>$employment_percentage</b></p></td>
+</tr>
+
+<tr>
+    <td><p><span class="text">Please write any comments regarding employment. For example, if you do not track employment, please note it below with a brief explanation. Writing only &quot;N/A&quot; or &quot;not applicable&quot; will not suffice. </span></p>
+    </td>
+    <td><p><b>$employment_comments</b></p></td>
+</tr>
+<tr>
+<td colspan="2">
+Wages</td>
+</tr>
+<tr>
+    <td><p><span class="text">What was the average wage placement for all program participants who obtained employment? Please express as an hourly rate. </span></p></td>
+    <td><p><b>$wage</b></p></td>
+</tr>
+<tr>
+    <td><p><span class="text">Please write comments here regarding average wage. Again, some  organizations may not track this information. Write a brief explanation  below. Writing &quot;N/A&quot; or &quot;not applicable&quot; will not suffice. </span></p></td>
+    <td><p><b>$wage_comments</b></p></td>
+</tr>
+</table>
+</body>
+</html>

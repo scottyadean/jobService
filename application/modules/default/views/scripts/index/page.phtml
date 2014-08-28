@@ -1,0 +1,45 @@
+
+<?$this->layout()->sideNav = "N";?>
+<?$this->headTitle($this->page->title ." ");?>
+
+<?foreach(  $this->mods as $m ):?>
+    <?if($m->type == 'H'):?>
+        <? $this->layout()->header = $m->body?>
+    <?endif;?>
+<?endforeach;?>
+
+
+<?if( $this->page->nav_left_display !== 'N' ):?>
+<?foreach(  $this->mods as $m ):?>
+    <?if($m->type == 'L'):?>
+        <?=$m->body?>
+    <?endif;?>
+<?endforeach;?>
+
+<?endif;?>
+
+<?if(isset($this->page->body)):?>
+    <?=$this->page->body?>
+    
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+    content.load( '/views', {m:'pages', id:<?=$this->page['id']?>}, function(d){console.log(d);}, 'json' );
+    });
+</script>
+    
+    
+<?else:?>
+    <h2>Page Not Found</h2>
+<?endif;?>
+<?if( $this->page->nav_right_display !== 'N' ):?>
+<?foreach(  $this->mods as $m ):?>
+    <?if($m->type == 'R'):?>
+        <?=$m->body?>
+    <?endif;?>
+<?endforeach;?>
+<?endif;?>
+<br clear="both"/>
+
+
+

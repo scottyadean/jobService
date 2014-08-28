@@ -1,0 +1,45 @@
+<div id="js-event-qualifiers-info"> </div>
+
+<div id="js-event-qualifiers-btns">
+<? foreach( $this->qualifiers as $q ):?>
+
+    <?if( in_array( $q['id'], $this->assignedIds ) ): 
+        $status = "Assigned";
+        $style  = "btn-success";
+        $vis    = array( 'assign'=>'hidden', 'remove'=>'' );
+    else: 
+        $status = "Unassigned";
+        $style  = "btn-warning";
+        $vis    = array( 'assign'=>'', 'remove'=>'hidden' );
+    endif;?>
+    
+    <div id="qualifier_<?=$q['id']?>" qualifier:question="<?=$q['question']?>"  qualifier:answer="<?=$q['answer']?>"
+    class="btn-group" title="<?=$status?>">
+    
+    <a class="js-assign-to-event-btn btn btn-primary <?=$style?> js-append-info-to pointer" 
+        event:id="<?=$q['id']?>"
+        append:id="<?=$q['id']?>",
+        append:url="/admin/qualifiers/read/id/"                         
+        append:div="js-event-qualifiers-info"><i class="icon-user icon-white"></i> <?=$q['question']?> </a>
+   
+    <a class="js-assign-to-event-btn btn btn-primary <?=$style?> dropdown-toggle" 
+       data-toggle="dropdown" 
+       href="#"><span class="caret"></span></a>
+     
+    <ul class="dropdown-menu">
+        <li class="<?=$vis['remove']?> js-qualifier-remove-link" 
+            event:id="<?=$this->id?>" 
+            event:qualifier="<?=$q['id']?>"><a class="pointer js-assign-to-event" 
+            event:action="remove"><i class="icon-trash"></i> Remove</a></li>
+
+        <li class="<?=$vis['assign']?> js-qualifier-assign-link" 
+            event:id="<?=$this->id?>" 
+            event:qualifier="<?=$q['id']?>"><a class="pointer js-assign-to-event" 
+            event:action="assign"><i class="icon-thumbs-up"></i> Assign</a></li>    
+    </ul>
+    
+    </div>
+        
+    
+<?endforeach;?>
+</div>

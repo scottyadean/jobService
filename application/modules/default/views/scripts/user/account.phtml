@@ -1,0 +1,56 @@
+<div class="span8">
+<?  $this->headScript()->appendFile('/js/lib/media.js'); ?>
+
+<img class="img-polaroid pointer js-update-img margin-10px pull-right"
+     id="js-update-img"
+     usr:type="u"
+     usr:id="<?=$this->user['id']?>" src="/image/db/<?=$this->user['id']?>/u" />
+     
+     <p>
+     <a href="#" class="js-update-img btn" id="js-update-img" usr:type="u" usr:id="<?=$this->user['id']?>">Update Image</a> 
+     <a href='/account/edit/' class="btn">Edit Account</a> 
+     
+     <a href="/event/my-events" class="btn">My Events</a>
+     </p>
+    
+    <?
+    $dontshow = array('id','account_id', 'password', 'salt', 'status', 'position', 'role', 'bio', 'date_created', 'last_log');
+    foreach( $this->user as $k=>$u){
+        
+            if(!in_array($k, $dontshow)){
+                echo "<strong>".str_replace("_", " ", ucwords($k)). "</strong> : ".$this->escape($u)." <br />";
+            }
+    }?>
+
+    <hr />
+    
+    <blockquote>
+    <p>
+        <?=$this->escape($this->user['bio'])?>
+        <small><? $date = strtotime($this->user['date_created']); echo "Account Created: ".date("m-d-Y", $date);  ?></small>
+        <small><? $date = strtotime($this->user['last_log']); echo "Last Login: ".date("m-d-Y", $date);  ?></small>
+    </p>
+    </blockquote>
+
+
+</div>
+
+<script type="text/javascript">
+     
+     $(document).ready(function(){
+        
+             $( ".js-update-img" ).click( function(){
+
+            var ele = $(this);
+            var id = ele.attr('usr:id');
+            var tp = ele.attr('usr:type');            
+            lightBox.show('mainModal', 'Add Image', {'remote':'/image/db/create/'+id+'/'+tp+'/callback/imgUpload.complete'});
+           
+         });
+        
+     });
+        
+
+
+    
+</script>

@@ -1,0 +1,120 @@
+<?
+$this->layout()->sideNav = 'N';
+$link = SITE_URL."/event-detail/id/".$this->event['id']."/event/".Base_Functions_Strings::Slug($this->event['title']);
+$count = abs($this->event['rsvp_count'] - $this->event['seats']);
+$eventDatePassed = strtotime($this->event['created']) < time() ?  true : false; 
+if($this->xhr):?>
+    <div class="pull-right">
+        <?if(empty($this->eventSigned)):?>   
+            <a href="<?=$link?>"><?if( $this->event['type'] !=  'open'):?>register<?else:?>go to page<?endif;?></a>
+        <?else:?>
+            <a href="<?=$link?>">go to page</a>
+        <?endif;?>
+    </div>
+<?else:?>
+    <?$this->headScript()->appendFile('https://maps.googleapis.com/maps/api/js?key=AIzaSyBYt3WjO2eW9zzCrfpxhdl6Q8HJj7ueh_8&sensor=false');?>
+    <?$this->headScript()->appendFile('/js/views/index/events/display.js');?>
+<?endif;?>
+
+<div class="row">
+    <input type="hidden" id="event_id" value="<?=$this->event['id']?>" />
+    
+    <div class="span8 event">
+        <?=$this->EchoIfSet($this->event['title'], "<h1><a href='$link'>", "</a></h1>") ?>
+        <p><strong>Event Type:</strong> <?=ucwords($this->event['type'])?></p>
+        
+        <?if(empty($this->eventSigned)):?>         
+            <?if( !$eventDatePassed  && $this->event['type'] == 'limited registration' ):?>
+                   <div class="alert alert-<?= $count  > 0 ? 'success' : 'error' ?>">Status: <?= $count  > 0 ? 'Open' : 'Closed' ?>
+                       <?if ( $count <= 0):?>
+                        <div class="">This class is full you may add yourself to the <a href="<?=$link?>#regform">wait list</a> and you will be enrolled if an opening becomes available</div>    
+                        <?else:?>
+                        <div class="">Space is limited, <a href="<?=$link?>#regform">Register now</a> while seats are still available</div>    
+                        <?endif;?> 
+                   </div>
+           <?endif;?>
+        <?endif;?>
+ 
+         <?if( $eventDatePassed ):?>
+            <div class="alert alert-error">Status: Over
+                <div class="">This event date has passed.</div>    
+            </div>
+        
+        <?else:?>
+        
+            <?if(!empty($this->eventSigned)):?>
+            <div class="alert alert-success">Status: You are registred to attend this event.</div>    
+            <?endif;?>
+
+        <?endif;?>
+        
+        <div> <?=$this->event['body']?></div>
+        
+        <hr />
+            <strong>Page Link:</strong><br />
+            <input type="text" class="pad-10px" style="width: 90%;" value="<?=$link?>" />
+        <hr />
+        
+    </div>
+    
+    
+    <div class="span4">
+    <br />
+        
+        <div id="mapevent"> </div>
+        
+        <hr />
+
+        <blockquote>
+                <p>
+                <?=$this->EchoIfSet(date("F d, Y",strtotime($this->event['created'])), "<strong>When:</strong> ", " <br />") ?>
+                <?=$this->EchoIfSet($this->event['start_time'], "Staring: ", "<br />") ?>
+                <?=$this->EchoIfSet($this->event['end_time'], "Ending: ", "<br />") ?>
+                </p>
+                <?=$this->EchoIfSet($this->event['site'], "<small> <cite>more info @ </cite>", "</small>") ?>
+        </blockquote>
+
+
+        <blockquote>
+            <p>
+            <strong>Where:</strong><br />
+                <?=$this->EchoIfSet($this->event['location'], "", "<br />") ?>
+                <?=$this->EchoIfSet($this->event['address'], "", "<br />") ?>
+                
+            <small>
+                <?=$this->EchoIfSet($this->event['city'], "", ",") ?>
+                <?=$this->EchoIfSet($this->event['state'], " ") ?>
+                <?=$this->EchoIfSet($this->event['zip'], " ") ?> 
+            </small>
+            </p>
+        
+        </blockquote>
+        
+        
+       <?if(!$this->xhr):?>   
+             <?= $this->partial( '/index/include/events-signup.phtml',array('event'=>$this->event,
+                                                                            'form'=>$this->form,
+                                                                            'eventSigned'=>$this->eventSigned,
+                                                                            'eventDatePassed'=>$eventDatePassed,
+                                                                            'onWaitList'=>$this->isOnWaitList)); ?>
+        <?endif;?>
+        
+    </div>
+    
+    
+</div>
+
+
+<?if(!$this->xhr):?>  
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+              var location = "<?=$this->event['address']." ".$this->event['city']. " ". $this->event['state']. " ". $this->event['zip']?>";
+              EventMaps.showStatic(location, "event");
+              
+              content.load( '/views', {m:'events', id:<?=$this->event['id']?>}, function(d){console.log(d);}, 'json' );
+                           
+            });
+    
+    </script>
+ <?endif;?>

@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/* CSS Document */
+#purple
+	{background-color:#f7f2f7;
+	width:100%;}
+
+#wrap
+	{background-image:url(../img/purpbg.jpg);
+	background-repeat:repeat-x;
+	background-color:#f7f2f7;
+	min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;}
+
+	
+#header
+	{background-image:url(../img/top_purple.jpg);
+	background-repeat:no-repeat;}
+	
+#sidenav
+	{background-image:none;
+	background-color:#e1cee2;
+	background-repeat:no-repeat;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	width:100%;
+	margin-bottom:20px;}	
+		
+#headerimg
+	{background-image:url(../img/employer_lrg2.jpg);
+	background-position:center;
+	height:137px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;}
+	
+
+h1
+	{
+	color:#7c2b82;
+	}
+	
+#leftsidebar
+	{border:none;
+	margin-top:20px;
+	margin-right:-1px;
+	}
+	
+	
+img.sidebarpurp
+	{-moz-border-radius: 7px;
+	border-radius: 7px;
+	border:solid 2px #7c2b82;
+	margin-bottom:20px;}
+	
+#sidenav ul
+	{padding-bottom:10px;}
+	
+#sidenav ul li a
+	{
+	color:#005e9e;
+	background-image:url(../img/arrow_purp.png);
+	background-repeat: no-repeat;
+	background-position:0;
+	}
+	
+#sidenav ul li a:hover
+	{background-image: url(../img/arrow_over.png);
+	background-repeat: no-repeat;
+	background-position:0;}
+	
+#calloutpurple
+	{background-color:#e2d0e3;
+			-moz-border-radius: 7px;
+	border-radius: 7px;
+	margin-top:15px;
+	margin-bottom:15px;
+	padding:15px;
+	}
+.accordion-heading
+			{background-color:#ffffff;}
+		.accordion-heading a
+			{color:#7c2b82;}

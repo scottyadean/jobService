@@ -1,0 +1,59 @@
+<a name="regform"> </a>
+
+<?
+//if the event date has passed there is no need to do anything
+if($this->eventDatePassed !== false):?>
+    <h2>The Event Date Has Passed.</h2>
+    <a href="/events"><i class="icon-calendar"></i> Back to Events.</a>
+<?
+return;
+endif;?>
+
+<?
+//if the event is open then there is no need to check the number of seats
+if( $this->event['type'] == "open" ):?>
+ <?= $this->partial( '/index/include/event/open.phtml', 'default',
+                    array('form'=>$this->form,
+                          'event'=> $this->event,
+                          'eventDatePassed'=>$this->eventDatePassed,
+                          'eventSigned'=>$this->eventSigned,
+                          'onWaitList'=>$this->onWaitList
+                          )); ?>
+<?
+return;
+endif;?>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        SignUp.Init(helpers.randomString(4, '#A'));
+        });
+</script>
+
+<?
+//if this is a open reg Event
+if( $this->event['type'] == "open registration" ):?>
+ <?= $this->partial( '/index/include/event/open-registration.phtml', 'default',
+                    array('form'=>$this->form,
+                          'event'=> $this->event,
+                          'eventDatePassed'=>$this->eventDatePassed,
+                          'eventSigned'=>$this->eventSigned,
+                          'onWaitList'=>$this->onWaitList
+                          )); ?>                          
+<? endif;?>
+
+
+<?
+//if this is a limited number of seats to reg Event
+if( $this->event['type'] == "limited registration" ):?>
+ <?= $this->partial( '/index/include/event/limited-registration.phtml', 'default',
+                    array('form'=>$this->form,
+                          'event'=> $this->event,
+                          'eventDatePassed'=>$this->eventDatePassed,
+                          'eventSigned'=>$this->eventSigned,
+                          'onWaitList'=>$this->onWaitList
+                          )); ?>
+<? endif;?>
+
+<br />
+<a href="/events"><i class="icon-calendar"></i>Back To Events.</a>

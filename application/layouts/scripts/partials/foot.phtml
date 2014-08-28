@@ -1,0 +1,61 @@
+
+
+<div id="footer" class="footer">
+      <div class="container">
+        
+        <div class="row">
+            <div class="span12">
+            
+                <p align="center">
+                <a href="/page/id/11/who-we-are">Who We Are</a>
+                 | <a href="/page/id/13/locations">Locations</a>
+                  | <a href="/events">Events</a>
+                   | <a href="/page/id/17/annual-report">Resources</a>
+                    | <a href="/page/id/15/contact.html">Contact Us</a>
+                     | <a href="/page/id/15/jobseeker">Job Seekers</a>
+                      | <a href="/page/id/31/employers">Employers</a>
+                       | <a href="/page/id/38/youth">Young Adults</a>
+                       <br>&copy; <?=date("Y")?> <?=SITE_NAME_FANCY?>
+                                 | 703-752-1606 | 877-545-1462<br> Design by <a href="http://www.pddesign.com" target="_blank">Pat Davis Design Group, Inc.</a>
+                </p>
+            
+            </div>
+        </div>
+        
+</div>
+</div>
+
+
+
+<!-- modal window main the below tempates are used for the pop up window -->
+
+<div id="mainModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mainModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="mainModalLabel">Modal header</h3>
+        </div>
+        <div id="mainModalBody" class="modal-body"> </div>
+        <div id="mainModalFooter" class="modal-footer"> </div>
+</div>
+
+
+<div class="modal hide fade" id="confirm-dialog">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Confirm</h3>
+    </div>
+        <div class="modal-body" style="min-height:50px;"> </div>
+        <div class="modal-footer">
+        <a class="btn btn-danger">Ok</a>
+        <a class="btn btn-cancel" data-dismiss="modal">Cancel</a>
+    </div>
+</div>
+
+<script id="date-template" type="text/plain">
+    <div data-date-format="dd-mm-yyyy" data-date="<%= start %>" id="<%= id %>" class="input-append date">
+        <%= field %>
+        <span class="add-on"><i class="icon-calendar"></i></span>
+    </div>
+</script>
+
+

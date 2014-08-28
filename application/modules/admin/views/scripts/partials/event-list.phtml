@@ -1,0 +1,199 @@
+<h2>Events For <small id="date-select-m-y"><?=date("m-Y");?></small></h2>
+     
+     <div id="event-list" class="">
+ 
+     <div class="crud-create-update crud-load-template hidden"
+     id="event-bind-crud"
+     data-id=''
+     data-path='.:crud-event'
+     data-form='eventsform'
+     data-title="Edit Event Content"
+     data-params=''
+     data-action='create'
+     data-callback='Admin.Events.Update'
+     data-onDelete='Admin.Events.Delete'
+    
+     data-target='event-list'
+     data-template='js-events-template-crud'></div>
+
+     <?
+     /*
+     <a data-title="When you want vacation to start?"
+     data-placement="right" data-pk="1" data-viewformat="dd.mm.yyyy"
+     data-type="date" id="vacation" href="#" class="editable editable-click"
+     data-original-title="" title="">25.02.2013</a>
+     
+     */
+     ?>
+<?= $this->TableHead( array('Title','Visible','Date','Starts','Ends', 'Q', 'Quick Edit', 'Details','Remove'), "table table-striped small-txt", "event-list" ) ?>
+
+    <? $editPath = "/admin/events/inline-edit"; ?>
+
+    <?foreach($this->events as $e ):?>
+    <? $id = $e->id;?>
+    <?= $this->TableRow( array( $this->InlineEdit($e->title, $id, $editPath, "title-inline-edit", "Edit Title"),
+                                $this->InlineEdit($e->visible, $id, $editPath, "visible-inline-edit", "Edit Visible", 'select',
+                                                 '/admin/provider/data-src'),
+                                '<a data-title="Update Event Date"
+                                data-url="'.$editPath.'"
+                                data-placement="right" data-pk="'.$id.'" data-viewformat="yyyy-mm-dd"
+                                data-type="date" id="created-inline-edit" href="#" class="editable editable-click"
+                                data-original-title="" title="">'.$e->created.'</a>',
+                                $e->start_time,
+                                $e->end_time,
+                                "<center><a event:id='{$id}' id='js-assign-qualifier' class='js-assign-qualifier  icon-question-sign'></a></center>",
+                                "<center>
+                                    <a class='crud-create-update icon icon-cog'
+                                      data-action='update'
+                                      title='quick edit event content'
+                                      data-bind='event-bind-crud'
+                                      data-params='id={$id}'></a>
+                                   </center>",
+                                   
+                                   "<center>
+                                    <a class='admin-link icon icon-edit'
+                                      data-path='/admin/events/detail/'
+                                      data-params='id={$id}'
+                                      data-format='html'
+                                      data-callback='default'
+                                      title='edit event content'></a>
+                                   </center>",
+                                   
+                                   "<center>
+                                        <a class='crud-delete icon icon-remove'
+                                        data-bind='event-bind-crud'
+                                        title='delete event'
+                                        data-action='delete'
+                                        data-params='id={$id}'></a>
+                                   </center>"),
+                        "class='crud-row-{$id}'"); ?>
+    <?endforeach;?>
+
+<?= $this->TableFoot() ?>
+
+
+<script type="text/plain" id="js-events-template-crud">
+    <% if( action == '_create' ){%>
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.title), id, "<?=$editPath?>", "title-inline-edit", "Edit Title" ) %></td>
+
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.visible), id, "<?=$editPath?>", "visible-inline-edit", "Edit visible", 'select',
+                           '/admin/provider/data-src') %></td>
+    
+    <td>
+    <a data-title="Update Event Date"
+    data-url="<?=$editPath?>"
+    data-placement="right" data-pk="<%= helpers.escapeHtml(id) %>" data-viewformat="yyyy-mm-dd"
+    data-type="date" id="created-inline-edit" href="#" class="editable editable-click"
+    data-original-title="" title=""><%= helpers.escapeHtml(values.created) %></a>
+    </td>    
+    <td>
+     <%= helpers.escapeHtml(values.start_time) %>
+    </td>    
+    <td>
+     <%= helpers.escapeHtml(values.end_time) %>
+    </td>    
+
+    <td>
+    <center>
+        <a event:id='<%= helpers.escapeHtml(id) %>' id='js-assign-qualifier' class='js-assign-qualifier  icon-question-sign'></a>
+    </center>
+    </td>
+    
+  <td>
+        <center>
+            <a class='crud-create-update icon icon-cog'
+               data-action='update'
+               data-bind='event-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+            </center>
+    </td>
+    <td>
+    <center>
+        <a class='admin-link icon icon-edit'
+            data-params='id=<%= helpers.escapeHtml(id) %>'
+            data-path='/admin/events/detail/'
+            data-format='html'
+            data-callback='default'
+            title='edit event content'></a>
+       </center>
+     </td>    
+    <td>
+        <center>
+            <a class='crud-delete icon icon-remove' 
+               data-params='id=<%= helpers.escapeHtml(id) %>'
+               data-bind='event-bind-crud' 
+               data-action='delete'> </a>
+        </center>
+    </td>
+    
+    <% if( action == '_create' ){ %>
+        </tr>
+    <% } %>
+</script>
+
+
+<script type="text/plain" id="js-events-template">
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(title), id, "<?=$editPath?>", "title", "Edit Title" ) %></td>    
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(visible), id, "<?=$editPath?>", "visible", "Edit visible", 'select',
+                            '/admin/provider/data-src') %></td>
+   
+    <td>
+    <a data-title="Update Event Date"
+    data-url="<?=$editPath?>"
+    data-placement="right" data-pk="<%= helpers.escapeHtml(id) %>" data-viewformat="yyyy-mm-dd"
+    data-type="date" id="created-inline-edit" href="#" class="editable editable-click"
+    data-original-title="" title=""><%= helpers.escapeHtml(created) %></a>
+    </td>    
+    <td>
+     <%= helpers.escapeHtml(start_time) %>
+    </td>    
+    <td>
+     <%= helpers.escapeHtml(end_time) %>
+    </td>  
+
+    <td>
+    <center>
+        <a event:id='<%= helpers.escapeHtml(id) %>' id='js-assign-qualifier' class='js-assign-qualifier  icon-question-sign'></a>
+    </center>
+    </td>
+    
+    
+  <td>
+    <center>
+        <a class='crud-create-update icon icon-cog'
+        data-action='update'
+        data-bind='event-bind-crud'
+        data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+    </center>
+    </td>
+    
+    <td>
+    <center>
+      
+        <a class='admin-link icon icon-edit'
+        data-path='/admin/events/detail/'
+        data-params='id=<%= helpers.escapeHtml(id) %>'
+        data-format='html'
+        data-callback='default'
+        title='edit event content'></a>
+       </center>
+     </td>
+    <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='event-bind-crud'
+               data-action='delete'
+               data-params='id=<%= helpers.escapeHtml(id) %>'> </a>
+        </center>
+    </td>
+ </tr>
+</script>
+
+
+     </div>
+     
+     
+     

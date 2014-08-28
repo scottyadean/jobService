@@ -1,0 +1,74 @@
+
+<h3>Admin Page Content</h3>
+
+    <div class="crud-create-update crud-load-template hidden"
+     id="page-bind-crud"
+     data-id=''
+     data-path='.:crud-page'
+     data-form='pagesform'
+     data-title="Edit Page Content"
+     data-params=''
+     data-action='create'
+     data-callback='helpers.wysiwyg'
+     data-target='js-pages-index'
+     data-template='js-crud-edit-pages'></div>
+
+<?= $this->TableHead( array('Title','Link','',''), "table table-striped data-table", "js-pages-index" ) ?>
+
+    <? $editPath = "/admin/pages/inline-edit"; ?>
+
+    <?foreach( $this->pages as $page ):?>
+    <? $id = $page->id;?>
+    <?= $this->TableRow( array( $this->InlineEdit($page->title, $page->id, $editPath, "title", "Edit Title"),
+                                "/page/id/".$page->id."/".$page->slug,
+                                "<center>
+                                    <a class='crud-create-update icon icon-edit'
+                                      data-action='update'
+                                      title='edit page content'
+                                      data-bind='page-bind-crud'
+                                      data-params='id={$id}'></a>
+                                   </center>",
+                                   "<center>
+                                        <a class='crud-delete icon icon-remove'
+                                        data-bind='page-bind-crud'
+                                        title='delete page'
+                                        data-action='delete'
+                                        data-params='id={$id}'></a>
+                                   </center>"),
+                        "class='crud-row-{$id}'"); ?>
+    <?endforeach;?>
+
+<?= $this->TableFoot($this->Crud('create', 'Create New Page', 'page-bind-crud', '', 3)) ?>
+
+
+<script type="text/plain" id="js-crud-edit-pages">
+    <% if( action == '_create' ){%>
+    <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+    <td><%= helpers.inlineEdit(helpers.escapeHtml(values.title), id, "<?=$editPath?>", "title", "Edit Title" ) %></td>
+    <td>
+      /page/id/<%= helpers.escapeHtml(id) %>/<%= helpers.escapeHtml(values.slug) %>
+    </td>
+  <td>
+        <center>
+            <a class='crud-create-update icon icon-edit'
+               data-action='update'
+               data-bind='page-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+            </center>
+    </td>
+    
+    <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='page-bind-crud'
+               data-action='delete'
+               data-params='id=<%= helpers.escapeHtml(id) %>'> </a>
+        </center>
+    </td>
+    
+    <% if( action == '_create' ){ %>
+        </tr>
+    <% } %>
+</script>
+

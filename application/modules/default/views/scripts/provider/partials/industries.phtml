@@ -1,0 +1,26 @@
+<div class="row" >
+<div class="span8" >
+    <?= $this->TableHead( array('Industry'), "table table-striped", "js-groups-index" ) ?>
+        <?foreach( $this->parents as $p ):
+        
+            $map = '';
+            foreach($this->children as $c ) {
+                if(  $c->parent_id == $p->id ) {
+                    $map .= "<li><a href='/providers/industry/id/{$c->id}'>{$c->name}</a></li>";
+                    }            
+           }
+           
+           if($map != '') {
+              $map = "<a class='pointer pull-right view-subcategories' data-parent='{$p->id}'>View Subcategories <i class='icon-resize-vertical'> </i></a>
+                      <div class='toggle-industry-sub-cats' id='children-of-{$p->id}' style='display:none;'><hr /><uL>" . $map . "</uL></div>"; 
+           } 
+        
+        ?>
+            <?= $this->TableRow(array(
+                                "<a href='/providers/industry/id/{$p->id}'><strong>{$p->name}</strong></a> {$map}"
+                                
+                                ) ); ?>
+        <?endforeach;?>
+    <?= $this->TableFoot() ?>
+</div>
+</div>

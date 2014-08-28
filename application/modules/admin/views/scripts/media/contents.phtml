@@ -1,0 +1,36 @@
+    
+    
+    
+    </ul>
+    <li><strong><?=basename($this->current)?> + </strong></li>
+    
+    <?$dir = '';?>
+    
+    
+    <?
+    
+    function displayDir($dir, &$output=""){
+        
+        
+        if( is_array($dir) ) {
+            foreach($dir as $k=>$f){
+                $output = displayDir($f, $output);
+            }
+        }else{
+            
+              $output =  "<li>$dir</li>";
+        }
+        
+        return $output;
+    
+        
+    };
+    
+    if(!empty($this->folders)):?>
+        <?foreach($this->folders as $key=>$folder):?>
+            
+            <?=$key?><Br />
+            <?=displayDir($folder);?>
+               
+        <?endforeach;?>
+    <?endif;?>

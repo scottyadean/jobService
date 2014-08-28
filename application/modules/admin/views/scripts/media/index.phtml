@@ -1,0 +1,39 @@
+<div class="row" style="margin-left: 20px;">
+    <div class="span3">
+    <h3>Folders</h3>
+    <ul class="nav nav-pills nav-stacked">
+    <?if(!empty($this->folders)):?>
+        <?foreach($this->folders as $key=>$folder):?>
+                  <li class="js-dir-path" dir-path="<?=$folder?>"><a href="#"><?=basename($folder)?></a></li>
+        <?endforeach;?>
+    <?endif;?>
+    </ul>
+    </div>
+    
+    <div class="span8" id="js-dir-path-contents">
+            test
+    </div>
+
+</div>
+
+
+<script>
+    
+$(document).ready(function(){
+    
+    $(".js-dir-path").click(function(){
+         var id = $(this).attr('dir-path');
+         content.load("/admin/media/contents", {id:id},
+                        function(data){
+                            $("#js-dir-path-contents").html(data);
+                        }, 'html'); 
+        
+        
+    });    
+    
+});
+    
+</script>
+
+
+

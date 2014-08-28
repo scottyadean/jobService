@@ -1,0 +1,48 @@
+<div class="row-fluid">
+    <div class="span12">
+        <div class="tabbable" id="tabs-events">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#panel-list" data-toggle="tab">Events List</a></li>
+                <li><a href="#panel-create" data-toggle="tab">Create Event</a></li>
+                <li><a href="#panel-qualifierquestions" data-toggle="tab">Qualifier Questions</a></li>
+            </ul>
+            
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="panel-list">
+                    
+                    <div class="span3"> 
+                     <div id="js-calendar-wrapper" class="small-txt" style="width:200px;">
+                    <?= $this->partial( '/index/include/calendar.phtml', 'default',
+                        array('day'=>date("d"),'year'=>date("Y"),'month'=> date('m'),'customClass'=>'js-events-day pointer')); ?>
+                    </div>
+                     </div>
+                      <div class="span8"> 
+                    <?= $this->partial( '/partials/event-list.phtml', 'admin', array('events'=>$this->events)); ?>
+                    </div>
+                </div>
+                
+                <div class="tab-pane" id="panel-create">
+                    <div id="form-message" class="form-message"> </div>
+                    <?=$this->form?>    
+                </div>
+                
+                <div class="tab-pane" id="panel-qualifierquestions">
+                    <?= $this->partial( '/qualifiers/index.phtml', 'admin', array("qualifiers"=>$this->qualifiers)); ?>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br clear="both" />
+
+<script type="text/javascript">
+$(document).ready(function () {
+                       var _events = <?=json_encode($this->events->toArray())?>;
+                       var _date = "<?=date("Y-m-d")?>";
+                        Admin.Events.Map(_events, _date);
+                  }); 
+</script>

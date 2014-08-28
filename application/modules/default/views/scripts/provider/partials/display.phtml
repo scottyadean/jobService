@@ -1,0 +1,28 @@
+<div class="row" id="<?=$this->page?>" >
+
+<?foreach(  $this->providers as $p ):?>
+    <? $id_key =  (isset($this->program) && !empty($this->program)) ?  "provider_id" : "id"; ?>                    
+    <div class="span2 member-item" id="js-member-<?=$p[$id_key]?>" member:id="<?=$p[$id_key]?>">
+            
+            <span class="member-item-click pointer"  provider:id="<?=$p[$id_key]?>">   
+            
+                <div class="attach-to pos-rel">  </div> <br />
+                <a href="/providers/view/id/<?=$p[$id_key]?>"><?= $this->truncate($p['name'], 48, '..') ?></a><br />
+                <b><?= $p['industry_name'] ?></b> <br />
+                <?if( isset($this->locations[(int)$p[$id_key]]) ):?>
+                <div id="provider-address-<?=$p['id']?>">
+                    <? $loc =$this->locations[(int)$p[$id_key]][0];?>
+                    <?= $loc['address'] ?>
+                <div>
+                    <?= $loc['city'] ?>, <?= $loc['state'] ?>.  <?= $loc['zip'] ?>
+                </div>
+            
+                </div>
+                <?endif;?>
+            </span>
+    
+    </div>
+    
+<?endforeach;?>
+
+</div> 

@@ -1,0 +1,78 @@
+<? $this->headTitle('Training Providers');?>
+<? $this->headScript()->appendFile('/js/views/providers/index.js');?>
+
+    <div class="span9">
+    <h3>Training Programs Directory</h3>
+        <div class="tabbable">
+            
+            <ul class="nav nav-tabs">
+                <li class=""><a href='#tab0' data-toggle="tab">Industries</a></li>
+                <li class="active"><a href="#tab1" data-toggle="tab">A - D</a></li>
+                <li><a href="#tab2" data-toggle="tab">E - I</a></li>
+                <li><a href="#tab3" data-toggle="tab">J - N</a></li>
+                <li><a href="#tab4" data-toggle="tab">J - N</a></li>
+                <li><a href="#tab5" data-toggle="tab">T - Z</a></li>
+                <li><a href="#tab6" data-toggle="tab">Search Programs</a></li>
+            </ul>
+            
+            <div class="tab-content">
+            
+                
+                <div class="tab-pane" id="tab0">
+                    <?= $this->partial('/provider/partials/industries.phtml', 'default',
+                                      array( 'providers' => array( 'providersA_D'=>$this->programsA_D,
+                                                                   'providersE_I'=>$this->programsE_I,
+                                                                   'providersJ_N'=>$this->programsJ_N,
+                                                                   'providersO_S'=>$this->programsO_S,
+                                                                   'providersT_Z'=>$this->programsT_Z)));?>    
+                </div>
+                
+                <div class="tab-pane active" id="tab1">
+                    <?= $this->partial('/provider/partials/display.phtml', 'default',
+                                       array('providers'=>$this->programsA_D,
+                                             'locations'=>$this->locations,
+                                             'program'=>true));?>              
+                </div>
+        
+                <div class="tab-pane" id="tab2">
+                    <?= $this->partial('/provider/partials/display.phtml', 'default',
+                                       array('providers'=>$this->programsE_I,
+                                             'locations'=>$this->locations,
+                                             'program'=>true));?>     
+                </div>
+        
+                <div class="tab-pane" id="tab3">
+                    <?= $this->partial('/provider/partials/display.phtml', 'default',
+                                       array('providers'=>$this->programsJ_N,
+                                             'locations'=>$this->locations,
+                                             'program'=>true));?>     
+                </div>
+     
+     
+                <div class="tab-pane" id="tab4">
+                    <?= $this->partial('/provider/partials/display.phtml', 'default',
+                                       array('providers'=>$this->programsO_S,
+                                             'locations'=>$this->locations,
+                                             'program'=>true));?>     
+                </div>           
+
+                <div class="tab-pane" id="tab5">
+                    <?= $this->partial('/provider/partials/display.phtml', 'default',
+                                       array('providers'=>$this->programsT_Z,
+                                             'locations'=>$this->locations,
+                                             'program'=>true));?>     
+                </div>    
+                
+                
+                
+                
+                <div class="tab-pane" id="tab6" style="min-height: 200px;">
+                       <?= $this->partial('/provider/partials/search.phtml', 'default',
+                                          array("path"=>"/programs/search/")); ?>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>

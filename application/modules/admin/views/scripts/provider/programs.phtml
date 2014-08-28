@@ -1,0 +1,113 @@
+<h4>Programs</h4>
+
+    <div class="crud-create-update crud-load-template pointer hidden"
+        id="program-bind-crud"
+        data-id=''
+        data-path='.:crud_provider.:programs'
+        data-form='providersprograms'
+        data-title="Add Programs"
+        data-params=''
+        data-action='create'
+        data-callback='Admin.programEdit'
+        data-target='js-program-index'
+        data-template='js-crud-edit-provider-program'></div>
+        
+        
+        <?
+        //`id`, `provider_id`, `industry_id`, `name`, `phone`, `address_id`
+        
+        $header = array("Name","","");
+        
+        if( isset($this->showProviderLink) ){
+            $header[] = "";
+        }
+        ?>
+        
+        
+    <?= $this->TableHead($header , "table table-bordered", "js-program-index" ) ?>
+	   
+    <?if(isset($this->programs)):?>
+       <?foreach($this->programs as $k=>$a):?>
+       
+       
+       <?
+       
+        $row = array( $this->escape($a->name),
+                                   "<center>
+                                   <a class='crud-create-update icon icon-edit'
+                                    data-action='update'
+                                    data-bind='program-bind-crud'
+                                    data-params='id={$a->id}&provider_id={$a->provider_id}'></a></center>"
+                                   );
+       
+       if( isset($this->showProviderLink) ){
+        
+        $row[] = '<center><a data-format="html" data-params="render=html&view=admin&id='
+                .$a->provider_id.'&get=true" data-callback="providerEdit" data-path="/admin/provider/update"
+                class="admin-link provider-wizard icon icon-share" title="View Provider Details"></a>
+                  </center>';
+       }
+       
+        
+       $row[] = "<center><a class='crud-delete icon icon-remove' data-bind='program-bind-crud' data-params='id={$a->id}'></a></center>"; 
+
+
+       ?>
+       
+       
+        <?= $this->TableRow($row, "class='crud-row-{$a->id} highlight-child'"); ?>
+       
+       <?endforeach;?>
+   <?endif;?>
+
+    <?if(!isset($this->hideNew) ):?>
+
+    <?= $this->TableFoot("<tr><td colspan='".count($header)."'><a class='crud-create-update pull-right'
+                                                        data-action='create'
+                                                        data-bind='program-bind-crud'
+                                                        data-params='provider_id={$this->provider_id}'>Add Program
+                                                        </a></td></tr>" ) ?>
+    <?else:?>
+    <?= $this->TableFoot() ?>
+    <?endif;?>
+     
+<script id="js-crud-edit-provider-program" type="text/template">
+    <% if( action == '_create' ){%>
+        <tr class="crud-row-<%= helpers.escapeHtml(id) %> highlight-child">
+    <%}%>
+        <td><%= helpers.escapeHtml(values.name) %></td>
+        <td>
+        <center><a class='crud-create-update icon icon-edit'
+                   data-action='update'
+                   data-bind='program-bind-crud'
+                   data-params='id=<%= helpers.escapeHtml(id) %>&provider_id=<%= helpers.escapeHtml(id) %>'>
+                   </a>
+        </center>
+        </td>
+        
+        <td>
+        <center>
+            <a class='crud-delete icon icon-remove'
+               data-bind='program-bind-crud'
+               data-params='id=<%= helpers.escapeHtml(id) %>'></a>
+        </center>
+        </td>
+        
+        <?if( isset($this->showProviderLink) ):?>
+        <center>
+            <a data-format="html"
+               data-params="render=html&view=admin&id=<%= helpers.escapeHtml(id) %>&get=true"
+               data-callback="providerEdit"
+               data-path="/admin/provider/update"
+               class="admin-link provider-wizard icon icon-share"
+               title="view Provider Details"></a>
+        </center>
+       <?endif;?>
+        
+        
+        
+        
+    <% if( action == '_create' ){%>
+        </tr>
+    <%}%>
+</script>
