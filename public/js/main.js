@@ -1,3 +1,5 @@
+var sb = {ie:undefined}; 
+
 var lightBox = {
     path:null,
     div:null,
@@ -375,7 +377,26 @@ var helpers = {
                helper: 'clone',
                });     
 	}
+    },
+    
+    
+    getUrlParam:function(p) {
+        
+        var url = window.location.search.substring(1);
+        var args = url.split('&');
+        for (var i = 0; i < args.length; i++) 
+        {
+            var name = args[i].split('=');
+            
+            if (name[0] == p)  {
+                return name[1];
+            }
+        }
+        
+        return null;
+
     }
+    
 };
 
 String.prototype.trunc = String.prototype.trunc ||

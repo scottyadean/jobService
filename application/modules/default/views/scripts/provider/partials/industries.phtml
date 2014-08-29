@@ -6,18 +6,18 @@
             $map = '';
             foreach($this->children as $c ) {
                 if(  $c->parent_id == $p->id ) {
-                    $map .= "<li><a href='/providers/industry/id/{$c->id}'>{$c->name}</a></li>";
+                    $map .= "<li><a class='industry-view' data-id='{$c->id}'>{$c->name}</a></li>";
                     }            
            }
            
            if($map != '') {
-              $map = "<a class='pointer pull-right view-subcategories' data-parent='{$p->id}'>View Subcategories <i class='icon-resize-vertical'> </i></a>
-                      <div class='toggle-industry-sub-cats' id='children-of-{$p->id}' style='display:none;'><hr /><uL>" . $map . "</uL></div>"; 
+              $map = "<a class='pointer pull-right view-subcategories' data-parent='{$p->id}'>Subcategories <i class='icon-resize-vertical'> </i></a>
+                      <div class='toggle-industry-sub-cats' id='children-of-{$p->id}' style='display:block;'><hr /><uL>" . $map . "</uL></div>"; 
            } 
         
         ?>
             <?= $this->TableRow(array(
-                                "<a href='/providers/industry/id/{$p->id}'><strong>{$p->name}</strong></a> {$map}"
+                                "<a class='industry-view' data-id='{$p->id}' ><strong>{$p->name}</strong></a> {$map}"
                                 
                                 ) ); ?>
         <?endforeach;?>

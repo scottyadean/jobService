@@ -138,14 +138,19 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
     }
 
     
-     public function findbyField($val, $field = 'name', $regEx = 'starts') {
+      public function findbyField($val, $field = 'name', $regEx = 'starts') {
         
         $field = trim($field);
         
+                
         if(empty($field)) {
             $field = 'name';    
         }
         
+        if($field == 'tags') {
+            $field = 'tag';    
+        }
+
         if( $regEx == 'starts' ) {
             $val = "$val%";
             $opt = 'LIKE';
@@ -174,7 +179,14 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
         if( $field == 'zip' ) {
           $opt = "=";
           $val = str_replace("%", "", $val);
+          // 22043
+          if(strlen ($val) < 5) {
+              $opt = "LIKE";
+              $val = $val."%";
+          }
         }
+        
+        
         
         $found = $locations->_index(array("{$field} {$opt} ?" => $val  ));
         $in = array();
@@ -192,7 +204,6 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
         if(count($in) == 0) {
             return array();
         }
-        
         $select->where($this->_name.".id IN (?)", $in);
         return $this->fetchAll($select)->toArray();
               
@@ -201,18 +212,44 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
       
         $select = $this->select()->from(array($this->_name=>$this->_name))->setIntegrityCheck(false)
                           ->joinLeft(array('i'=>'industries'),
-                              $this->_name.'.industry_id = i.id', array('name AS industry_name','id AS industry_id'))
+                           $this->_name.'.industry_id = i.id', array('name AS industry_name','id AS industry_id'))
                           ->order($this->_name.'.name ASC');
         
         $select->where($this->_name.".".$field." ".$opt." ?", "$val");
         
         return $this->fetchAll($select)->toArray();
       
+      
        }
+       
+       
+        $select = $this->select()->from(array($this->_name=>$this->_name))->setIntegrityCheck(false)
+                                  ->joinLeft(array('i'=>'industries'),
+                                      $this->_name.'.industry_id = i.id', array('name AS industry_name','id AS industry_id'))
+                                  ->order($this->_name.'.name ASC');
+        
+        if(count($in) == 0) {
+            return array();
+        }
+        
+        $select->where($this->_name.".id IN (?)", $in);
+   
+       print $select->__toString();
+   exit;
+        return $this->fetchAll($select)->toArray();
+              
        
        
        
     }
+     
+
+      
+       
+       
+       
+       
+    
     
     
 }

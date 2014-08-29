@@ -1,5 +1,4 @@
-#mainModal{ width:80%!important; margin-left:-40%!important; }
-#mainModalBody { max-height:500px!important; overflow-y: auto!important; min-height:300px!important;}
+#mainModalBody { max-height:475px!important; overflow-y: auto!important; min-height:300px!important;}
 .dataTables_length{ margin-left: 37px
 
 .active{ background-color: #7FD8FF!important; }

@@ -54,22 +54,32 @@ class Default_ProviderController extends Zend_Controller_Action {
     }
     
     public function industryAction() {
+        
+        if( $this->xhr ){ 
+            $this->_helper->layout->disableLayout();
+            $this->view->disableLayout = true;
+        }
+        
         if(empty($this->id)) {
             $this->_helper->flashMessenger->addMessage(array('alert alert-error'=> 'Error: no "industry id" sent to the view page.') );
             $this->_redirect("/providers");   
         }
         
         $industry = new Default_Model_Industry;
+        $childElements = $industry->_index(array("parent_id = ?" => (int)$this->id))->toArray();
         $this->view->industry = $industry->_read((int)$this->id);
         
         if(empty($this->view->industry)){
-            $this->_helper->flashMessenger->addMessage(array('alert alert-error'=> 'Error: Industry not found') );
-            $this->_redirect("/providers");   
-            
+                $this->_helper->flashMessenger->addMessage(array('alert alert-error'=> 'Error: Industry not found') );
+                $this->_redirect("/providers");   
         }
         
         $programs = new Default_Model_Program;
-        $this->view->programs = $programs->_joinProviders(array('industry_id = ?' => (int)$this->id));
+        $where = !empty($childElements)
+        ? array('industry_id IN (?)' => (int)Base_Functions_Array::In($childElements))
+        : array('industry_id = ?' => (int)$this->id);
+                 
+        $this->view->programs = $programs->_joinProviders($where);
 
     }
     
@@ -89,10 +99,19 @@ class Default_ProviderController extends Zend_Controller_Action {
         $this->field = $this->getRequest()->getParam('field', 'name');
         $this->regex = $this->getRequest()->getParam('regex', 'starts');
         
+       
+        
         $this->view->providers = $this->_model->findbyField(trim($this->id), $this->field, $this->regex );
         $this->view->locations = $this->locations();
-        $this->view->field = $this->field;
+        $this->view->field     = $this->field;
         
+        
+       $programModel = new Default_Model_Program;
+       $this->view->programs = $programModel->findbyField(trim($this->id), $this->field, $this->regex );
+        
+       var_dump($this->view->programs);
+        
+
         
         
     }

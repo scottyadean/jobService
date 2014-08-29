@@ -17,20 +17,20 @@ var  Events = {
         
 
      
-              $("body").delegate('.js-center-info', 'mouseenter mouseleave', function() {
+              $("body").delegate('.js-center-info', 'mouseenter mouseleave', function(event) {
                    var e = $(this);
-                   
-                   if (e.attr("data-load") != 'false' && e.attr("data-stats") == "hidden") {
-                       e.attr("data-stats", 'visible'); 
-                       e.popover('show');
-                       return 
-                   
-                   }else if(e.attr("data-load") == 'ok' && e.attr("data-stats") == "visible"){
-                         
-                        e.attr("data-stats", 'hidden');  
-                        e.popover('hide');
-                        return     
-                    }
+                   console.log(event.type);
+                   if (e.attr("data-load") != 'false') {
+                       if (event.type == 'mouseenter') {
+                            e.attr("data-stats", 'visible'); 
+                            e.popover('show');
+                            return 
+                       }else{
+                            e.attr("data-stats", 'hidden');  
+                            e.popover('hide');
+                            return  
+                       }                   
+                   }
                    
                    
                    $.post(e.attr('data-popuppath'),function(d) {

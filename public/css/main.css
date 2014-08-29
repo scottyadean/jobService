@@ -5,9 +5,13 @@
 	width:100%;}
 
 html,
-      body {
+      body {/*
         height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
+        color: #333333;
+        font-family: Alegreya, Sans SC, sans-serif;
+        font-weight: 700;
+        font-size: 10px;
+         The html and body elements cannot have any padding or margin. */
       }
 #wrapmain
 	{background-image:url(../img/bluebg_main.jpg);

@@ -12,10 +12,17 @@
             <ul class="nav nav-tabs">
                 <li class=""><a href='#tab0' data-toggle="tab">Industries</a></li>
                 <!--li class=""><a href="#tab01" data-toggle="tab">Programs</a></li-->
-                <li class="active"><a href="#tab1" data-toggle="tab">A - H</a></li>
-                <li><a href="#tab2" class="tabContainer2" data-toggle="tab">I - P</a></li>
-                <li><a href="#tab3" class="tabContainer3" data-toggle="tab">Q - Z</a></li>
-                <li><a href="#tab4" data-toggle="tab">Search Providers</a></li>
+                <li class="active">
+                    <a href="#tab1" class="tabContainer1" data-toggle="tab">A - H</a>
+                </li>
+                <li>
+                    <a href="#tab2" class="tabContainer2" data-toggle="tab">I - P</a>
+                </li>
+                <li>
+                    <a href="#tab3" class="tabContainer3" data-toggle="tab">Q - Z</a>
+                </li>
+                <li>
+                    <a href="#tab4" data-toggle="tab">Search</a></li>
             </ul>
             
             <div class="tab-content">
@@ -211,21 +218,24 @@ $.fn.sweetPages = function(opts){
 $(document).ready(function(){
     
 
-	$('#page1').sweetPages({perPage:20, prefix:1});
-	var controls = $('.swControls1').detach();
-	controls.appendTo('#page1');
 
-    var __pagination = {'tab2':false,
+    var __pagination = {'tab1':true,
+                        'tab2':false,
                         'tab3':false};
+    
+    $('#page1').sweetPages({perPage:20, prefix:1});
+    var controls = $('.swControls1').detach();
+    controls.appendTo('#page1');
+
     
     $(".tabContainer2").click(function(){
         if (!__pagination.tab2 ) {
-            __pagination.tab2 = true;
+             __pagination.tab2 = true;
             setTimeout(function(){
                 $('#page2').sweetPages({perPage:20, prefix:2});
                 var controls = $('.swControls2').detach();
                 controls.appendTo('#page2');
-                },500);
+                },100);
         }
     });
 
@@ -237,12 +247,15 @@ $(document).ready(function(){
                 $('#page3').sweetPages({perPage:20, prefix:3});
                 var controls = $('.swControls3').detach();
                 controls.appendTo('#page3');
-            },500);
+            },100);
         }    
     
     });
     
     
+    $(".industry-view").click(function(){ 
+        lightBox.show('mainModal', 'Industry', {'remote':'/providers/industry/id/'+$(this).data('id')}, 'post');
+    });
     
     $(".view-subcategories").click(function(){
         var el = $(this).attr('data-parent');    
