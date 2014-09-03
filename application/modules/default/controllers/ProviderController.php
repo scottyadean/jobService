@@ -109,9 +109,6 @@ class Default_ProviderController extends Zend_Controller_Action {
        $programModel = new Default_Model_Program;
        $this->view->programs = $programModel->findbyField(trim($this->id), $this->field, $this->regex );
         
-       var_dump($this->view->programs);
-        
-
         
         
     }

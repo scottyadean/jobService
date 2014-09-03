@@ -24,14 +24,15 @@ Contains <input type="radio" name="js-regex" class="js-regex" id="js-regex-conta
 <input class="span2" id="js-search-members" data-path="<?=$this->path?>" type="text" style="height: 20px;">
 <div class="btn-group">
 <button class="btn dropdown-toggle" data-toggle="dropdown" style="height: 30px;">
-<span id="js-current-search-field">Search By City</span>
+<span id="js-current-search-field">Search By Provider/Program Name</span>
 <span class="caret"></span>
 </button>
 <ul class="dropdown-menu">
-<li><a href="#City" class="js-search-by">City</a></li> 
-<li><a href="#Zip" class="js-search-by">Zip</a></li>
 <li><a href="#Name" class="js-search-by">Name</a></li>
 <li><a href="#Tags" class="js-search-by">Tags</a></li>
+<li><a href="#City" class="js-search-by">City</a></li> 
+
+
 </ul>
 </div>
 </div>   
@@ -123,4 +124,7 @@ foreach( $this->providers as $p ){
                     
 </div>
                     
-<div id="js-search-results"></div>
+<div id="js-search-results">
+    
+    
+</div>
