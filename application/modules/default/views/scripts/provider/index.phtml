@@ -4,6 +4,7 @@
 <? $this->headScript()->appendFile('/js/views/providers/index.js');?>
 <? $this->headScript()->appendFile('/js/vendor/jquery.dataTables.min.js');?>
 <? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
+<? $this->headScript()->appendFile('/js/vendor/sweet-pages.js');?>
 
     <div class="span9">
     <h3>Training Providers Directory</h3>
@@ -67,7 +68,7 @@
                 </div>
                 
                 
-                <div class="tab-pane" id="tab4" style="min-height: 200px;">
+                <div class="tab-pane" id="tab4" style="min-height:350px;">
                       <?= $this->FavsList();?>
                     
                        <?= $this->partial('/provider/partials/search.phtml', 'default',
@@ -82,189 +83,4 @@
         
     </div>
 
-<style>
-    
-.member-item {
-    height: 140px;
-    overflow: hidden;
-}    
-    
-.pageControls{
-	position:absolute;
-	margin-top:1px;
-    text-align: center;
-    font-size:90%;
-    right: 3px;
-    top: -1px;
-}
-
-a.pageLink{
-    background-color:#00ADEF;
-	float:left;
-	height:20px;
-	margin:0px 3px;
-    color:#0075BA;
-    text-decoration:none;
-	width:15px;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-}
-
-a.pageLink:hover,
-a.pageLink.active{
-	background-color:#ccc;
-    color:#f6f6f6;
-}
-
-a.pageLink.active{
-    cursor: text;
-    
-}    
-
-.tab-content {
-    overflow-x:hidden !important; 
-   
-}
-
-</style>
-
-<script>
-    
-    (function($){
-
-// Creating the sweetPages jQuery plugin:
-$.fn.sweetPages = function(opts){
-	
-	// If no options were passed, create an empty opts object
-	if(!opts) opts = {};
-	
-	var resultsPerPage = opts.perPage || 50;
-	
-	// The plugin works best for unordered lists, althugh ols would do just as well:
-	var ul = this;
-	var li = ul.find('div.member-item');
-	
-	li.each(function(){
-		// Calculating the height of each li element, and storing it with the data method:
-		var el = $(this);
-	});
-	
-	// Calculating the total number of pages:
-	var pagesNumber = Math.ceil(li.length/resultsPerPage);
-	
-	// If the pages are less than two, do nothing:
-	if(pagesNumber<1){
-        return this;
-    }
-
-	// Creating the controls div:
-	var swControls = $('<div class="swControls'+opts.prefix+' pageControls">');
-	
-	for(var i=0;i<pagesNumber;i++){
-		// Slice a portion of the lis, and wrap it in a swPage div:
-		li.slice(i*resultsPerPage,(i+1)*resultsPerPage).wrapAll('<div class="swPage'+opts.prefix+'" />');
-		// Adding a link to the swControls div:
-		swControls.append('<a href="" class="swShowPage'+opts.prefix+' pageLink">'+(i+1)+'</a>');
-	}
-
-	ul.append(swControls);
-	
-	var maxHeight = 0;
-	var totalWidth = 0;
-	
-	var swPage = ul.find('.swPage'+opts.prefix);
-	swPage.each(function(){
-		
-		// Looping through all the newly created pages:		
-		var elem = $(this);
-
-		var tmpHeight = 0;
-		elem.find('div.member-item').each(function(){tmpHeight+=140;});
-
-		if(tmpHeight>maxHeight)
-			maxHeight = tmpHeight;
-
-		totalWidth+=elem.outerWidth();
-		
-		elem.css('float','left').width(ul.width());
-	});
-	
-	swPage.wrapAll('<div class="swSlider'+opts.prefix+'" />');
-	
-	// Setting the height of the ul to the height of the tallest page:
-	//ul.height(maxHeight);
-	
-	var swSlider = ul.find('.swSlider'+opts.prefix);
-	swSlider.append('<div class="clear" />').width(totalWidth);
-
-	var hyperLinks = ul.find('a.swShowPage'+opts.prefix);
-	
-	hyperLinks.click(function(e){
-		$(this).addClass('active').siblings().removeClass('active');
-		swSlider.stop().animate({'margin-left':-(parseInt($(this).text())-1)*ul.width()},'slow');
-		e.preventDefault();
-	});
-	
-	// Mark the first link as active the first time this code runs:
-	//hyperLinks.eq(0).addClass('active');
-	ul.first('a.swShowPage'+opts.prefix).addClass('active');
-	
-	return this;
-	
-}})(jQuery);
-
-
-$(document).ready(function(){
-    
-
-
-    var __pagination = {'tab1':true,
-                        'tab2':false,
-                        'tab3':false};
-    
-    $('#page1').sweetPages({perPage:20, prefix:1});
-    var controls = $('.swControls1').detach();
-    controls.appendTo('#page1');
-
-    
-    $(".tabContainer2").click(function(){
-        if (!__pagination.tab2 ) {
-             __pagination.tab2 = true;
-            setTimeout(function(){
-                $('#page2').sweetPages({perPage:20, prefix:2});
-                var controls = $('.swControls2').detach();
-                controls.appendTo('#page2');
-                },100);
-        }
-    });
-
-
-    $(".tabContainer3").click(function(){
-        if (!__pagination.tab3 ) {
-            __pagination.tab3 = true;
-            setTimeout(function(){
-                $('#page3').sweetPages({perPage:20, prefix:3});
-                var controls = $('.swControls3').detach();
-                controls.appendTo('#page3');
-            },100);
-        }    
-    
-    });
-    
-    
-    $(".industry-view").click(function(){ 
-        lightBox.show('mainModal', 'Industry', {'remote':'/providers/industry/id/'+$(this).data('id')}, 'post');
-    });
-    
-    $(".view-subcategories").click(function(){
-        var el = $(this).attr('data-parent');    
-        $("#children-of-"+el).slideToggle( "slow", function(){});
-        
-    });
-    
-
-});
-    
-</script>
 

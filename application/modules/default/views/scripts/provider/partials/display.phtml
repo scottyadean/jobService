@@ -1,5 +1,5 @@
 <div class="row" id="<?=$this->page?>" >
-
+<div id="provider-resutls" style="display: block;">
 <?foreach(  $this->providers as $p ):?>
     <? $id_key =  (isset($this->program) && !empty($this->program)) ?  "provider_id" : "id"; ?>                    
     <div class="span2 member-item" id="js-member-<?=$p[$id_key]?>" member:id="<?=$p[$id_key]?>">
@@ -24,5 +24,81 @@
     </div>
     
 <?endforeach;?>
+</div>
 
-</div> 
+
+<?if(isset($this->programs) && !empty($this->programs)):?>
+<div id="program-resutls" style="display: block;">
+<?foreach(  $this->programs as $p ):?>
+    <? $id =  $p['id'];?>                    
+    <div class="span2 member-item" id="js-program-<?=$id?>" data-id="<?=$id?>">
+            
+            <span class="pointer"  data-id="<?=$id?>">   
+            
+                <div class="attach-to pos-rel">  </div> <br />
+                
+                <a href="/providers/view/id/<?=$p['provider_id']?>"><?= $this->truncate($p['name'], 48, '..') ?></a><br />
+                <b><?= $p['industry_name'] ?></b> <br />
+                <?if( isset($this->locations[(int)$p['provider_id']]) ):?>
+                <div id="program-address-<?=$p['id']?>">
+                    <?  $loc =$this->locations[(int)$p['provider_id']][0];?>
+                    <?= $loc['address'] ?>
+                <div>
+                    <?= $loc['city'] ?>, <?= $loc['state'] ?>.  <?= $loc['zip'] ?>
+                </div>
+            
+                </div>
+                <?endif;?>
+            </span>
+    
+    </div>
+    
+<?endforeach;?>
+
+</div>
+
+<?endif;?>
+
+</div>
+<?
+
+  /*
+   *
+   *  provider
+      'id' => string '2' (length=1)
+      'name' => string 'A-1 CDL School' (length=14)
+      'info' => string '' (length=0)
+      'industry_id' => string '4' (length=1)
+      'industry_name' => string 'Commercial Driving' (length=18)
+      'views' => string '0' (length=1)
+      'created' => string '2014-06-18 08:37:38' (length=19)
+      'modifed' => string '2014-07-17 01:26:47' (length=19)
+      
+      'site' => string 'http://www.a1cdlschool.com' (length=26)
+      
+      'detail' => string '' (length=0)
+      'visible' => string 'Y' (length=1)
+      'tags' => string 'Commercial Driving' (length=18)
+       
+       
+       program
+      
+      'id' => string '377' (length=3)
+      'name' => string 'A Certification' (length=15)
+      'info' => string '' (length=0)
+      'industry_id' => string '23' (length=2)
+      'industry_name' => string 'Computer Maintenance' (length=20)
+      'views' => string '0' (length=1)
+      'created' => string '2014-06-18 08:38:05' (length=19)
+      'modifed' => string '20140717004654' (length=14)
+      
+      'provider_id' => string '61' (length=2)
+      
+      'tag' => string '' (length=0)
+      'address_id' => string '63' (length=2)
+      'start_date' => string '0000-00-00 00:00:00' (length=19)
+      'end_date' => string '0000-00-00 00:00:00' (length=19)
+       */
+        
+
+?>

@@ -792,9 +792,20 @@ button.btn {
    border-bottom: 1px dotted #999;
 }
 
-.hidden{
-   display: none;
+a.disabled {
+    
+    text-decoration:none;
+    color:gray;
+    
 }
+
+.hidden{
+    
+    display:none;
+}
+
+
+
 
 .modal { overflow: visible; }
 .modal-body { overflow-y: auto; max-height:450px; }
@@ -809,6 +820,50 @@ button.btn {
 
 .providers
 	{padding-left:20px;}
+
+.member-item {
+    height: 140px;
+    overflow: hidden;
+}    
+    
+.pageControls{
+	position:absolute;
+	margin-top:1px;
+    text-align: center;
+    font-size:90%;
+    right: 3px;
+    top: -1px;
+}
+
+a.pageLink{
+    background-color:#00ADEF;
+	float:left;
+	height:20px;
+	margin:0px 3px;
+    color:#0075BA;
+    text-decoration:none;
+	width:15px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+
+a.pageLink:hover,
+a.pageLink.active{
+	background-color:#ccc;
+    color:#f6f6f6;
+}
+
+a.pageLink.active{
+    cursor: text;
+    
+}    
+
+.tab-content {
+    overflow-x:hidden !important; 
+   
+}
+
 	
 .event
 	{padding-left:30px;}

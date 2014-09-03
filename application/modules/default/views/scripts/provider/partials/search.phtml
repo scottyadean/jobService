@@ -1,22 +1,6 @@
-<style>
-    
-    a.disabled {
-        
-        text-decoration:none;
-        color:gray;
-        
-    }
-    
-    .hidden{
-        
-        display:none;
-    }
-    
-    
-</style>
 <div style="margin-bottom: 2px;">
-Starts With <input type="radio" name="js-regex" class="js-regex" id="js-regex-starts" value="starts" checked="checked" />
-Contains <input type="radio" name="js-regex" class="js-regex" id="js-regex-contains" value="contains" /> 
+Starts With <input type="radio" name="js-regex" class="js-regex" id="js-regex-starts" value="starts"  />
+Contains <input type="radio" name="js-regex" class="js-regex" id="js-regex-contains" value="contains" checked="checked" /> 
 </div>   
 
 
@@ -24,13 +8,13 @@ Contains <input type="radio" name="js-regex" class="js-regex" id="js-regex-conta
 <input class="span2" id="js-search-members" data-path="<?=$this->path?>" type="text" style="height: 20px;">
 <div class="btn-group">
 <button class="btn dropdown-toggle" data-toggle="dropdown" style="height: 30px;">
-<span id="js-current-search-field">Search By Provider/Program Name</span>
+<span id="js-current-search-field">Search By Provider&#47;Program Name</span>
 <span class="caret"></span>
 </button>
 <ul class="dropdown-menu">
-<li><a href="#Name" class="js-search-by">Name</a></li>
-<li><a href="#Tags" class="js-search-by">Tags</a></li>
-<li><a href="#City" class="js-search-by">City</a></li> 
+<li><a data-href="name" data-label="Search By Provider&#47;Program Name" class="js-search-by">Search By Provider&#47;Program Name</a></li>
+<li><a data-href="tags" data-label="Industries" class="js-search-by">Industries</a></li>
+<li><a data-href="city" data-lable="City" class="js-search-by">City</a></li> 
 
 
 </ul>
@@ -71,7 +55,7 @@ foreach( $this->providers as $p ){
 <?foreach( range('A', 'ZZ') as $letter ):?>
     
     <a <?if(in_array($letter, $cities)):?>
-        href="#<?=$letter?>"
+        data-href="#<?=$letter?>"
       <?endif;?>
       class="<?if(in_array($letter, $cities)):?>js-alpha-sort<?else:?>disabled<?endif;?>"
       style=" display: inline-block; width: 20px;"><?=$letter?></a> 
@@ -83,7 +67,7 @@ foreach( $this->providers as $p ){
 <?foreach( range('A', 'ZZ') as $letter ):?>
         <a 
         <?if(in_array($letter, $names)):?>
-            href="#<?=$letter?>"
+            data-href="#<?=$letter?>"
             class="js-alpha-sort"
         <?else:?>
             class="disabled"
@@ -98,7 +82,7 @@ foreach( $this->providers as $p ){
 <?foreach( range('A', 'ZZ') as $letter ):?>
         <a 
         <?if(in_array($letter, $tags)):?>
-            href="#<?=$letter?>"
+            data-href="#<?=$letter?>"
             class="js-alpha-sort"
         <?else:?>
             class="disabled"
@@ -111,7 +95,7 @@ foreach( $this->providers as $p ){
 
 <div class="zip-letter-search js-letters" style="display:none;">                    
 <?foreach( range('0', '9') as $number ):?>
-        <a href="#<?=$number?>"
+        <a data-href="#<?=$number?>"
            class="js-alpha-sort"
            style=" display: inline-block; width: 20px;"><?=$number?></a> 
     

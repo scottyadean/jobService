@@ -6,11 +6,17 @@
     <?= $this->partial('/provider/partials/search.phtml', 'default', array()); ?> 
 <?endif;?>
 <?
-$count = count($this->providers);
-$plural = ($count == 1) ? '' : 's';
+$count1 = count($this->providers);
+$plural1 = ($count == 1) ? '' : 's';
+
+$count2 = count($this->programs);
+$plural2 = ($count == 1) ? '' : 's';
+
 ?>
 
-<h2>Found <?=$count?> result<?=$plural?></h2>
+<h2>Found <?=$count1?> provider<?=$plural1?> and <?=$count2?> program<?=$plural2?></h2>
 
 <?= $this->partial('/provider/partials/display.phtml', 'default',
-                   array('providers'=>$this->providers, 'locations'=>$this->locations));?>
+                   array('providers'=>$this->providers,
+                         'programs'=>$this->programs,
+                         'locations'=>$this->locations));?>
