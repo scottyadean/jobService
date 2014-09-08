@@ -1,14 +1,12 @@
 <?php
 class Admin_IndexController extends Zend_Controller_Action {
 
-
     public $model;
     
     public function init() {
         Zend_Layout::getMvcInstance()->assign('sideNav', 'N');
     
     }
-
 
     public function indexAction() {
         
@@ -34,8 +32,7 @@ class Admin_IndexController extends Zend_Controller_Action {
     
     
     public function mostViewedAction() {
-        
-        
+                
         $allowed = array("events", 'providers', 'programs');
         $success = false;
         
@@ -74,8 +71,13 @@ class Admin_IndexController extends Zend_Controller_Action {
         
     }
     
-   public function __buildprovidorAction() {
+    /*
+    * Seed functions below...
+    */
     
+    
+   public function __buildprovidorAction() {
+    /*
     $data  = Base_Functions_Seed::getProviderData();
     $industries = new Default_Model_Industry; 
     $allIndustries = $industries->_index()->toArray();
@@ -121,12 +123,12 @@ class Admin_IndexController extends Zend_Controller_Action {
         var_export($res);
         print "</pre>";
     
-    
+    */
    }
    
     
    public function _buildcatsAction() {
-    
+    /*
     $data = Base_Functions_Seed::getIndustry();
     
     $industries = new Default_Model_Industry; 
@@ -168,14 +170,14 @@ class Admin_IndexController extends Zend_Controller_Action {
     print "<hr /><pre>";
         var_export($res);
         print "</pre>";
-    
+    */
     
    }
     
    
   
    public function _seedAction() {
-    
+      /*
         $data = Base_Functions_Seed::getSeedData();
         
 
@@ -304,20 +306,9 @@ class Admin_IndexController extends Zend_Controller_Action {
             
            }
            
-    
+    */
             
         }
-    
-    
-       
-    
-
-    
-   
-    
-    
-        
-   
 }
 
  

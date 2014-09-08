@@ -28,6 +28,11 @@ var lightBox = {
         }   
     },
     
+    append:function(div, data) {
+        
+        $('#'+div+"Body").html(data);
+    },
+    
     load:function(data) {
 	
 	$('#'+this.div+"Body").html(data);
@@ -65,7 +70,13 @@ var lightBox = {
     dateFieldsById:function(element, id) {
         
             var el = $(element);
-                el.attr('readonly','readonly');
+            
+            if (el.parent().hasClass("input-append")) {
+                return false;
+            }
+            
+            
+            el.attr('readonly','readonly');
 
             var html = $(element+"-element");
 
@@ -76,7 +87,7 @@ var lightBox = {
             html.append(template({start:'now',field:efield, id:'date-picker'+id}));
 	    $('#date-picker'+id).datepicker({format:'yyyy-mm-dd'}).on('changeDate', function(ev){}); 
         
-        
+            return true;    
         
     }
     
@@ -413,6 +424,12 @@ s.parentNode.insertBefore(g,s)}(document,'script'));
 
 
 $(document).ready(function() {
+    
+    
+ $("body").delegate(".close-modal", "click", function(){
+    
+     lightBox.close("mainModal");
+    })   
     
  if( $('.js-favs-list').size() > 0 ) {    
     content.load('/favs', {'query':true}, function(data){

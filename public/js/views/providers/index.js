@@ -67,6 +67,22 @@ var members = {
 $(document).ready(function(){
     
 
+    
+    
+    $( "body" ).delegate(".nav-tabs a","click", function () {
+       
+       var tab = $(this).attr("href");
+       
+       content.load('/providers/tab', {id:tab},
+                        function(data){
+                            //console.log(data);
+                        }, 'json');
+       
+       
+    });       
+   
+    
+    
     $( "body" ).delegate(".member-item-click","mouseenter", function () {
         $(this).find("div.attach-to").append($("<p class='pos-abs pos-right pos-top'><i class='icon-search'></i></p>"));
     });
@@ -116,6 +132,8 @@ $(document).ready(function(){
            members.field =  $(this).attr("data-href");
            var html = $(this).attr("data-label");
            $("#js-current-search-field").html(html);
+           members.search();
+           //js-search-members
 
            
     });
@@ -132,17 +150,54 @@ $(document).ready(function(){
     
     
     
-    var __pagination = {'tab1':true,
-                        'tab2':false,
-                        'tab3':false};
     
-    $('#page1').sweetPages({perPage:20, prefix:1});
-    var controls = $('.swControls1').detach();
-    controls.appendTo('#page1');
+    
+    var __pagination = {tab1:__tabSelected["#tab1"] == 'acitve' ? true : false,
+                        tab2:__tabSelected["#tab2"] == 'acitve' ? true : false,
+                        tab3:__tabSelected["#tab3"] == 'acitve' ? true : false};
+    
+    
+    
+    if (__pagination.tab1 == true) {
+        
+        var ___inittab = 1;
+        
+    }else if( __pagination.tab2 == true ) {
+        
+        var ___inittab = 2;
+        
+    }else if( __pagination.tab2 == true ){
+        
+        var ___inittab = 3;
+    }else{
+        
+        var ___inittab = 0;
+        
+    }
+    
+    
+    if (___inittab  !=  0) {
+     
+        $('#page'+___inittab).sweetPages({perPage:20, prefix:1});
+        var controls = $('.swControls'+___inittab ).detach();
+        controls.appendTo('#page'+___inittab);
 
+    }
+    
+    
+    $(".tabContainer1").click(function(){
+        if (__pagination.tab1 != true) {
+             __pagination.tab1 = true;
+            setTimeout(function(){
+                $('#page1').sweetPages({perPage:20, prefix:2});
+                var controls = $('.swControls1').detach();
+                controls.appendTo('#page1');
+                },100);
+        }
+    });
     
     $(".tabContainer2").click(function(){
-        if (!__pagination.tab2 ) {
+        if (!__pagination.tab2 != true) {
              __pagination.tab2 = true;
             setTimeout(function(){
                 $('#page2').sweetPages({perPage:20, prefix:2});
@@ -152,9 +207,8 @@ $(document).ready(function(){
         }
     });
 
-
     $(".tabContainer3").click(function(){
-        if (!__pagination.tab3 ) {
+        if (!__pagination.tab3 != true) {
             __pagination.tab3 = true;
             setTimeout(function(){
                 $('#page3').sweetPages({perPage:20, prefix:3});

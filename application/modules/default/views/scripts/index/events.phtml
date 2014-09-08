@@ -8,15 +8,41 @@ $this->headScript()->appendFile('/js/views/index/events/cal.js');
     <p></p>
     <h2>Center Color Codes</h2>
 <table border="0" cellpadding="5">
-<tr>
-<td><i class="icon-map-marker" style="color:#c4156f;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Annandale</td>
-<td><i class="icon-map-marker" style="color:#742497;"></i> Prince William <strong><i>SkillSource</i></strong> Center</td>
-<td><i class="icon-map-marker" style="color:#00af83;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Alexandria</td>
-</tr><tr>
-<td><i class="icon-map-marker" style="color:#a21e00;"></i> Loudoun Workforce Resource Center</td>
-<td><i class="icon-map-marker" style="color:#e76e37;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Reston</td>
-<td></td>
-</tr>
+
+
+<?if (isset($this->eventCenters) && !empty($this->eventCenters)):?>
+
+
+<?foreach($this->eventCenters as $k=>$center):?>
+
+    <?if($k == 0 || $k == 3 ) {  echo"<tr>"; }?>
+
+    <td><i class="icon-map-marker" style="color:<?=$center['color']?>;"></i> <small><?=$center['name']?></small></td>
+
+    <?if($k == 2 || $k == 5 ) {  echo"</tr>"; }?>
+
+    
+<?endforeach;?>
+
+
+<?else:?>
+    <tr>
+        <td><i class="icon-map-marker" style="color:#b80000;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Annandale</td>
+        <td><i class="icon-map-marker" style="color:#742497;"></i> Prince William <strong><i>SkillSource</i></strong> Center</td>
+        <td><i class="icon-map-marker" style="color:#00af83;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Alexandria</td>
+    </tr>
+    <tr>
+        <td><i class="icon-map-marker" style="color:#e1c70d;"></i> Loudoun Workforce Resource Center</td>
+        <td><i class="icon-map-marker" style="color:#e76e37;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Reston</td>
+        <td><i class="icon-map-marker" style="color:#0c7ac4;"></i> Manassas - <strong><i>SkillSource</i></strong> Career Services Center</td>
+    </tr>
+<?endif;?>
+
+
+
+
+
+
 </table>
    <p></p>
    

@@ -25,7 +25,7 @@
      
      */
      ?>
-<?= $this->TableHead( array('Title','Visible','Date','Starts','Ends', 'Q', 'Quick Edit', 'Details','Remove'), "table table-striped small-txt", "event-list" ) ?>
+<?= $this->TableHead( array('Title','Visible','Date','Start','End', 'QQ', 'Edit', 'Detail', 'Copy', 'Remove'), "table table-striped small-txt", "event-list" ) ?>
 
     <? $editPath = "/admin/events/inline-edit"; ?>
 
@@ -57,6 +57,13 @@
                                       data-format='html'
                                       data-callback='default'
                                       title='edit event content'></a>
+                                   </center>",
+                                   
+                                   
+                                   "<center>
+                                   <a class='copy-this-event' title='Copy This Event' 
+                                              event:created='{$e->created}' event:id='{$id}'>
+                                              <i class='icon-file'></i></a>
                                    </center>",
                                    
                                    "<center>

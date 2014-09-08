@@ -1,10 +1,19 @@
 
 <div class="span8">
 <h2><?= ucwords($this->industry->name)?> </h2>
-<?if(isset($this->programs)):?>
-    <?foreach($this->programs as $key=>$program):?>
-        <a href="/providers/view/id/<?=$program->provider_id?>"><?=$program->name?></a> <br />
-    <?endforeach;?>
+<?if(isset($this->programs)):
+
+//$names = array();
+
+?>
+    <?foreach($this->programs as $key=>$program):
+    ?>
+        <a href="/providers/view/id/<?=$program->provider_id?>"><?=$program->name?> <?= " <small class='gray-text'><i>- ".$program->provider_name."</i></small>"  ?></a> <br />
+    <?
+    //$names[] = $program->name;
+   
+    
+    endforeach;?>
 <?endif;?>
 </div>
 

@@ -6,7 +6,6 @@
 <? $this->headLink()->appendStylesheet('/js/vendor/wysiwyg/summernote.css'); ?>
 <? $this->headLink()->appendStylesheet('/css/vendor/bootstrap-datatable.css'); ?>
 <? $this->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css'); ?>
-       
 <? $this->headScript()->appendFile('/js/vendor/underscore.js');?>
 <? $this->headScript()->appendFile('/js/vendor/x-editable.js');?>
 <? $this->headScript()->appendFile('/js/lib/admin.js');?>
@@ -26,6 +25,10 @@ $eventDatePassed = strtotime($this->event['created']) < time() ?  true : false;
 
 ?>
 
+     
+     
+     
+     
     <div class="tabbable" id="tabs-event-details">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#panel-edetail" data-toggle="tab">Event Details</a></li>
@@ -37,30 +40,178 @@ $eventDatePassed = strtotime($this->event['created']) < time() ?  true : false;
             </li>
 
             <li class=""><a href="#panel-contact" data-toggle="tab">Contact Attendees</a></li>
+            
+            
                 
             
         </ul>
         <div class="tab-content">
             
             <div class="tab-pane active" id="panel-edetail">
-                    <div class="pull-right">
-                    
-                    <div class="btn-group">
+                    <div class="">
+                     
+                     <div class="btn-group">
                         
-                     <a data-format="html" data-params="render=html&view=admin" data-callback="default" data-path="/admin/events/" class="admin-link btn">
-                    Back To Events <i class="icon-calendar"></i></a>                        
-                     <a event:id="<?=$this->event['id']?>" id="js-assign-qualifier" class=" btn js-assign-qualifier">Assign Qualifiers <i class="icon-question-sign"></i></a>
-                     <a class="btn export-attendies" href="/admin/events/export-list/id/<?=$this->event['id']?>">Export Attendees List <i class="icon-wrench"></i></a></p>
-                    </div> 
-                    </div>
-                    <h2 class="no-pad no-margin"><?=$this->event['title']?></h2>
+                        <a  data-params="id=<?=$this->event['id']?>"
+                            data-bind="event-bind-crud"
+                            title="Edit event content"
+                            data-action="update"
+                            class="btn crud-create-update">Edit <i class="icon icon-cog"></i>
+                        </a>
+                        
+                        <a  class="btn copy-this-event"
+                            event:created="<?=$this->event['created']?>"
+                            event:id="<?=$this->event['id']?>">Copy <i class=" icon-file"></i>
+                        </a>
+                        
+                        <a  title="edit event content"
+                            data-callback="default"
+                            data-format="html"
+                            data-params="id=<?=$this->event['id']?>"
+                            data-path="/admin/events/detail/"
+                            class="admin-link btn">Refresh <i class="icon icon-refresh"></i>
+                        </a>
+                        
+                        <a  data-format="html"
+                            data-params="render=html&view=admin"
+                            data-callback="default"
+                            data-path="/admin/events/"
+                            class="admin-link btn">Back To Events <i class="icon-calendar"></i>
+                        </a>                        
+                        
+                        <a  event:created="<?=$this->event['created']?>"
+                            event:id="<?=$this->event['id']?>"
+                            id="js-assign-qualifier"
+                            class="btn js-assign-qualifier">Assign Qualifiers <i class="icon-question-sign"></i>
+                        </a>
+                        
+                        <a  class="btn export-attendies"
+                            href="/admin/events/export-list/id/<?=$this->event['id']?>">Export Attendees List <i class="icon-wrench"></i>
+                        </a>
+                        
+                        <a  data-params="id=<?=$this->event['id']?>"
+                            data-action="delete"
+                            title="delete event"
+                            data-bind="event-bind-crud"
+                            class="crud-delete btn"> Delete <i class=" icon icon-remove"></i>
+                        </a>
+
+                        </div>
+                      
+                     
+                   </div>
+            
+                  
+                   
+            <div id="event-detail-list" class="event-detail-list">
+                
+                <div class="crud-row-<?=$this->event['id']?>">
+                    
+                    
+                    
+                </div>
+        
+            </div>
+            
+                 
+                    <h2 class="no-pad no-margin">
+                    
+                    <?=$this->InlineEdit($this->event['title'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "title-inline-edit", "Edit Title")?>
+                    
+                    
+                    </h2>
                     <strong>Type: <?=$this->event['type']?></strong>
-                    <div class=""><?= date("m-d-Y", strtotime($this->event['created'])) ?></div>
+                    
+                    
+                    <div class="">
+                        
+                    <a data-title="Update Event Date"
+                                data-url="/admin/events/inline-edit"
+                                data-placement="right" data-pk="<?=$this->event['id']?>" data-viewformat="yyyy-mm-dd"
+                                data-type="date" id="created-inline-edit" href="#" class="editable editable-click"
+                                data-original-title="" title="starts <?=date("m-d-Y", strtotime($this->event['created']))?>"><?=$this->event['created']?></a>
+
+                    </div>
+                    <address>
+                    
+                    
+                    <?=$this->InlineEdit($this->event['address'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "address-inline-edit", "Edit Address")?>
+                    
+                     
+                    <?=$this->InlineEdit($this->event['city'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "city-inline-edit", "Edit City")?>,
+                    
+                    
+                    
+                    <?=$this->InlineEdit($this->event['state'], $this->event['id'],
+                                           "/admin/events/inline-edit", "state-inline-edit", "Edit State", 'select',
+                                           '/admin/provider/data-src/?f=state') ?>
+                    
+                    
+                    
+                     
+                    <?=$this->InlineEdit($this->event['zip'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "zip-inline-edit", "Edit Zip")?>
+                    
+                    
+                    
+                    </address>
+                    
+                    
+                    
+                    <div class="event-site">
+                        
+                     <p class="no-underline">
+                     <?=$this->InlineEdit($this->event['site'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "site-inline-edit", "Edit Web Site Url")?>
+                     </p>
+                        
+                        
+                    </div>
+                    
+                     
+                    
+                    <div class="event-body">
+                     
+                     <p class="no-underline">
+                     <?=$this->InlineEdit($this->event['body'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "body-inline-edit", "Edit Body Test")?>
+                     </p>
+                    
+                   </div>
+                    
+                    <div class="alert alert-success">
+                     Start Time: <?=$this->InlineEdit($this->event['start_time'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "start_time-inline-edit", "Edit Start Time")?><br />   
+                        
+                  
+                     End Time: <?=$this->InlineEdit($this->event['end_time'],
+                                         $this->event['id'],
+                                         "/admin/events/inline-edit", "end_time-inline-edit", "Edit End Time")?><br />   
+                        
+                    </div>
                     
                     
                     <div class="alert alert-<?= ($this->event['visible'] == 'Y') ? "success" : "error" ?>">
-                        Event Visible: <?=$this->event['visible'] ?>
+                        Event Visible: <?=
+                         $this->InlineEdit($this->event['visible'], $this->event['id'],
+                                           "/admin/events/inline-edit", "visible-inline-edit", "Edit Visible", 'select',
+                                           '/admin/provider/data-src')
+                         ?>
                      </div>
+                    
+                    <div class="alert alert-success">
+                        Views ( <?=$this->event['views']?> )
+                    </div>
                     
                     <div class="alert alert-success">
                         <?=$this->event['rsvp_count'] ?> attending of <?=$this->event['seats']?> Seat/s<br />
@@ -97,6 +248,37 @@ $eventDatePassed = strtotime($this->event['created']) < time() ?  true : false;
         </div>
     </div>
 
+<script type="text/plain" id="js-events-template-detail-crud">
+   
+    <div class="alert alert-success">
+    <h2>Event Updated:</h2> 
+    <a title="edit event content"
+       data-callback="default"
+       data-format="html"
+       data-params="id=<%=id%>"
+       data-path="/admin/events/detail/"
+       class="admin-link icon icon-edit">Refresh to see changes</a>
+     </div>
+    
+    <%
+    
+    content.load( '/admin/events/detail', {id:id}, Admin.display, 'html' );
+    
+    %>
+    
+    
+</script>    
 
-
-
+<div class="crud-create-update crud-load-template hidden"
+     id="event-bind-crud"
+     data-id=''
+     data-path='.:crud-event'
+     data-form='eventsform'
+     data-title="Edit Event Content"
+     data-params=''
+     data-action='create'
+     data-callback='Admin.Events.Update'
+     data-onDelete='Admin.Events.DeleteSingle'
+     
+     data-target='event-detail-list'
+     data-template='js-events-template-detail-crud'></div>

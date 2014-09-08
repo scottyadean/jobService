@@ -1,9 +1,4 @@
 #mainModalBody { max-height:475px!important; overflow-y: auto!important; min-height:300px!important;}
-.dataTables_length{ margin-left: 37px
-
-.active{ background-color: #7FD8FF!important; }
-
-.day:hover {  outline: solid #00ADEF!important;  }
 
 
 .focus{
@@ -25,4 +20,27 @@
     width: 10px;
     height: 10px;
     display: inline-block;
+}
+
+td.day:hover {
+    
+    background-color: #ccc !important;
+    cursor: pointer !important;
+    
+}
+
+td.active {
+    
+    
+    background-color: #7FD8FF !important;
+    
+}
+
+
+.no-underline a{
+    
+  text-decoration: none;
+  color: #333;
+    
+    
 }

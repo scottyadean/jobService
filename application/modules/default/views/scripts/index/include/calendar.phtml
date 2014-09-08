@@ -27,12 +27,14 @@ if($currMonth < 10) {
     $currMonth  = '0'.(int)$currMonth;
 }
 
-    
+
+$concatdata = $this->year.'-'.$currMonth.'-'.$this->day;
+$displaymonthyear = Base_Functions_Date::MonthNames($this->month-1).' '.$this->year;    
 
 ?>
 <table id="js-calendar"
        width="100%"
-       data-date="<?=$this->year.'-'.$currMonth.'-'.$this->day?>" 
+       data-date="<?=$concatdata ?>" 
        data-year="<?=$this->year?>" 
        data-month="<?=$currMonth?>" 
        data-day="<?=$this->day?>"       
@@ -41,7 +43,7 @@ if($currMonth < 10) {
     <tr>
         <th colspan="7" ><h4 id="js-calendar-monthName" class="text-center">
             <?= Base_Functions_Date::MonthNames($this->month-1).' '.$this->year; ?></h4>
-            <a class="pull-left pointer js-calendar-nextprev" data-year="<?=$prevYear?>" data-month="<?=$prevMonth?>">Previous</a>
+            <a class="pull-left pointer js-calendar-nextprev <?= ($displaymonthyear == 'September 2014') ? "hidden" : ""?> " data-year="<?=$prevYear?>" data-month="<?=$prevMonth?>">Previous</a>
             <a class="pull-right pointer js-calendar-nextprev" data-year="<?=$nextYear?>" data-month="<?=$nextMonth?>">Next</a>
         </th>
     </tr>

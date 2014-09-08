@@ -20,6 +20,10 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
     }
     
     
+    public function getName() {
+        
+        return $this->_name;
+    }
 
     public function _index($where = array()) {
     
@@ -70,7 +74,8 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
 
     public function _joinProviders($where = array()) {
     
-        $select = $this->select()->from($this->_name)
+       
+        $select = $this->select()->from(array($this->_name=>$this->_name))
                                  ->setIntegrityCheck(false)
                                  ->join(array('p'=>'providers'),
                                   $this->_name.'.provider_id = p.id', array('name AS provider_name'));
@@ -87,10 +92,12 @@ class Default_Model_Program  extends Zend_Db_Table_Abstract {
         }
         
         
+        
         if(!empty($this->order_by)) {
             $select->order($this->order_by);    
         }
     
+     
         return $this->fetchAll($select);
     }
     

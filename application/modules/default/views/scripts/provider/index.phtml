@@ -6,52 +6,58 @@
 <? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
 <? $this->headScript()->appendFile('/js/vendor/sweet-pages.js');?>
 
-    <div class="span9">
+    <div class="span9"> 
     <h3>Training Providers Directory</h3>
         <div class="tabbable">
             
             <ul class="nav nav-tabs">
-                <li class=""><a href='#tab0' data-toggle="tab">Industries</a></li>
-                <!--li class=""><a href="#tab01" data-toggle="tab">Programs</a></li-->
-                <li class="active">
-                    <a href="#tab1" class="tabContainer1" data-toggle="tab">A - H</a>
-                </li>
-                <li>
-                    <a href="#tab2" class="tabContainer2" data-toggle="tab">I - P</a>
-                </li>
-                <li>
-                    <a href="#tab3" class="tabContainer3" data-toggle="tab">Q - Z</a>
-                </li>
-                <li>
-                    <a href="#tab4" data-toggle="tab">Search</a></li>
+                
+                <?php
+                
+                    $tabs = array("#tab0" => '<a href="#tab0" class="tabContainer0" data-toggle="tab">Industries</a>' ,
+                                  "#tab1" => '<a href="#tab1" class="tabContainer1" data-toggle="tab">A - H</a>',
+                                  "#tab2" => '<a href="#tab2" class="tabContainer2" data-toggle="tab">I - P</a>',
+                                  "#tab3" => '<a href="#tab3" class="tabContainer3" data-toggle="tab">Q - Z</a>',
+                                  "#tab4" => '<a href="#tab4" class="tabContainer4" data-toggle="tab">Search</a>');
+                    
+                    $tabpane = array("#tab0" => "",
+                                     "#tab1" => "",
+                                     "#tab2" => "",
+                                     "#tab3" => "",
+                                     "#tab4" => "" );
+                    
+                    
+                    $savedTab = !is_null($_COOKIE["tab"]) ? $_COOKIE["tab"] : "#tab1";
+                    
+                    foreach( $tabs as $key=>$value ) {
+                       $tabpane[$key] =  $tabactive = ( $key ===  $savedTab ) ? "active" : "";
+                       print "<li class='".$tabactive."'>" .$value. "</li>"; 
+                       
+                    }
+                
+                ?>
+                
+               
+                    
             </ul>
             
             <div class="tab-content">
                 
-                <div class="tab-pane" id="tab0">
+                <div class="tab-pane <?=$tabpane["#tab0"]?>" id="tab0">
                     <?= $this->partial('/provider/partials/industries.phtml', 'default',
                                       array( 'parents' => $this->baseIndustries,
                                              'children' => $this->nestedIndustries
                                             ));?>    
                 </div>
                 
-                <!--div class="tab-pane" id="tab01">
-                    <?
-                    /*
-                    echo $this->partial('/provider/partials/program-types.phtml', 'default',
-                                  array( 'programs' => $this->programsGroups));
-                    */              
-                                  ?> 
-                </div-->
-                
-                <div class="tab-pane active pos-rel" id="tab1">
+                <div class="tab-pane <?=$tabpane["#tab1"]?> pos-rel" id="tab1">
                     <?= $this->partial('/provider/partials/display.phtml', 'default',
                                        array('providers'=>$this->providersA_H,
                                              'locations'=>$this->locations,
                                              'page'=>'page1'));?>               
                 </div>
         
-                <div class="tab-pane pos-rel" id="tab2">
+                <div class="tab-pane <?=$tabpane["#tab2"]?> pos-rel" id="tab2">
                     <?= $this->partial('/provider/partials/display.phtml', 'default',
                                        array('providers'=>$this->providersI_P,
                                              'locations'=>$this->locations,
@@ -59,7 +65,7 @@
                                              ));?>     
                     </div>
         
-                <div class="tab-pane pos-rel" id="tab3">
+                <div class="tab-pane <?=$tabpane["#tab3"]?> pos-rel" id="tab3">
                     <?= $this->partial('/provider/partials/display.phtml', 'default',
                                        array('providers'=>$this->providersQ_Z,
                                              'locations'=>$this->locations,
@@ -68,7 +74,7 @@
                 </div>
                 
                 
-                <div class="tab-pane" id="tab4" style="min-height:350px;">
+                <div class="tab-pane <?=$tabpane["#tab4"]?>" id="tab4" style="min-height:350px;">
                       <?= $this->FavsList();?>
                     
                        <?= $this->partial('/provider/partials/search.phtml', 'default',
@@ -83,4 +89,11 @@
         
     </div>
 
+
+<script>
+    
+    
+    var __tabSelected = <?=json_encode($tabpane);?>;
+    
+</script>
 

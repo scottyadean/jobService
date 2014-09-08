@@ -48,8 +48,15 @@ class Default_ProviderController extends Zend_Controller_Action {
         $locations->fields = array('name', 'tags');
         $this->view->providersFilter =  $providerNames->_index()->toArray();
      
-       
-       
+    }
+    
+    
+    public function tabAction() {
+        
+        
+         $time   = time() + (1 * 365 * 24 * 60 * 60);
+         setcookie("tab",$this->id, $time, '/');
+         $this->_asJson(array('id'=>$this->id, 'cookie'=>$_COOKIE["tab"]));
         
     }
     
@@ -67,6 +74,11 @@ class Default_ProviderController extends Zend_Controller_Action {
         
         $industry = new Default_Model_Industry;
         $childElements = $industry->_index(array("parent_id = ?" => (int)$this->id))->toArray();
+        
+        
+        
+        
+        
         $this->view->industry = $industry->_read((int)$this->id);
         
         if(empty($this->view->industry)){
@@ -76,10 +88,16 @@ class Default_ProviderController extends Zend_Controller_Action {
         
         $programs = new Default_Model_Program;
         $where = !empty($childElements)
-        ? array('industry_id IN (?)' => (int)Base_Functions_Array::In($childElements))
+        ? array('industry_id IN (?)' => Base_Functions_Array::In($childElements))
         : array('industry_id = ?' => (int)$this->id);
+         
+        
                  
+        $programs->order_by = $programs->getName().".name ASC";
+        
         $this->view->programs = $programs->_joinProviders($where);
+     
+        
 
     }
     
@@ -166,5 +184,14 @@ class Default_ProviderController extends Zend_Controller_Action {
         
     }
     
+      protected function _asJson(array $data) {
+    
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $this->getResponse()->setHeader('Content-type', 'application/json')
+                            ->setBody(json_encode($data));
+    }    
+
   
 }  

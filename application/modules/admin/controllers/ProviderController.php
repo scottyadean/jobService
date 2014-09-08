@@ -110,6 +110,13 @@ class Admin_ProviderController extends Zend_Controller_Action {
      *Inline data for visible or hidden providers
     */
     public function dataSrcAction() {
+        
+        $feild = $this->getRequest()->getParam('f');
+         if($feild == 'state') {
+            
+            return $this-> _asJson(Main_Forms_Data::AmericaStates());
+            
+         }
         $this-> _asJson(array('Y'=>'Visible', 'N'=>'Hidden'));
     }
     

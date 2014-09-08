@@ -37,12 +37,7 @@ class Default_Model_Event extends Zend_Db_Table_Abstract
     
     
     public function _top10() {
-        
-        
-        $select = $this->select()->from(array($this->_name=>$this->_name))->setIntegrityCheck(false)
-                               ->join(array('rsvp'=>'events_rsvp'), $this->_name.'.id = rsvp.event_id', array(' COUNT(rsvp.id) AS rsvp_count'))
-                       ->where(  $this->_name.'.views > ?', (int)0 )->limit(10)->order('views ASC');
-        
+        $select = $this->select()->where($this->_name.'.views > ?', 1 )->limit(10)->order('views DESC');
         return $this->fetchAll($select); 
     }
     
@@ -63,8 +58,6 @@ class Default_Model_Event extends Zend_Db_Table_Abstract
     public function findByDate($searchDate=false, $where = array()) {
         
         $select = $this->select();
- 
-    
  
         if($searchDate) {
             $select->where('created LIKE ?', "{$searchDate}%");
@@ -97,16 +90,17 @@ class Default_Model_Event extends Zend_Db_Table_Abstract
     }
     
     
-    protected function _cleanData($data) {
+    public function _cleanData($data) {
     
         if(isset($data['created'])) {
-            $timestamp = strtotime($data['created']." ".date("H:i:s"));
+            $timestamp = strtotime($data['created']);
             $data['created'] = date("Y-m-d H:i:s", $timestamp);
         }
         
         if(array_key_exists('created',$data) && empty($data['created'])){
             unset($data['created']);
         }
+        
         
         $info = $this->info();
         return array_intersect_key($data, $info['metadata']); 

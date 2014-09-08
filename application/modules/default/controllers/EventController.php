@@ -21,7 +21,12 @@ class Default_EventController extends Zend_Controller_Action
     }
     
     public function indexAction() {
-    
+        
+        $model = new Default_Model_Crud;
+        $model->setTable('skillsrc_centers');
+        $eventCenters = $model->_index()->toArray();
+        
+        $this->view->eventCenters = $eventCenters;
     
     }
     

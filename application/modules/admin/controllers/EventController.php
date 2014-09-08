@@ -12,7 +12,8 @@ class Admin_EventController extends Zend_Controller_Action {
    protected $_model;
    
    public function init() {
-       Zend_Layout::getMvcInstance()->assign('sideNav', 'N');
+        
+        Zend_Layout::getMvcInstance()->assign('sideNav', 'N');
     
         $this->id = $this->getRequest()->getParam('id', null);
         $this->xhr = $this->getRequest()->isXmlHttpRequest();
@@ -42,7 +43,6 @@ class Admin_EventController extends Zend_Controller_Action {
         
         $this->view->events = $this->_model->findByDate(date('Y-m'));
         
-        
         $Qualifiers = new Default_Model_Qualifiers;
         $this->view->qualifiers = $Qualifiers->_index(null);
         
@@ -60,6 +60,48 @@ class Admin_EventController extends Zend_Controller_Action {
         
     }
     
+    
+    public function duplicateAction() {
+
+        $model = new Default_Model_Event;
+        $event = $model->_find($this->id)->toArray();
+        $lastid = false;
+        
+        
+        if( $this->params['render'] == 'form'  ) {
+            
+            
+            $form = new Application_Form_Admin_EventDuplicate();
+            $form->_created = $this->params['created'];
+            $form->build($this->uri, $this->id);
+            $form->populate($event);
+            $this->view->form = $form;
+            $this->view->event = $event;
+            return;
+        }
+        
+        
+        if(!empty($event)) {
+            
+            $qualifiers = $model->getQualifiers();
+            
+            if(isset($event['id'])){
+                unset($event['id']);
+            }
+            
+            
+            $event['created'] = $this->params['created'];
+            $event['title'] = strip_tags($this->params['title']);
+            
+            $event = $model->_cleanData($event);
+            
+            $lastid = $model->_create( $event );
+        
+        }
+        
+        $this->_asJson(array("event"=>$event, "success"=>$lastid));
+        
+    }
     
     
      /*
@@ -140,7 +182,7 @@ class Admin_EventController extends Zend_Controller_Action {
                 $usr = new Default_Model_User;
                 $this->view->users = $usr->_in('id', $ids);
             }
-            }
+    }
             
             
             

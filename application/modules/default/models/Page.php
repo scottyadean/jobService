@@ -42,7 +42,7 @@ class Default_Model_Page extends Zend_Db_Table_Abstract {
     
     public function _top10() {
 
-        $select = $this->select()->where(  $this->_name.'.views > ?', (int)0 )->limit(10)->order('views ASC');
+        $select = $this->select()->where(  $this->_name.'.views > ?', 1 )->limit(10)->order('views DESC');
         return $this->fetchAll($select); 
     }
     

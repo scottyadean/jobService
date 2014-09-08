@@ -46,6 +46,14 @@ class Default_IndexController extends Zend_Controller_Action
         $eventsModel = new Default_Model_Event;
         $this->view->events = $eventsModel->findByDate(date("Y").'-'. date("m"), array( 'visible = ?' => 'Y' ))->toArray();
         $this->view->centerColors = $this->getHexColors();
+        
+        $model = new Default_Model_Crud;
+        $model->setTable('skillsrc_centers');
+        $eventCenters = $model->_index()->toArray();
+        
+        $this->view->eventCenters = $eventCenters;
+        
+        
     }
     
     
