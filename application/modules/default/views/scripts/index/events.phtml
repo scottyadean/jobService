@@ -10,37 +10,16 @@ $this->headScript()->appendFile('/js/views/index/events/cal.js');
 <table border="0" cellpadding="5">
 
 
-<?if (isset($this->eventCenters) && !empty($this->eventCenters)):?>
-
-
-<?foreach($this->eventCenters as $k=>$center):?>
-
-    <?if($k == 0 || $k == 3 ) {  echo"<tr>"; }?>
-
-    <td><i class="icon-map-marker" style="color:<?=$center['color']?>;"></i> <small><?=$center['name']?></small></td>
-
-    <?if($k == 2 || $k == 5 ) {  echo"</tr>"; }?>
-
-    
-<?endforeach;?>
-
-
-<?else:?>
     <tr>
-        <td><i class="icon-map-marker" style="color:#b80000;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Annandale</td>
-        <td><i class="icon-map-marker" style="color:#742497;"></i> Prince William <strong><i>SkillSource</i></strong> Center</td>
-        <td><i class="icon-map-marker" style="color:#00af83;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Alexandria</td>
+        <td><i class="icon-map-marker" style="color:#2c9c21;"> </i> <small> Fairfax <strong><i>SkillSource</i></strong> Center - Annandale</small></td>
+        <td><i class="icon-map-marker" style="color:#742497;"> </i> <small> Prince William <strong><i>SkillSource</i></strong> Center</small></td>
+        <td><i class="icon-map-marker" style="color:#1954ba;"> </i> <small> Fairfax <strong><i>SkillSource</i></strong> Center - Alexandria</small></td>
     </tr>
     <tr>
-        <td><i class="icon-map-marker" style="color:#e1c70d;"></i> Loudoun Workforce Resource Center</td>
-        <td><i class="icon-map-marker" style="color:#e76e37;"></i> Fairfax <strong><i>SkillSource</i></strong> Center - Reston</td>
-        <td><i class="icon-map-marker" style="color:#0c7ac4;"></i> Manassas - <strong><i>SkillSource</i></strong> Career Services Center</td>
+        <td><i class="icon-map-marker" style="color:#c70d18;"> </i> <small> Loudoun Workforce Resource Center</small> </td>
+        <td><i class="icon-map-marker" style="color:#f98713;"> </i> <small> Fairfax <strong><i>SkillSource</i></strong> Center - Reston</small></td>
+        <td><i class="icon-map-marker" style="color:#9dde18;"> </i> <small> Manassas - <strong><i>SkillSource</i></strong> Career Services Center</small></td>
     </tr>
-<?endif;?>
-
-
-
-
 
 
 </table>
@@ -50,6 +29,24 @@ $this->headScript()->appendFile('/js/views/index/events/cal.js');
     <?= $this->partial('/index/include/calendar.phtml',
                        array('day'=>date("d"),'year'=>date("Y"),'month'=> date('m'),'customClass'=>'js-events-day',)); ?>
     </div>
+    
+        <p>Click on the links below to download a list of events for each <em><strong>SkillSource</strong></em> Center. </p>
+<table border="0" cellpadding="5">
+
+
+    <tr>
+        <td><small><a href="/pdf/events/SSG_September2014_Annandale.pdf" target="_blank"> <img src="/img/file_pdf.png" /> Fairfax <strong><i>SkillSource</i></strong> Center - Annandale </a></small></td>
+        <td><small><a href="/pdf/events/SSG_September2014_PrinceWilliam.pdf" target="_blank"><img src="/img/file_pdf.png" /> Prince William <strong><i>SkillSource</i></strong> Center </a></small></td>
+        <td><small><a href="/pdf/events/SSG_September2014_Alexandria.pdf" target="_blank"><img src="/img/file_pdf.png" /> Fairfax <strong><i>SkillSource</i></strong> Center - Alexandria </a></small></td>
+    </tr>
+    <tr>
+        <td><small><a href="/pdf/events/SSG_September2014_Loudoun.pdf" target="_blank"><img src="/img/file_pdf.png" /> Loudoun Workforce Resource Center</a></small></td>
+        <td><small><a href="/pdf/events/SSG_September2014_Reston.pdf" target="_blank"><img src="/img/file_pdf.png" /> Fairfax <strong><i>SkillSource</i></strong> Center - Reston </a></small></td>
+        <td><small><a href="/pdf/events/SSG_September2014_Manassas.pdf" target="_blank"><img src="/img/file_pdf.png" /> Manassas - <strong><i>SkillSource</i></strong> Career Services Center</a></small></td>
+    </tr>
+
+</table>
+<p></p>
    
     <div id="js-events-wrapper" class="">
         <?= $this->partial( '/index/include/events.phtml',array('events'=>$this->events, 'month'=>date("F"), "centerColors"=>$this->centerColors)); ?>

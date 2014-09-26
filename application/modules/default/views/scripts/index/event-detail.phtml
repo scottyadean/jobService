@@ -1,8 +1,9 @@
+
 <?
 $this->layout()->sideNav = 'N';
 $link = SITE_URL."/event-detail/id/".$this->event['id']."/event/".Base_Functions_Strings::Slug($this->event['title']);
 $count = abs($this->event['rsvp_count'] - $this->event['seats']);
-$eventDatePassed = strtotime($this->event['created']) < time() ?  true : false; 
+$eventDatePassed = strtotime($this->event['created']) + 85000 < time() ?  true : false; 
 if($this->xhr):?>
     <div class="pull-right">
         <?if(empty($this->eventSigned)):?>   
@@ -67,7 +68,8 @@ if($this->xhr):?>
 
         <blockquote>
                 <p>
-                <?=$this->EchoIfSet(date("F d, Y",strtotime($this->event['created'])), "<strong>When:</strong> ", " <br />") ?>
+                    <? $onLabel = ($eventDatePassed) ? "Happened:" : "When:"; ?>
+                <?=$this->EchoIfSet(date("F d, Y",strtotime($this->event['created'])), "<strong> ". $onLabel . "</strong> ", " <br />") ?>
                 <?=$this->EchoIfSet($this->event['start_time'], "Staring: ", "<br />") ?>
                 <?=$this->EchoIfSet($this->event['end_time'], "Ending: ", "<br />") ?>
                 </p>

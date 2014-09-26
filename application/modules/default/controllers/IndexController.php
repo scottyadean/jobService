@@ -26,6 +26,11 @@ class Default_IndexController extends Zend_Controller_Action
          $this->_helper->layout->setLayout('index');
     }
     
+    
+    public function homeAction() {
+        $this->_forward("index");
+    }
+    
     public function pageAction() {
         $this->_model = new Default_Model_Page;
         $page = $this->_model->_read($this->id);

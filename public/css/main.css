@@ -13,6 +13,12 @@ html,
         font-size: 10px;
          The html and body elements cannot have any padding or margin. */
       }
+@media print {
+  a[href]:after {
+    content: none;
+  }
+}
+
 #wrapmain
 	{background-image:url(../img/bluebg_main.jpg);
 	background-repeat:repeat-x;
@@ -308,6 +314,19 @@ table p
 	background-color: #125dab;
 	*background-color: #003bb3;
 }
+
+#event-list tbody td:nth-child(2) 
+	{max-width:100px;}
+	
+
+.js-center-info {
+    
+    
+    width:25px; height:17px;
+    
+    display:block;
+}
+
 /* ------------------------------------------------NAV BAR---------------------------------------------------- */
 #nav
 	{float:right;
@@ -693,6 +712,12 @@ button.btn {
    border: 1px inset #50C3CA;
    font-weight: bold;
    color: #0044CC;
+}
+
+.js-view-event {
+    
+     font-size: 15px;
+    
 }
 
 

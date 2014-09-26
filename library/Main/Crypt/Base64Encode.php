@@ -23,6 +23,7 @@ class Main_Crypt_Base64Encode
     public  function encode($value){ 
         if(!$value){return false;}
         $text = $value;
+        
         $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
         $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
         $crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->skey, $text, MCRYPT_MODE_ECB, $iv);

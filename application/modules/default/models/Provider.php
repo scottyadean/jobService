@@ -110,7 +110,7 @@ class Default_Model_Provider extends Zend_Db_Table_Abstract {
         $select = $this->select()->from(array('providers'=>$this->_name))->setIntegrityCheck(false)
                                   ->joinLeft(array('i'=>'industries'),
                                       'providers.industry_id = i.id', array('name AS industry_name','id AS industry_id'))
-                                  ->order($this->_name.'.name ASC');
+                                  ->order($this->_name.'.name ASC')->where($this->_name.'.visible = ?', 'Y');
         
         if(count($in) == 0) {
             return array();
@@ -124,7 +124,7 @@ class Default_Model_Provider extends Zend_Db_Table_Abstract {
         $select = $this->select()->from(array('providers'=>$this->_name))->setIntegrityCheck(false)
                           ->joinLeft(array('i'=>'industries'),
                               'providers.industry_id = i.id', array('name AS industry_name','id AS industry_id'))
-                          ->order($this->_name.'.name ASC');
+                          ->order($this->_name.'.name ASC')->where($this->_name.'.visible = ?', 'Y');
         
         $select->where($this->_name.".".$field." ".$opt." ?", "$val");
         

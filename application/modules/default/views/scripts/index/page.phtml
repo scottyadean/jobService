@@ -1,7 +1,7 @@
 
 <?$this->layout()->sideNav = "N";?>
-<?$this->headTitle($this->page->title ." ");?>
-
+<?$this->headTitle("SkillSource - " .$this->page->title ." ");?>
+<?$this->layout()->description = "SkillSource - " . $this->page->title ?> 
 <?foreach(  $this->mods as $m ):?>
     <?if($m->type == 'H'):?>
         <? $this->layout()->header = $m->body?>

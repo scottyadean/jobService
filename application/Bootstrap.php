@@ -8,10 +8,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     
         define('SITE_SSL', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://' );
         define('SITE_URL',    SITE_SSL.$_SERVER['HTTP_HOST']);
-        define('SITE_EMAIL', 'info@'.$_SERVER['HTTP_HOST']);
+        define('SITE_EMAIL', 'comment.card@'.$_SERVER['HTTP_HOST']);
         define('SITE_NAME',  'SkillSource Group, Inc.');
         define('SITE_NAME_FANCY',  '<b><i>SkillSource</i></b> Group, Inc.');
         define('LOGO_NAME',  'SSG');
+    
+      
     }
     
     protected function _initAuth() {

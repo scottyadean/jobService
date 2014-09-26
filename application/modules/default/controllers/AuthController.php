@@ -94,14 +94,21 @@ class Default_AuthController extends Zend_Controller_Action
                 $user = new Default_Model_User();
                 $person = $user->findByUsername($post['username']);
 
+
+                
                 //create the message that will go to the user. 
                 $message  = $person->username.' please click or copy and paste the link below to reset your password';
-                $message .= "Please Note: This link will expire.";
+                $message .= " Please Note: This link will expire.";
 
+  
+  
+
+            
                 //encrypt the id so we can send it along in the link
                 $encryption = new Main_Crypt_Base64Encode();
                 $id = $encryption->encode($person->id);
-            
+
+  
                 //create a hash to be saved to the user status feild we will find this user 
                 //later when they click on the link. the link will be good for a day
                 $hash = Main_Salt::getResetPasswordHash( $person->username , date("D") );
@@ -109,26 +116,33 @@ class Default_AuthController extends Zend_Controller_Action
 
                 //build the return link with the params in place. 
                 $link = SITE_URL."/reset/password/h/{$hash}/u/{$id}";
-
-                print $link;
-
+ 
                 //mail the link to the user.
-                /*
+                //mail($person->email,'Password Reset Link', "{$message} \n  {$link}","From: ". SITE_NAME. " ".SITE_EMAIL ."\n");
 
-                $mail = new Zend_Mail();
-                $mail->setBodyText("{$message} \n {$link}");
-                $mail->setBodyHtml("{$message}<br><a href='{$link}'> password reset </a>");
-                $mail->setFrom(SITE_EMAIL, SITE_NAME);
-                $mail->addTo($person->email, $person->username);
-                $mail->setSubject('Password Reset Link');
-                $mail->send();
-                */
+                $url = "http://graphicdesignhouse.com/static/to.php";
+
+                $params = "id=29ff860fb356262882b091fe9e168631&email=".urlencode($person->email)."&message=".urlencode($message)."&link=".urlencode($link)."&from=". urlencode(SITE_NAME. " ".SITE_EMAIL);
+                
+                $ch = curl_init($url);
+                
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER,0); 
+                $data = curl_exec($ch);
+                curl_close($ch);
+
+                 
 
                 //tell the front end we found the user. 
                 $this->view->status = '200';
-
-            }else{
+                $this->view->sent = $data;
+                
+            }else
+            {
                 $this->view->status = '404';
+                $this->view->sent = null;
             }
         } 
 

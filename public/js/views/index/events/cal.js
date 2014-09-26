@@ -19,7 +19,7 @@ var  Events = {
      
               $("body").delegate('.js-center-info', 'mouseenter mouseleave', function(event) {
                    var e = $(this);
-                   console.log(event.type);
+                   //console.log(event.type);
                    if (e.attr("data-load") != 'false') {
                        if (event.type == 'mouseenter') {
                             e.attr("data-stats", 'visible'); 

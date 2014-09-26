@@ -1,7 +1,7 @@
 <h2><span id="js-curr-month"><?=$this->month?></span> Events</h2>
 <?if(isset($this->events) && is_array($this->events)):?>
  
- <?= $this->TableHead( array('Title','Date','Starts','Ends', 'Quick View', 'View'), "table table-striped small-txt", "event-list", "" ) ?>
+ <?= $this->TableHead( array('', 'Title','Date','Starts','Ends', 'Quick', 'View'), "table table-striped small-txt data-table", "event-list" ) ?>
 
  <?foreach($this->events as $k=>$e ):?>
  
@@ -18,13 +18,14 @@
  
  ?>
  
- <?= $this->TableRow( array( $this->Truncate($e['title'], 50),
-                             $e['created'],
+ <?= $this->TableRow( array(" <i class='".$cl." rounded-corners' data-stats='hidden' data-load='false' data-popuppath='/center-info/id/".$e["center_id"]."' style='background-color:$color;'> </i>",
+                             
+                            '<span title="'.$this->escape($e['title']).'">'.$this->Truncate($e['title'], 40) .'</span>',
+                             date("m/d/Y", strtotime($e['created'])),
                              $e['start_time'],
                              $e['end_time'],
-                             " <a class='js-view-event' data-id='".$e["id"]."'> <i class='icon-calendar'> </i> </a> ",
+                             " <a class='js-view-event rounded-corners' data-id='".$e["id"]."'> <i class='icon-calendar'> </i> </a> ",
                              " <a href='/event-detail/id/".$e["id"]."/event/".Base_Functions_Strings::Slug($e['title'])."'> <i class='icon-share'> </i> </a> ",
-                             " <i class='".$cl."' data-stats='hidden' data-load='false' data-popuppath='/center-info/id/".$e["center_id"]."' style='width:10px; height:10px; background-color:$color; display:block;'> </i>"
                              
                              ), 
                      "class='event-row-".$e["id"]."'"); ?>

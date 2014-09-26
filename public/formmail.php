@@ -280,14 +280,14 @@ define("BODY_LF","\r\n");       // the new default: use this for CR+LF
 $FROM_USER = "";                            // the default - setting not used
 
             /* Help: http://www.tectite.com/fmdoc/sendmail_f_option.php */
-define("SENDMAIL_F_OPTION",false);
+define("SENDMAIL_F_OPTION",true);
 define("SENDMAIL_F_OPTION_LINE",__LINE__-1);    // don't modify this line!
 
             /* Help: http://www.tectite.com/fmdoc/fixed_sender.php */
 $FIXED_SENDER = "";
 
             /* Help: http://www.tectite.com/fmdoc/set_sender_from_email.php */
-define("SET_SENDER_FROM_EMAIL",false);
+define("SET_SENDER_FROM_EMAIL",true);
 
             /* Help: http://www.tectite.com/fmdoc/ini_set_from.php */
 define("INI_SET_FROM",false);
@@ -321,7 +321,7 @@ $CSVLINE = "\n";    // line termination for CSV files.  The default is
                     // this value, you *must* set $CSVOPEN = "b".
 
             /* Help: http://www.tectite.com/fmdoc/templatedir.php */
-$TEMPLATEDIR = "http://www.graphicdesignhouse.com/templates";                  // directory for template files; empty string
+$TEMPLATEDIR = "http://www.myskillsource.org/templates";                  // directory for template files; empty string
                                     // if you don't have any templates
 
             /* Help: http://www.tectite.com/fmdoc/templateurl.php */
