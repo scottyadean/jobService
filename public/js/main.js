@@ -406,6 +406,12 @@ var helpers = {
         
         return null;
 
+    },
+    
+    truncate:function(str, limit) {
+        
+       return jQuery.trim(str).substring(0, limit).split(" ").slice(0, -1).join(" ") + "...";
+        
     }
     
 };

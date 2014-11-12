@@ -5,12 +5,12 @@
     <hr>
     <?= $this->partial('/provider/partials/search.phtml', 'default', array()); ?> 
 <?endif;?>
-<?
-$count1 = count($this->providers);
-$plural1 = ($count == 1) ? '' : 's';
+<?php
+$count1 = sizeof($this->providers);
+$plural1 = ($count1 == 1) ? '' : 's';
 
-$count2 = count($this->programs);
-$plural2 = ($count == 1) ? '' : 's';
+$count2 = sizeof($this->programs);
+$plural2 = ($count2 == 1) ? '' : 's';
 
 ?>
 

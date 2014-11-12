@@ -32,6 +32,8 @@ class Default_IndexController extends Zend_Controller_Action
     }
     
     public function pageAction() {
+        
+        
         $this->_model = new Default_Model_Page;
         $page = $this->_model->_read($this->id);
         
@@ -40,9 +42,19 @@ class Default_IndexController extends Zend_Controller_Action
             $mods = new Default_Model_Module;
             $modules = $mods->_getByIds(array($page->module_id, $page->module_id_right, $page->header_id));
             
-            $this->view->mods = $modules;
+            $this->view->mods = $modules;    
+        }
+        
+        //append any content that my be added to the page..       
+        $this->_model = new Default_Model_Crud;
+        $this->_model->setDbName('contents');
+        $contents = $this->_model->_index(null);
+        
+        foreach( $contents as $k=>$c ) {
+            $page->body = str_replace( "{{content:".$c->slug."}}", $c->body, $page->body );
             
         }
+        
         
         $this->view->page = $page;
     }
@@ -168,6 +180,8 @@ class Default_IndexController extends Zend_Controller_Action
             
         }
         
+        $this->view->spanwidth = (int)$this->getRequest()->getParam("spanwidth", 8);
+        
         
         if( empty($event)) {
             $this->_helper->flashMessenger->addMessage(array('alert alert-error'=> 'Event Not Found!') );
@@ -212,14 +226,15 @@ class Default_IndexController extends Zend_Controller_Action
         $this->view->qualifiers = $qualifiers;
         $this->view->event_id = $event_id;
         $this->view->event = $event; 
-         $this->view->isOnWaitList  = null;
-         $this->view->eventSigned = null;
+        $this->view->isOnWaitList  = null;
+        $this->view->eventSigned = null;
          
         $eventDetails = $eventsModel->_read($event_id);
         $allow = $this->view->seats = abs($eventDetails->rsvp_count - $eventDetails->seats);
         if( $eventDetails->type != 'limited registration'  ) {$allow = 1;}
         
-        if( is_null($qualifiers) && $allow > 0 ) {
+        
+        if( empty($qualifiers) && $allow > 0 ) {
         $eventsRsvpModel = new Default_Model_EventRsvp;
         $eventsRsvpModel->_create(array('user_id'=>$id,
                                         'uid'=>'1',
@@ -249,7 +264,7 @@ class Default_IndexController extends Zend_Controller_Action
         $id = Zend_Auth::getInstance()->getIdentity()->id;
         $this->_helper->layout->disableLayout();  
         $message = 'Error Sign up can not be compleated.';
-        
+        $seats = $success = 0;
         $eventsRsvpModel = new Default_Model_EventRsvp;
         
         if(!empty($event_id) && $this->post && !empty($id)){
@@ -262,8 +277,8 @@ class Default_IndexController extends Zend_Controller_Action
                 
                 $success = $eventsRsvpModel->_create(array('user_id'=>$id,
                                                            'uid'=>'1',
-                                                            'event_id'=>$event_id,
-                                                            'status'=>1, ));
+                                                           'event_id'=>$event_id,
+                                                           'status'=>1, ));
                 $message = 'Sign up Complete';        
             }
 

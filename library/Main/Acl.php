@@ -15,7 +15,8 @@ class Main_Acl extends Zend_Acl {
                                                   'event',
                                                   'qualifiers',
                                                   'program',
-                                                  'center'));
+                                                  'center',
+                                                  'content'));
 
     public $guests = array('default-index',
                            'default-provider',
@@ -28,6 +29,7 @@ class Main_Acl extends Zend_Acl {
                           'default-event'
                           );
     public $power = array();
+    
     public $admins = array('admin-index',
                            'admin-center',
                            'admin-user',
@@ -36,6 +38,7 @@ class Main_Acl extends Zend_Acl {
                            'admin-crud',
                            'admin-module',
                            'admin-qualifiers',
+                           'admin-content',
                            'admin-event',
                            'admin-page',
                            'admin-provider');

@@ -1,4 +1,5 @@
 <ul class="nav nav-list well">
+    
         <li class="nav-header">Admin Tool Kit</li>
         <li class="active"><a href="/admin/">Home</a></li>
         <li class="pos-rel">
@@ -12,7 +13,7 @@
         </li>
         
         
-                <li class="pos-rel">
+       <li class="pos-rel">
        <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->users?></div>
             <a class='admin-link'
                data-path="/admin/users"
@@ -22,9 +23,7 @@
             <i class="icon-user"></i>Site Users</a>
         </li>
         
-        
-        
-        
+
         <li class="pos-rel">
             
             <div contenteditable="false" class="badge pos-abs pos-right-2px pos-top-2px"><?=$this->pages?></div>
@@ -35,6 +34,14 @@
                data-params="render=html&view=admin"
                data-format="html">
               <i class="icon-book"></i>Pages</a>
+
+             <a class='admin-link'
+               data-path="/content/"
+               data-callback='default'
+               data-params="render=html&view=admin"
+               data-format="html">
+              <i class="icon-file"></i>Page Snippets</a>
+        
         
                <a class='admin-link'
                data-path="/admin/modules/"

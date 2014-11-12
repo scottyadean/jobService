@@ -226,6 +226,23 @@
                 });
              }          
             });
+            
+            
+            
+            
+            $("body").delegate(".page-contens-update-tag", 'click', function(){
+                
+                var id = $(this).attr('data-id');
+                
+                asyncAction.sendPost('/content/slug', {'id':id}, function(data){
+                
+                        $("#page-content-slug-"+data.id).html(data.slug);
+                        
+                       
+                });
+             
+                
+            });
            
           },
           
@@ -398,7 +415,7 @@
                form.submit( function(){
                     var f = $(this);
                     var params = f.serializeArray();
-                    content.load( f.attr("action"), params, function(){ lightBox.close("mainModal"); }, 'html' );
+                    content.load( f.attr("action"), params, function(){ lightBox.close("mainModal"); }, 'json' );
                     return false;
                 });
             }

@@ -40,7 +40,7 @@ class Application_Form_Admin_Pages extends Main_Forms_Builder {
                          "module_id"=>array('label'=>'Left Module', 'required'=> true, 'type'=>'select', 'multiOptions'=>$this->html_mods_left), 
                          //"nav_right_display"=>array('label'=>'Display Right Nav', 'required'=> true, 'type'=>'select', 'multiOptions'=>array("Y"=>"Yes", "N"=>"No")), 
                          "module_id_right"=>array('label'=>'Right Module', 'required'=> true, 'type'=>'select', 'multiOptions'=>$this->html_mods_right), 
-                         "body"=>array('label'=>'Body','required'=> false, 'attributes'=>array('rows'=>'5', 'cols'=>'50', 'class'=>'textarea-large-size')));
+                         "body"=>array('label'=>'Body','required'=> false, 'attributes'=>array('rows'=>'5', 'cols'=>'50', 'class'=>'textarea-large-size wysiwyg')));
         
            if( isset( $this->_id ) ) {
               

@@ -18,9 +18,13 @@
     <? $editPath = "/admin/pages/inline-edit"; ?>
 
     <?foreach( $this->pages as $page ):?>
-    <? $id = $page->id;?>
+    <? $id = $page->id;
+       $link = "/page/id/".$page->id."/".$page->slug;
+    
+    
+    ?>
     <?= $this->TableRow( array( $this->InlineEdit($page->title, $page->id, $editPath, "title", "Edit Title"),
-                                "/page/id/".$page->id."/".$page->slug,
+                                "<a href='{$link}' target='_blank'>".$link."</a>",
                                 "<center>
                                     <a class='crud-create-update icon icon-edit'
                                       data-action='update'

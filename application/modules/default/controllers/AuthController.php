@@ -36,7 +36,9 @@ class Default_AuthController extends Zend_Controller_Action
                     
             }else{
             
+                if( $this->xhr ) {
                 $this->_helper->flashMessenger->addMessage(array('alert alert-error'=>"Incorrect Username or Password") ); 
+                }
                 $this->_helper->redirector->gotoUrl('/login');
                 $form->populate($form->getValues());
         
@@ -93,17 +95,11 @@ class Default_AuthController extends Zend_Controller_Action
                 //if we found a user look up the user by username
                 $user = new Default_Model_User();
                 $person = $user->findByUsername($post['username']);
-
-
                 
                 //create the message that will go to the user. 
                 $message  = $person->username.' please click or copy and paste the link below to reset your password';
                 $message .= " Please Note: This link will expire.";
 
-  
-  
-
-            
                 //encrypt the id so we can send it along in the link
                 $encryption = new Main_Crypt_Base64Encode();
                 $id = $encryption->encode($person->id);
@@ -133,14 +129,13 @@ class Default_AuthController extends Zend_Controller_Action
                 $data = curl_exec($ch);
                 curl_close($ch);
 
-                 
-
                 //tell the front end we found the user. 
+                $this->view->link = $link;
                 $this->view->status = '200';
                 $this->view->sent = $data;
                 
-            }else
-            {
+            }else{
+                $this->view->link = "";
                 $this->view->status = '404';
                 $this->view->sent = null;
             }

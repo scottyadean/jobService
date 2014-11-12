@@ -103,6 +103,16 @@ class Main_Forms_Crud {
                                 "excluded_from_view"=> array('id'));
     
     
+    protected $_content  = array("db" => "contents",
+                                "url" => "/crud-content/:crud",
+                                "form" => "Application_Form_Admin_PageContent",
+                                "title" => "Html Page Contents",
+                                "excluded_from_list" => "id",
+                                "onCreate"=>"Application_Form_Admin_PageContent::onCreate",
+                                "onUpdate"=>"Application_Form_Admin_PageContent::onUpdate",
+                                "excluded_from_view"=> array('id'));
+    
+    
     protected $_event = array("db" => "events",
                               "url" => "/crud-event/:crud",
                               "form" => "Application_Form_Admin_Event",

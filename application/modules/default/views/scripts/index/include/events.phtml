@@ -1,7 +1,12 @@
+<? $this->headLink()->appendStylesheet('/css/vendor/bootstrap-datatable.css'); ?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTables.min.js');?>
+<? $this->headScript()->appendFile('/js/vendor/jquery.dataTable.tools.js');?>
+
+
 <h2><span id="js-curr-month"><?=$this->month?></span> Events</h2>
 <?if(isset($this->events) && is_array($this->events)):?>
  
- <?= $this->TableHead( array('', 'Title','Date','Starts','Ends', 'Quick', 'View'), "table table-striped small-txt data-table", "event-list" ) ?>
+ <?= $this->TableHead( array('Center', 'Title','Date','Starts','Ends', 'Quick', 'View'), "table table-striped data-table dataTable small-txt data-table", "event-list" ) ?>
 
  <?foreach($this->events as $k=>$e ):?>
  
@@ -18,7 +23,10 @@
  
  ?>
  
- <?= $this->TableRow( array(" <i class='".$cl." rounded-corners' data-stats='hidden' data-load='false' data-popuppath='/center-info/id/".$e["center_id"]."' style='background-color:$color;'> </i>",
+ <?= $this->TableRow( array(" <i class='".$cl." rounded-corners' data-stats='hidden' data-load='false' data-popuppath='/center-info/id/".$e["center_id"]."' style='background-color:$color;'> </i>
+                            
+                            <span class='hidden'>".$e['center_id']."</span>
+                            ",
                              
                             '<span title="'.$this->escape($e['title']).'">'.$this->Truncate($e['title'], 40) .'</span>',
                              date("m/d/Y", strtotime($e['created'])),
@@ -36,7 +44,17 @@
  <?endif?>
  
  <script type="text/javascript">
-   $(document).ready(function(){    
+   $(document).ready(function(){
+    
+     $('.data-table').dataTable( {
+		"sDom": "<'row'<'span2'l><'span7'f>r>t<'row'<'span6'i><'span6'p>>",
+		"sPaginationType": "bootstrap",
+		"oLanguage": {
+			"sLengthMenu": "_MENU_ records per page"
+		}
+                } );
+    
+    
   var __evetns = <?=json_encode($this->events);?>;
  
   if (Events.Colors == null) {

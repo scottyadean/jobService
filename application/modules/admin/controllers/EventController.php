@@ -40,11 +40,15 @@ class Admin_EventController extends Zend_Controller_Action {
         $this->form->_cancelBtn = false;
         $this->form->build( "/admin/events/create", $this->id);
         $this->view->form = $this->form;
-        
         $this->view->events = $this->_model->findByDate(date('Y-m'));
         
         $Qualifiers = new Default_Model_Qualifiers;
         $this->view->qualifiers = $Qualifiers->_index(null);
+        
+        
+        $this->_model = new Default_Model_Crud;
+        $this->_model->setTable('skillsrc_centers');
+        $this->view->centers =  $this->_model->_index();
         
         
     }
@@ -72,7 +76,7 @@ class Admin_EventController extends Zend_Controller_Action {
             
             
             $form = new Application_Form_Admin_EventDuplicate();
-            $form->_created = $this->params['created'];
+            $form->_created = $event['created'];
             $form->build($this->uri, $this->id);
             $form->populate($event);
             $this->view->form = $form;

@@ -84,15 +84,21 @@ var SignUp = {
       });
      
     $("body").delegate("#logged-event-sign-up", "click",function(){
+        
+        console.log($("#event_id").val());
+        
         content.load('/event-qualify', {"event_id":$("#event_id").val()}, SignUp.qualify, 'html' );
     });
      
     $("body").delegate("#eventqualifiers-btn", "click", function() {
-        $("#eventqualifiers-btn").val('Submit'); 
+        
+        $("#eventqualifiers-btn").val('Submit');
+        
         var eles = $("#eventqualifiers input.__req");
         var params = {};
         var unchecked = {};
         var errors = 0;             
+        
         eles.each(function(){
             var e = $(this);
             var id = e.attr('data-id');

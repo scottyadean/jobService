@@ -21,8 +21,7 @@ class Admin_CenterController extends Zend_Controller_Action {
         $this->format = $this->getRequest()->getParam('format', false);
                 
         $this->_model = new Default_Model_Crud;
-        $this->_model->setTable('skillsrc_centers'); 
-        
+        $this->_model->setTable('skillsrc_centers');
         if( $this->xhr ) {
             $this->_helper->layout->disableLayout();
         }

@@ -24,16 +24,41 @@
      data-original-title="" title="">25.02.2013</a>
      
      */
+     
+     $centers_map = array();
+     
+     foreach($this->centers as $k=>$center ) {
+        $centers_map[$center->id] = array('color'=>$center->color, 'name'=>$center->name);
+     }
+     
+     
+     
      ?>
-<?= $this->TableHead( array('Title','Visible','Date','Start','End', 'QQ', 'Edit', 'Detail', 'Copy', 'Remove'), "table table-striped small-txt", "event-list" ) ?>
+<?= $this->TableHead( array('Title','Visible', 'Center', 'Date','Start','End', 'QQ', 'Edit', 'Detail', 'Copy', 'Remove'), "table table-striped small-txt", "event-list" ) ?>
 
     <? $editPath = "/admin/events/inline-edit"; ?>
 
     <?foreach($this->events as $e ):?>
-    <? $id = $e->id;?>
+    <? $id = $e->id;
+    
+       $center = ""; 
+        
+       if(array_key_exists( $e->center_id, $centers_map )  ) {
+        $color = $centers_map[$e->center_id]['color'];
+        $name =  $centers_map[$e->center_id]['name'];    
+        $center = "<p class='color-sample' style='background-color:{$color}' title='{$name}'></p>"; 
+        
+        }     
+    
+    
+    ?>
     <?= $this->TableRow( array( $this->InlineEdit($e->title, $id, $editPath, "title-inline-edit", "Edit Title"),
                                 $this->InlineEdit($e->visible, $id, $editPath, "visible-inline-edit", "Edit Visible", 'select',
                                                  '/admin/provider/data-src'),
+                                
+                                
+                                $center,
+                                
                                 '<a data-title="Update Event Date"
                                 data-url="'.$editPath.'"
                                 data-placement="right" data-pk="'.$id.'" data-viewformat="yyyy-mm-dd"
@@ -146,7 +171,7 @@
     <td><%= helpers.inlineEdit(helpers.escapeHtml(title), id, "<?=$editPath?>", "title", "Edit Title" ) %></td>    
     <td><%= helpers.inlineEdit(helpers.escapeHtml(visible), id, "<?=$editPath?>", "visible", "Edit visible", 'select',
                             '/admin/provider/data-src') %></td>
-   
+    <td> <%= helpers.escapeHtml(center_id) %> </td>
     <td>
     <a data-title="Update Event Date"
     data-url="<?=$editPath?>"

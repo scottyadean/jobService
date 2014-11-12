@@ -27,7 +27,7 @@
                                      "#tab4" => "" );
                     
                     
-                    $savedTab = !is_null($_COOKIE["tab"]) ? $_COOKIE["tab"] : "#tab1";
+                    $savedTab = isset($_COOKIE["tab"]) && !is_null($_COOKIE["tab"]) ? $_COOKIE["tab"] : "#tab1";
                     
                     foreach( $tabs as $key=>$value ) {
                        $tabpane[$key] =  $tabactive = ( $key ===  $savedTab ) ? "active" : "";

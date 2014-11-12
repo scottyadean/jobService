@@ -60,10 +60,14 @@ if( isset($this->events) ):?>
             $(".event-view").click(function(){
                 var id = $(this).attr('event-id');
                 $("#event-display-target").html('loading...');
-               $.post('/event-detail',
-               {id:id},
-               function(html){  $("#event-").html(html); },
-               'html').error(function(e){ console.log(e); });     
+               
+               
+               $.post('/event-detail',{id:id, spanwidth:5}, function(html){  $("#event-display-target").html(html); },'html').error(function(e){
+                
+                        console.log(e);
+                
+                
+                });     
                 
             });
             
@@ -92,7 +96,7 @@ if( isset($this->events) ):?>
              Crud.Confirm({ url: "/event/cancel/",
                               params: {id:id},
                               title: 'Please confirm Event cancellation',
-                              text:  'Are you sure you want to cancel your event registration.',
+                              text:  'Are you sure you want to cancel your event registration.<br /> Your spot will be taken by the next user on the wait list.',
                               ok: 'Cancel my registraion, I\'m an not going to this event.',
                               cancel: 'Do not cancel. '
                 

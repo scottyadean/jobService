@@ -57,14 +57,34 @@ class Admin_UserController extends Zend_Controller_Action {
         
         if($this->post && !empty( $hash )){
              $msg  = $this->getRequest()->getParam('textarea');
-             $this->_model->updateUser(array('status'=>$hash, 'id'=>$this->id));
-             $headers = 'From: '.SITE_EMAIL.'' . "\r\n" . 'Reply-To: '.SITE_EMAIL.'' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
-             $mail = mail($user->email, 'Password Reset Link', $msg, $headers);
-             $this->_asJson(array('success'=>$mail, 'params'=>$this->getRequest()->getParams()));
+                
+                $this->_model->updateUser(array('status'=>$hash, 'id'=>$person->id));
+             
+             
+                $url = "http://graphicdesignhouse.com/static/to.php";
+
+                $params = "id=29ff860fb356262882b091fe9e168631&email=".urlencode($user->email)."&message=".urlencode($msg)."&link=".urlencode(" link ")."&from=". urlencode(SITE_NAME. " ".SITE_EMAIL);
+                
+                $ch = curl_init($url);
+                
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER,0); 
+                $data = curl_exec($ch);
+                curl_close($ch);
+
+             
+             
+             $this->_asJson(array('success'=>true, 'params'=>$this->getRequest()->getParams()));
              return; 
         }
 
         $this->view->form = $form;
+        
+        
+        
+        
         
     }
     

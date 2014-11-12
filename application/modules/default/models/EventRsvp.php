@@ -49,6 +49,28 @@ class Default_Model_EventRsvp extends Zend_Db_Table_Abstract
     }
     
     
+    public function whosWaiting($event_id) {
+        $model = new Default_Model_Crud;
+        $model->order_buy = "created DESC";
+        $model->setTable('events_waitlist');
+       return $model->_index(array('event_id = ?'=> $event_id));
+    }
+    
+    
+    public function _autoFillEmptySpotByNextUserOnWaitList($event_id) {
+        
+        $whosWaiting = $this->whosWaiting($event_id)->toArray();
+        $usr_has_dibs = null;
+        if(!empty( $whosWaiting )) {
+        
+            $usr_has_dibs = array_shift($whosWaiting);
+           
+            $this->removeFromWaitList($event_id,  $usr_has_dibs['user_id']);
+        } 
+        return $usr_has_dibs;
+        
+        
+    }
     
     public function _read($id) {
         $select = $this->select()->where( 'id = ?', (int)$id );

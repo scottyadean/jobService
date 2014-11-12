@@ -72,7 +72,10 @@ class Default_Model_Event extends Zend_Db_Table_Abstract
             }
             
         }
+        
+         $select->order( "created ASC" );
  
+       
         
         return $this->fetchAll($select);
     }

@@ -18,9 +18,10 @@ if($this->xhr):?>
 <?endif;?>
 
 <div class="row">
+    
     <input type="hidden" id="event_id" value="<?=$this->event['id']?>" />
     
-    <div class="span8 event">
+    <div class="span<?=$this->spanwidth?> event">
         <?=$this->EchoIfSet($this->event['title'], "<h1><a href='$link'>", "</a></h1>") ?>
         <p><strong>Event Type:</strong> <?=ucwords($this->event['type'])?></p>
         
@@ -70,7 +71,7 @@ if($this->xhr):?>
                 <p>
                     <? $onLabel = ($eventDatePassed) ? "Happened:" : "When:"; ?>
                 <?=$this->EchoIfSet(date("F d, Y",strtotime($this->event['created'])), "<strong> ". $onLabel . "</strong> ", " <br />") ?>
-                <?=$this->EchoIfSet($this->event['start_time'], "Staring: ", "<br />") ?>
+                <?=$this->EchoIfSet($this->event['start_time'], "Starting: ", "<br />") ?>
                 <?=$this->EchoIfSet($this->event['end_time'], "Ending: ", "<br />") ?>
                 </p>
                 <?=$this->EchoIfSet($this->event['site'], "<small> <cite>more info @ </cite>", "</small>") ?>
@@ -91,6 +92,8 @@ if($this->xhr):?>
             </p>
         
         </blockquote>
+        
+        
         
         
        <?if(!$this->xhr):?>   

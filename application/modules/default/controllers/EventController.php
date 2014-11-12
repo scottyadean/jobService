@@ -107,7 +107,10 @@ class Default_EventController extends Zend_Controller_Action
         $rsvp = new Default_Model_EventRsvp;
         $user_id = Zend_Auth::getInstance()->getIdentity()->id;
         $res = $rsvp->_deleteByEventIdAndUserId($this->id, $user_id);
-        $this->_asJson(  array( 'id'=>$this->id, 'u'=>$user_id, 'success'=>$res ));
+        $wait = $rsvp->_autoFillEmptySpotByNextUserOnWaitList($this->id);
+        
+        //TODO: PUT EMAIL ACTION HERE
+        $this->_asJson(  array( 'id'=>$this->id, 'u'=>$user_id, 'success'=>$res, 'wait'=>$wait ));
         
     }
     
